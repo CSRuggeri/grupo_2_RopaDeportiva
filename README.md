@@ -1,7 +1,7 @@
 # grupo_2_RopaDeportiva
 
-Con este proyecto nuestra meta es lograr una pagina de Ecommerece con la finalidad de  facilitar a los usuarios el acceso a la compra de indumentaria deportiva.
- los objectivos de esta pagina son:
+Con este proyecto nuestra meta es lograr una pagina de Ecommerce con la finalidad de  facilitar a los usuarios el acceso a la compra de indumentaria deportiva.
+ los objetivos de esta pagina son:
 
 - generar un usuario para cada cliente
 - mostrar el catalogo completo de una tienda de indumentaria
@@ -10,7 +10,7 @@ Con este proyecto nuestra meta es lograr una pagina de Ecommerece con la finalid
 - filtrar por cantidad en stock
 - filtrar por talle
 - generar una seccion de reclamos o feedback
-- obtener informacion de tiendad cercanas
+- obtener informacion de tiendas cercanas
 
 nuestras referencias son:
 - "(https://www.kalua.com.py/categoria-producto/deportivo/)"
