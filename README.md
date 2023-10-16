@@ -28,3 +28,5 @@ Me llamo Mariano Jurado , estoy en la etapa de incursión de la modalidad progra
 Franco Albornoz: Buenas, tengo 19 años, estudio ingenieria electronica, me interesa la programacion, y espero poder aprender mucho con este  curso
 
 Mi nombre es maira aguirre, tengo 26 años y es mi primera experiencia en el mundo de la programacion
+
+Julieta Alvarez: tengo 20 años, estudio Licenciatura en Sistemas de informacion, y espero que este proyecto pueda complementar mis estudios.
