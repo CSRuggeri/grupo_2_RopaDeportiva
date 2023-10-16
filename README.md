@@ -17,7 +17,9 @@ nuestras referencias son:
 -"(https://www.dexter.com.ar/?gclid=CjwKCAjwvrOpBhBdEiwAR58-3GVg7je-_LADl7UiJCRYZGQmN1QdP4hqtTH7AaT_twR-idfpf65OGBoC3rMQAvD_BwE)"
 -"(https://www.nike.com.ar/)"
 -"(https://ar.puma.com/)"
--"(https://www.moov.com.ar/)"INTEGRANTES: 
+-"(https://www.moov.com.ar/)
+
+"INTEGRANTES: 
 
 Santiago Ruggeri: Holis! soy santi, tengo 26 anios, hace un anio me dedico a la programacion, estudie psicologia en la universidad y me recibi de bachiller en cs.naturales en la secundaria, con mi grupo queremos crear la pagina que satisfaga todas sus necesidades de Ecommerce!.
 
