@@ -27,7 +27,8 @@ Con este proyecto nuestra meta es lograr una pagina de Ecommerce con la finalida
 
 -Implementa un localizador de tiendas que permita a los usuarios encontrar fácilmente las tiendas físicas cercanas. Proporciona información sobre horarios, direcciones y números de contacto de estas tiendas.
 
-Referencias: 
+Referencias: elegimos estos sitios como referencia por el producto y estetica que ofrecen ya que estan relacionado con la paguina que creamos.
+
 - "(https://www.kalua.com.py/categoria-producto/deportivo/)"
 -"(https://www.dexter.com.ar/)"
 -"(https://www.nike.com.ar/)"
