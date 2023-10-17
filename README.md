@@ -3,18 +3,33 @@
 Con este proyecto nuestra meta es lograr una pagina de Ecommerce con la finalidad de  facilitar a los usuarios el acceso a la compra de indumentaria deportiva.
  los objetivos de esta pagina son:
 
-- generar un usuario para cada cliente
-- mostrar el catalogo completo de una tienda de indumentaria
-- filtrar los items del catalogo, ya sea por precio o numero de serie
-- generar un carrito de compras
-- filtrar por cantidad en stock
-- filtrar por talle
-- generar una seccion de reclamos o feedback
-- obtener informacion de tiendas cercanas
+1 Generar un Usuario para Cada Cliente:
 
-nuestras referencias son:
+-Implementa un proceso de registro y autenticación de usuarios con autenticación de dos factores para garantizar la seguridad. Ofrece la opción de registro a través de redes sociales para simplificar el proceso.
+
+2 Mostrar el Catálogo Completo:
+
+-Organiza el catálogo de forma atractiva, con imágenes de alta calidad y una descripción detallada de cada producto. Considera agregar opciones de filtrado iniciales para ayudar a los usuarios a encontrar productos relevantes más rápidamente.
+
+3 Filtrar los Artículos del Catálogo:
+
+-Amplía las opciones de filtrado. Permite a los usuarios filtrar por marca, color, género, tipo de deporte, material, etc. Además de precio y número de serie, incluye un sistema de búsqueda avanzada para una experiencia de compra más personalizada.
+
+4 Generar un Carrito de Compras:
+
+-Permite a los usuarios guardar sus carritos de compras y restaurarlos en sesiones posteriores. Implementa un recordatorio de carrito abandonado para recuperar ventas perdidas.
+
+5 Generar una Sección de Reclamos o Feedback:
+
+-Crea un sistema de atención al cliente en línea que permita a los usuarios enviar reclamos, preguntas o comentarios de manera eficiente. Asegúrate de responder de manera oportuna y profesional.
+
+6 Obtener Información de Tiendas Cercanas:
+
+-Implementa un localizador de tiendas que permita a los usuarios encontrar fácilmente las tiendas físicas cercanas. Proporciona información sobre horarios, direcciones y números de contacto de estas tiendas.
+
+Referencias: 
 - "(https://www.kalua.com.py/categoria-producto/deportivo/)"
--"(https://www.dexter.com.ar/?gclid=CjwKCAjwvrOpBhBdEiwAR58-3GVg7je-_LADl7UiJCRYZGQmN1QdP4hqtTH7AaT_twR-idfpf65OGBoC3rMQAvD_BwE)"
+-"(https://www.dexter.com.ar/)"
 -"(https://www.nike.com.ar/)"
 -"(https://ar.puma.com/)"
 -"(https://www.moov.com.ar/)
