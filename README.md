@@ -1,4 +1,8 @@
-# grupo_2_RopaDeportiva
+# grupo_2_SportGO
+
+SportGO es tu destino para encontrar la mejor ropa deportiva de alta calidad. Ofrecemos una amplia gama de productos, desde ropa para correr hasta equipos de gimnasio de marcas reconocidas. Nuestra tienda en línea te brinda comodidad, calidad y estilo en un solo lugar. ¡Eleva tu juego con SportGO y alcanza tus metas deportivas con estilo!
+
+SportGo esta apuntado a todas aquellas personas que quieran la mayor comodidad y eficiencia a la hora de practicar deportes!
 
 Con este proyecto nuestra meta es lograr una pagina de Ecommerce con la finalidad de  facilitar a los usuarios el acceso a la compra de indumentaria deportiva.
  los objetivos de esta pagina son:
@@ -37,7 +41,7 @@ Referencias: elegimos estos sitios como referencia por el producto y estetica qu
 
 "INTEGRANTES: 
 
-Santiago Ruggeri: Holis! soy santi, tengo 26 anios, hace un anio me dedico a la programacion, estudie psicologia en la universidad y me recibi de bachiller en cs.naturales en la secundaria, con mi grupo queremos crear la pagina que satisfaga todas sus necesidades de Ecommerce!.
+Santiago Ruggeri: Holis! soy santi, tengo 26 anios, hace un anio me dedico a la programacion, estudie psicologia en la universidad y me recibi de bachiller en cs.naturales en la secundaria, con mi grupo queremos crear la pagina que satisfaga todas sus necesidades!.
 
 Me llamo Mariano Jurado , estoy en la etapa de incursión de la modalidad programador, me interesa este camino no solo por la versatilidad que hoy en día te brinda todo lo tecnológico, sino también por el hecho de ir adquiriendo conocimientos; en esta oportunidad creo que este proyecto será un desafío para afianzar, crear y innovar conocimientos.
 
