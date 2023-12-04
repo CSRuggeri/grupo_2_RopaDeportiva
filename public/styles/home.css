@@ -169,7 +169,7 @@ input[type="submit"] {
 }
 
 /* Register Styles */
-.register{
+.register, main.edit-prod{
   margin: 10vh 0px
 }
 .interests{

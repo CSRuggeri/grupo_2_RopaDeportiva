@@ -14,7 +14,9 @@ app.get('/login', (req,res)=>{
 app.get('/register', (req,res)=>{
     res.sendFile(__dirname + "/views/register.html");
 });
-
+app.get('/edit-product', (req,res)=>{
+    res.sendFile(__dirname + "/views/edit-product.html");
+});
 
 app.listen(3000, ()=>{
     console.log('Servidor funcionando');
