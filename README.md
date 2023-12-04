@@ -39,6 +39,8 @@ Referencias: elegimos estos sitios como referencia por el producto y estetica qu
 -"(https://ar.puma.com/)"
 -"(https://www.moov.com.ar/)
 
+LINK DEL TRELLO: https://trello.com/b/9h8pDKqN/grupo2sportgo
+
 "INTEGRANTES: 
 
 Santiago Ruggeri: Holis! soy santi, tengo 26 anios, hace un anio me dedico a la programacion, estudie psicologia en la universidad y me recibi de bachiller en cs.naturales en la secundaria, con mi grupo queremos crear la pagina que satisfaga todas sus necesidades!.
