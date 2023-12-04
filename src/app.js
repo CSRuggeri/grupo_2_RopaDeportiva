@@ -3,16 +3,16 @@ const express = require("express")
 const app = express()
 
 
-app.use("/static", express.static(__dirname + "/src/public"))
+app.use("/static", express.static("./public"))
 
 app.get('/', (req,res)=>{
-    res.sendFile(__dirname + "/src/views/home.html");
+    res.sendFile(__dirname + "/views/home.html");
 });
 app.get('/login', (req,res)=>{
-    res.sendFile(__dirname + "/src/views/login.html");
+    res.sendFile(__dirname + "/views/login.html");
 });
 app.get('/register', (req,res)=>{
-    res.sendFile(__dirname + "/src/views/register.html");
+    res.sendFile(__dirname + "/views/register.html");
 });
 
 

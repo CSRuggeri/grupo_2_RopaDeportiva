@@ -4,7 +4,8 @@
   "description": "SportGO es tu destino para encontrar la mejor ropa deportiva de alta calidad. Ofrecemos una amplia gama de productos, desde ropa para correr hasta equipos de gimnasio de marcas reconocidas. Nuestra tienda en línea te brinda comodidad, calidad y estilo en un solo lugar. ¡Eleva tu juego con SportGO y alcanza tus metas deportivas con estilo!",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",

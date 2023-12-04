@@ -23,7 +23,7 @@ nav {
 }
 
 .logo{
-  width: 8vh;
+  width: 25vh;
 }
 
 nav a {
@@ -101,7 +101,7 @@ p {
 h4 {
   color: rgb(0, 0, 0);
 }
-form {
+form.form-login, form.form-register {
   display: flex;
   align-items: center;
   background-color: #ffffff40;
@@ -110,8 +110,6 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 50vh;
   flex-direction: column;
-  margin-top: 20vh ;
-  margin-bottom: 20vh;
 }
 /* Common Styles */
 /* .main {
@@ -130,6 +128,10 @@ width: 70%;
  
 }
 
+form.search-bar input{
+  margin: 10px 0px
+}
+
 select,
 label {
  background-color: whitesmoke;
@@ -141,12 +143,12 @@ label {
 }
 
 /* Login Styles */
-.main.login {
+main.login {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70vh;
-  background-color: #fff;
+  margin: 20vh 0px;
+  
 }
 .login h2{
   font-family: Arial, sans-serif;
@@ -168,8 +170,7 @@ input[type="submit"] {
 
 /* Register Styles */
 .register{
-  margin-top: -20vh;
-  margin-bottom: -20vh;
+  margin: 10vh 0px
 }
 .interests{
   display: flex;
