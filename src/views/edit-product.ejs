@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head')%>
+<body>
+    <%- include('partials/header')%> 
+    <main class="edit-prod">
+        <form action="/" method="POST" class="form-login">
+            <h2>Creá/editá tu producto</h2>  
+              <input type="text" name="name" placeholder="Nombre del producto">
+              <input type="text" name="description" placeholder="Descripción">
+              <h4>Elegí una imagen para tu producto</h4>
+              <input type="file" name="image">
+              <input type="number" name="price" placeholder="Precio">
+              <input type="submit" value="Enviar">
+          </form>
+    </main>
+    <%- include('partials/footer')%>
+</body>
+</html>
