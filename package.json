@@ -20,5 +20,6 @@
   "homepage": "https://github.com/CSRuggeri/grupo_2_SportGO#readme",
   "dependencies": {
     "express": "^4.18.2"
-  }
+  },
+  "devDependencies": {}
 }

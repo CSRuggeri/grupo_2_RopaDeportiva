@@ -18,6 +18,18 @@ app.get('/edit-product', (req,res)=>{
     res.sendFile(__dirname + "/views/edit-product.html");
 });
 
+app.get('/shopping-cart', (req,res)=>{
+    res.sendFile(__dirname + "/views/shopping-cart.html");
+});
+
+app.get('/pagos', (req,res)=>{
+    res.sendFile(__dirname + "/views/pagos.html");
+});
+
+app.get('/detail', (req,res)=>{
+    res.sendFile(__dirname + "/views/detail.html");
+});
+
 app.listen(3000, ()=>{
     console.log('Servidor funcionando');
 });
