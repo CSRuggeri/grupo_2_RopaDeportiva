@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head')%>
+<body>
+    <%- include('partials/header')%> 
+    <body>
+        <h1>Carrito de Compras</h1>
+        <img src="static/images/show/camperaAdiddasF.jpg" alt="Campera Adiddas (mujer)" >
+        <div class="description-box">
+             <h4 class="description">Campera deportiva Adiddas</h4>
+             <p class="price">$8500</p>
+             
+        <button >Agregar al carrito</button>
+      </div>
+    
+      
+      <img src="static/images/show/camperaAdiddasF.jpg" alt="Campera Adiddas (mujer)" >
+      <div class="description-box">
+           <h4 class="description">Campera deportiva Adiddas</h4>
+           <p class="price">$8500</p>
+               
+        <button>Agregar al carrito</button>
+      </div>
+    
+      <div id="carrito">
+        <h3>Carrito</h3>
+        <ul id="lista-carrito"></ul>
+        <p id="total">Total: $0</p>
+        <button onclick="confirmarCompra()">Confirmar compra</button>
+      </div>
+      <%- include('partials/footer')%>
+</body>
+</html>
