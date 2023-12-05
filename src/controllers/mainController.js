@@ -1,6 +1,6 @@
 const controller={
 home: (req,res)=>{
-    res.render('home.ejs');
+    res.render("home.ejs");
 },    
 login: (req,res)=>{
     res.render("login.ejs");
