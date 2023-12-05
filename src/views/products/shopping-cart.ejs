@@ -1,0 +1,24 @@
+<!-- views/cart.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head')%>
+    <body>
+        <%- include('../partials/header')%>  
+        <main>
+            <!-- Loop through the products array to render product cards in the shopping cart -->
+            <% for (const product of products) { %>
+                <article class="card-container">
+                    <div class="main-article">
+                        <img src="<%= product.image %>" alt="<%= product.nombre %>" >
+                        <div class="description-box">
+                            <h4 class="description"><%= product.nombre %></h4>
+                            <p class="price"><%= product.precio %></p>
+                            <p class="discount"><%= product.descuento %></p>
+                        </div>   
+                    </div>
+                </article>
+            <% } %>
+        </main>
+        <%- include('../partials/footer')%>
+    </body>
+</html>

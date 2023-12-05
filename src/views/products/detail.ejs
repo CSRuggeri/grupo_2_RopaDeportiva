@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head')%>
+<body>
+    <%- include('../partials/header')%> 
+
+    <body>
+      <a href="/" ><button class="detButton">Home</button></a>
+      <div class="articulos-principalesdet">
+      <% if (data.id == 1) { %>
+        <h1>Detalle del producto <%= data.id %> :</h1>
+        <img src="<%- prod1.image %>" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+        <p>Nombre: <%- prod1.nombre %></p>
+        <h3>Precio: $<%- prod1.precio %></h3>
+        <p><pre>Descuento: <%- prod1.descuento %></pre></p>
+        
+    <% } %>
+
+    <% if (data.id == 2) { %>
+      <h1>Detalle del producto <%= data.id %> :</h1>
+      <img src="<%- prod2.image %>" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+      <p>Nombre: <%- prod2.nombre %></p>
+      <h3>Precio: $<%- prod2.precio %></h3>
+      <p><pre>Descuento: <%- prod2.descuento %></pre></p>
+        
+  <% } %>
+
+  <% if (data.id == 3) { %>
+    <h1>Detalle del producto <%= data.id %> :</h1>
+    <img src="<%- prod3.image %>" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+    <p>Nombre: <%- prod3.nombre %></p>
+    <h3>Precio: $<%- prod3.precio %></h3>
+    <p><pre>Descuento: <%- prod3.descuento %></pre></p>
+        
+<% } %>
+
+<% if (data.id == 4) { %>
+  <h1>Detalle del producto <%= data.id %> :</h1>
+  <img src="<%- prod4.image %>" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+  <p>Nombre: <%- prod4.nombre %></p>
+  <h3>Precio: $<%- prod4.precio %></h3>
+  <p><pre>Descuento: <%- prod4.descuento %></pre></p>
+        
+<% } %>
+
+<% if (data.id == 5) { %>
+<h1>Detalle del producto <%= data.id %> :</h1>
+<img src="<%- prod5.image %>" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+<p>Nombre: <%- prod5.nombre %></p>
+<h3>Precio: $<%- prod5.precio %></h3>
+<p><pre>Descuento: <%- prod5.descuento %></pre></p>
+        
+<% } %> 
+
+<a href="/pagos"><button type="button" class="detButton" >Comprar Ahora</button></a>
+<% if (data.id != 1 && data.id != 2 && data.id != 3 && data.id != 4  && data.id != 5 ) { %>
+<h1>no encontramos el producto: <%= data.id %></h1>
+<img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+<h3>Pero te podemos sugerir los siguientes productos</h3>
+<% } %> 
+       
+      
+</div></div>
+<br>
+<h1>Articulos Relacionados: </h1>
+<div class="articulosRelacionados">
+ 
+  <div class="articulo-itemdet">
+    <img src=<%- prod2.image %> alt="Imagen del Producto: <%= data.id %>"> 
+    <p>Nombre: <%- prod2.name %></p>
+    <h3>Precio: $<%- prod2.precio  %> </h3>
+    <p><pre>Descuento: <%- prod2.descuento %></pre></p>
+        
+    <a href="/product/2">Ver detalles</a>
+  </div>
+
+  <div class="articulo-itemdet">
+    <img src=<%- prod3.image %> alt="Imagen del Producto: <%= data.id %>"> 
+    <p>Nombre: <%- prod3.nombre %></p>
+    <h3>Precio: $<%- prod3.precio  %> </h3>
+    <p><pre>Descuento: <%- prod3.descuento %></pre></p>
+        
+    <a href="/product/3">Ver detalles</a>
+  </div>
+
+  <div class="articulo-itemdet">
+    <img src=<%- prod4.image %> alt="Imagen del Producto: <%= data.id %>"> 
+    <p>Nombre: <%- prod4.nombre %></p>
+    <h3>Precio: $<%- prod4.precio  %> </h3>
+    <p><pre>Descuento: <%- prod4.descuento %></pre></p>
+        
+    <a href="/product/4">Ver detalles</a>
+  </div>
+
+  <div class="articulo-itemdet">
+    <img src=<%- prod5.image %> alt="Imagen del Producto: <%= data.id %>"> 
+    <p>Nombre: <%- prod5.nombre %></p>
+    <h3>Precio: $<%- prod5.precio  %> </h3>
+    <p><pre>Descuento: <%- prod5.descuento %></pre></p>
+        
+    <a href="/product/5">Ver detalles</a>
+  </div> 
+      
+        
+        
+
+        
+        </body>
+     
+ <%- include('../partials/footer')%>
