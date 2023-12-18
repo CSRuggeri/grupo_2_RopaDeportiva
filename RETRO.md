@@ -1,4 +1,4 @@
-# Retrospectiva - Equipo [Nombre del Equipo]
+# Retrospectiva - Equipo [SportGO]
 
 ## Estrella de Mar
 
