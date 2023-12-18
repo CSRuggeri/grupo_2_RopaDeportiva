@@ -50,6 +50,11 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.product-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 article {
   display: flex;

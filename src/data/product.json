@@ -1,0 +1,81 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Campera deportiva Puma (H)",
+      "image": "/images/show/camperaPumaH.jpg",
+      "link": "/detail/1",
+      "price": "$6,770",
+      "discount": "5% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "Bincha Nike",
+      "image": "/images/show/binchaNike.jpg",
+      "link": "/detail/2",
+      "price": "$1,500",
+      "discount": "30% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "name": "Campera deportiva Adiddas",
+      "image": "/images/show/camperaAdiddasF.jpg",
+      "link": "/detail/3",
+      "price": "$8,500",
+      "discount": "23% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "name": "Conjunto Adiddas (hombre)",
+      "image": "/images/show/conjuntoAdiddasH.jpg",
+      "link": "/detail/3",
+      "price": "$22,300",
+      "discount": "12% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "name": "Conjunto deportivo Nike (mujer)",
+      "image": "/images/show/conjuntoNikeF.jpg",
+      "link": "/detail/4",
+      "price": "$37,855",
+      "discount": "16% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 6,
+      "name": "Guante deportivo Nike",
+      "image": "/images/show/guanteNike.jpg",
+      "link": "/detail/5",
+      "price": "$2,300",
+      "discount": "13% off",
+      "category": "",
+      "size": "",
+      "description": ""
+    },
+    {
+      "id": 7,
+      "name": "remera",
+      "description": "remeraaaaa",
+      "image": "remera nike reverse.jpg",
+      "link": "/detail/7",
+      "price": "213132",
+      "discount": "",
+      "category": "a",
+      "size": "S"
+    }
+  ]
+}

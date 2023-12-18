@@ -4,9 +4,9 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="edit-prod">
-        <form action="/" method="POST" class="form-login">
+        <form action="/create" method="POST" class="form-login" enctype="multipart/form-data">
             <h2>Creá/editá tu producto</h2>  
-              <input type="text" name="name" placeholder="Nombre del producto">
+            <input type="text" name="name" placeholder="Nombre del producto">
               <input type="text" name="description" placeholder="Descripción">
               <h4>Elegí una imagen para tu producto</h4>
               <input type="file" name="image">

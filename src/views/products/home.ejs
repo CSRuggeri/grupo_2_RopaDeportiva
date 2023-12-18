@@ -5,73 +5,26 @@
 <body>
  <%- include('../partials/header')%>  
     <main>
-        <article class="card-container">
-           <div class="main-article">
-            
-            <img src="/images/show/camperaPumaH.jpg" alt="Campera Puma (Hombre)" >
-            <div class="description-box">
-                <a href="/detail/1"><h4 class="description">Campera deportiva Puma (H)</h4></a>
-                <p class="price">$6.770</p>
-                <p class="discount">40% off</p>
-            </div>   
-            </div>
-        </article>
-        <article class="card-container">
-           <div class="main-article">
+        <h1>Product List</h1>
 
-            <img src="/images/show/binchaNike.jpg" alt="Bincha Nike" >
-            <div class="description-box">
-                <a href="/detail/2"> <h4 class="description">Bincha Nike</h4> </a>
-                <p class="price">$1500</p>
-                <p class="discount">40% off</p>
-               
-            </div>
-            </div>
-        </article>
-        <article class="card-container">
-           <div class="main-article">
-
-           <img src="/images/show/camperaAdiddasF.jpg" alt="Campera Adiddas (mujer)" >
-           <div class="description-box">
-            <a href="/detail/3"><h4 class="description">Campera deportiva Adiddas</h4></a>
-                <p class="price">$8500</p>
-                <p class="discount">40% off</p>
-           </div>   
-            </div>
-        </article>
-        <article class="card-container">
-           <div class="main-article">
-
-           <img src="/images/show/conjuntoAdiddasH.jpg" alt="Conjunto Adiddas (Hombre)" >
-           <div class="description-box">
-              <a href="/detail/3"><h4 class="description">Conjunto Adiddas (hombre)</h4></a>
-                <p class="price">$22300</p>
-                <p class="discount">40% off</p>
-           </div> 
-            </div>
-        </article>
-        <article class="card-container">
-           <div class="main-article">
-
-            <img src="/images/show/conjuntoNikeF.jpg" alt="Conjunto Nike (Mujer)" >
-            <div class="description-box">
-                <a href="/detail/4"><h4 class="description">Conjunto deportivo Nike (mujer)</h4></a>
-                <p class="price">$37855</p>
-                <p class="discount">40% off</p>
-               </div>
-            </div>
-        </article>
-        <article class="card-container">
-           <div class="main-article">
-
-           <img src="/images/show/guanteNike.jpg" alt="Guante Nike" >
-           <div class="description-box">
-            <a href="/detail/5"> <h4 class="description">Guante deportivo Nike</h4></a>
-                <p class="price">$2300</p>
-                <p class="discount">40% off</p>
-           </div>
-            </div>
-        </article>
+        <div class="product-list">
+          <% if (products && Array.isArray(products) && products.length > 0) { %>
+            <% products.forEach(product => { %>
+              <article class="card-container">
+                <div class="main-article">
+                  <img src="<%= product.image %>" alt="<%= product.name %>" >
+                  <div class="description-box">
+                    <a href="<%= product.link %>"><h4 class="description"><%= product.name %></h4></a>
+                    <p class="price"><%= product.price %></p>
+                    <p class="discount"><%= product.discount %></p>
+                  </div>   
+                </div>
+              </article>
+            <% }); %>
+          <% } else { %>
+            <p class="card-container">No products available.</p>
+          <% } %>
+        </div>
 
 
     </main>
