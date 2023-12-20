@@ -68,12 +68,12 @@
     },
     {
       "id": 7,
-      "name": "remera",
-      "description": "remeraaaaa",
-      "image": "remera nike reverse.jpg",
+      "name": "remera Nike reverse",
+      "description": "remera de algodon amarilla marca nike",
+      "image": "/images/show/remeraNikeReverse.jpg",
       "link": "/detail/7",
-      "price": "213132",
-      "discount": "",
+      "price": "15.550",
+      "discount": "25%",
       "category": "a",
       "size": "S"
     }
