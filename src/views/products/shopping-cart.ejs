@@ -5,20 +5,30 @@
     <body>
         <%- include('../partials/header')%>  
         <main>
-            <!-- Loop through the products array to render product cards in the shopping cart -->
-            <% for (const product of products) { %>
-                <article class="card-container">
+            <h1>Mi Carrito</h1>
+    
+            <div class="product-list">
+              <% if (products && Array.isArray(products) && products.length > 0) { %>
+                <% products.forEach(product => { %>
+                  <article class="card-container">
                     <div class="main-article">
-                        <img src="<%= product.image %>" alt="<%= product.nombre %>" >
-                        <div class="description-box">
-                            <h4 class="description"><%= product.nombre %></h4>
-                            <p class="price"><%= product.precio %></p>
-                            <p class="discount"><%= product.descuento %></p>
-                        </div>   
+                      <img src="<%= product.image %>" alt="<%= product.name %>" >
+                      <div class="description-box">
+                        <a href="<%= product.link %>"><h4 class="description"><%= product.name %></h4></a>
+                        <p class="price"><%= product.price %></p>
+                        <p class="discount"><%= product.discount %></p>
+                      </div>   
                     </div>
-                </article>
-            <% } %>
+                  </article>
+                <% }); %>
+              <% } else { %>
+                <p class="card-container">No products available.</p>
+              <% } %>
+            </div>
+    
+    <br><br><br><br>
         </main>
+        
         <%- include('../partials/footer')%>
     </body>
 </html>
