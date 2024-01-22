@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Campera deportiva Puma (H)",
-      "brand":"Puma",
+      "brand": "Puma",
       "gender": "male",
       "image": "/images/show/camperaPumaH.jpg",
       "link": "/detail/1",
@@ -17,7 +17,7 @@
       "id": 2,
       "name": "Bincha Nike",
       "gender": "unisex",
-      "brand":"Nike",
+      "brand": "Nike",
       "image": "/images/show/binchaNike.jpg",
       "link": "/detail/2",
       "price": "$1,500",
@@ -29,8 +29,8 @@
     {
       "id": 3,
       "name": "Campera deportiva Adiddas",
-      "brand":"Addidas",
-      "gender":"female",
+      "brand": "Addidas",
+      "gender": "female",
       "image": "/images/show/camperaAdiddasF.jpg",
       "link": "/detail/3",
       "price": "$8,500",
@@ -42,8 +42,8 @@
     {
       "id": 4,
       "name": "Conjunto Adiddas (hombre)",
-      "brand":"Addidas",
-      "gender":"female",
+      "brand": "Addidas",
+      "gender": "female",
       "image": "/images/show/conjuntoAdiddasH.jpg",
       "link": "/detail/3",
       "price": "$22,300",
@@ -55,8 +55,8 @@
     {
       "id": 5,
       "name": "Conjunto deportivo Nike (mujer)",
-      "brand":"Nike",
-      "gender":"female",
+      "brand": "Nike",
+      "gender": "female",
       "image": "/images/show/conjuntoNikeF.jpg",
       "link": "/detail/4",
       "price": "$37,855",
@@ -68,8 +68,8 @@
     {
       "id": 6,
       "name": "Guante deportivo Nike",
-      "brand":"Nike",
-      "gender":"unisex",
+      "brand": "Nike",
+      "gender": "unisex",
       "image": "/images/show/guanteNike.jpg",
       "link": "/detail/5",
       "price": "$2,300",
@@ -81,8 +81,8 @@
     {
       "id": 7,
       "name": "remera Nike reverse",
-      "brand":"Nike",
-      "gender":"unisex",
+      "brand": "Nike",
+      "gender": "unisex",
       "description": "remera de algodon amarilla marca nike",
       "image": "/images/show/remeraNikeReverse.jpg",
       "link": "/detail/7",
@@ -92,10 +92,10 @@
       "size": "S"
     },
     {
-      "id": 8 ,
+      "id": 8,
       "name": "Bincha deportiva Nike",
-      "brand":"Nike",
-      "gender":"unisex",
+      "brand": "Nike",
+      "gender": "unisex",
       "description": "Bincha deportiva edicion especial NBA",
       "image": "/images/show/binchaNikeNBA.jpg",
       "link": "/detail/8",
@@ -105,10 +105,10 @@
       "size": "M"
     },
     {
-      "id":9 ,
+      "id": 9,
       "name": "Bolso Deportivo",
       "brand": "generic",
-      "gender":"unisex",
+      "gender": "unisex",
       "description": "Bolso deportivo azul de cuero sintetico",
       "image": "images/show/bolsoAzul.jpg",
       "link": "detail/9",
@@ -118,10 +118,10 @@
       "size": "XL"
     },
     {
-      "id": 10 ,
+      "id": 10,
       "name": "Campera deportiva Adiddas",
       "brand": "Addidas",
-      "gender":"male",
+      "gender": "male",
       "description": "Campera de polyester deportiva addidas para hombre",
       "image": "images/show/camperaDepHomAddidas.jpg",
       "link": "detail/10",
@@ -157,7 +157,7 @@
       "size": "X"
     },
     {
-      "id":13 ,
+      "id": 13,
       "name": "campera deportiva Nike",
       "brand": "Nike",
       "gender": "female",
@@ -181,6 +181,17 @@
       "discount": "6%",
       "category": "sweatshirt",
       "size": "L"
+    },
+    {
+      "id": 15,
+      "name": "katarina",
+      "description": "remeraaaaa",
+      "image": "/images/show/1705948991199-kat.png",
+      "link": "/detail/15",
+      "price": "12312",
+      "discount": "%15",
+      "category": "a",
+      "size": "S"
     }
   ]
 }

@@ -7,13 +7,13 @@
   <div class="articulos-principalesdet">
     <% if (product) { %>
       <h1>Detalle del producto <%= product.id %> :</h1>
-      <img src="<%- product.image %>" alt="Imagen del Producto: <%= product.id %>" width="200 px">
+      <img src="<%= product.image %>" alt="Imagen del Producto: <%= product.id %>" width="200px">
       <p>Nombre: <%- product.name %></p>
       <h3>Precio: $<%- product.price %></h3>
       <p><pre>Descuento: <%- product.discount %></pre></p>
     <% } else { %>
       <h1>No encontramos el producto: <%= data.id %></h1>
-      <img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200 px">
+      <img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200px">
       <h3>Pero te podemos sugerir los siguientes productos</h3>
     <% } %>
   </div>
@@ -24,11 +24,12 @@
     <% for (let i = 0; i < products.length; i++) { %>
       <% if (products[i].id !== data.id) { %>
         <div class="articulo-itemdet">
-          <img src="<%- products[i].image %>" alt="Imagen del Producto: <%= products[i].id %>">
+         
+<img src="<%- products[i].image %>" alt="Imagen del Producto: <%= products[i].id %>" width="100px">
           <p>Nombre: <%- products[i].name %></p>
-          <h3>Precio: $<%- products[i].precio %></h3>
-          <p><pre>Descuento: <%- products[i].descuento %></pre></p>
-          <a href="/product/<%= products[i].id %>">Ver detalles</a>
+          <h3>Precio: $<%- products[i].price %></h3>
+<p><pre>Descuento: <%- products[i].discount %></pre></p>
+          <a href="/detail/<%= products[i].id %>">Ver detalles</a>
         </div>
       <% } %>
     <% } %>

@@ -17,7 +17,7 @@ const controller = {
   detail: (req, res) => {
     const { id } = req.params;
     const products = productController.index();
-    console.log(products);
+    
     const data = {
       id: id,
     };

@@ -3,6 +3,9 @@ const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../data/product.json');
 
+
+
+
 const productController = {
   // Read - Show all products
   index: () => {
@@ -17,49 +20,46 @@ const productController = {
   },
   // Read - Show product details
  
-  // Create - Method to store
   store: (req, res) => {
-    console.log(req.body);
-  
     // Retrieve existing products
     const jsonData = fs.readFileSync(productsFilePath, 'utf-8');
     const data = JSON.parse(jsonData);
-  
+
     // Ensure products is an array
     if (!Array.isArray(data.products)) {
-      console.error('Products is not an array:', data.products);
-      return res.status(500).send('Internal Server Error');
+        console.error('Products is not an array:', data.products);
+        return res.status(500).send('Internal Server Error');
     }
-  
+
     // Extract product data from request body
-    const { name, description, image, price, category, talle } = req.body;
-  
+    const { name, description, price, category, talle } = req.body;
+
     // Generate a unique ID for the new product
     const id = data.products.length + 1;
-  
-    // Create a new product object
+
+    // Handle Multer file upload
+    const { filename } = req.file;
     const newProduct = {
-      id,
-      name,
-      description,
-      image,
-      link: `/detail/${id}`, // Assuming link is generated based on ID
-      price,
-      discount: '', // Add your logic for discount calculation
-      category,
-      size: talle, // Assuming talle represents size
+        id,
+        name,
+        description,
+        image: `/images/show/${filename}`, // Assuming Multer has stored the file
+        link: `/detail/${id}`,
+        price,
+        discount: req.body.discount || '', // Include the discount from the form
+        category,
+        size: talle,
     };
-  
+
     // Add the new product to the array
     data.products.push(newProduct);
-  
+
     // Write the updated products array back to the file
     fs.writeFileSync(productsFilePath, JSON.stringify(data, null, 2), 'utf-8');
-  
-    // Redirect to the product detail page for the newly created product
-    res.redirect(`/products/detail/${id}`);
-  },
 
+    // Redirect to the product detail page for the newly created product
+    res.redirect(`/detail/${id}`);
+},
   // Update - Form to edit
   edit: (req, res) => {
     const { id } = req.params;
@@ -101,6 +101,10 @@ const productController = {
     // Redirect to the home page or any other page after deletion
     res.redirect('/');
   },
+   createForm : (req, res) => {
+    // Your logic to render the form
+    res.render('createProductForm'); // Adjust the template name accordingly
+  }
 };
 
 module.exports = productController;
