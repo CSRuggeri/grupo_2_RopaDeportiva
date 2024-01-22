@@ -1,5 +1,6 @@
 const productController = require("./productController");
-
+const usersController = require("./usersController");
+const localStorage = require("localStorage")
 const controller = {
     home: (req, res) => {
         const products = productController.index();
@@ -55,6 +56,13 @@ const controller = {
 
     res.redirect('products/shopping-cart.ejs');
   },
+
+  getUserProfile: (req, res) => {
+    const user = localStorage.getItem('USER_INFO');
+    const userInfo = user ? JSON.parse(user) : null;
+
+    res.render("user/dashboard.ejs", { user: userInfo });
+},
 };
 
 module.exports = controller;

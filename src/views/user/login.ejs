@@ -5,12 +5,16 @@
     <%- include('../partials/header')%> 
     <main class="login">
         <form action="/users/login" method="POST" class="form-login">
-            <h2>Iniciar Sesion</h2>  
-            <input type="text" name="user" placeholder="Nombre de usuario">
-            <input type="password" name="pass" placeholder="Elegí tu contraseña">
-            <input type="submit" value="Enviar">
-          </form>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+        
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        
+            <button type="submit">Login</button>
+        </form>
     </main>
     <%- include('../partials/footer')%>
 </body>
 </html>
+

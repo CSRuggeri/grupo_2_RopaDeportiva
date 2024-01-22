@@ -1,6 +1,7 @@
 // usersControllers.js
 const fs = require('fs');
 const path = require('path');
+const localStorage = require('localStorage');
 
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
@@ -43,12 +44,16 @@ const usersController = {
 
  
   authenticate: (username, password) => {
+    console.log('Attempting to authenticate:', username, password);
+
     const usersData = fs.readFileSync(usersFilePath, 'utf-8');
     const users = JSON.parse(usersData).users;
     const user = users.find((u) => u.username === username && u.password === password);
 
+    console.log('Found user:', user);
+
     return user;
-  },
+},
   handleRegistration: (req, res) => {
     try {
       const { username, password, email, birthDate, address, profile } = req.body;
@@ -74,23 +79,34 @@ console.log(req.body)
       res.status(400).send(error.message);
     }
   },
-  handleLogin: (req, res) => {
+  getUserProfile: (req, res) => {
+    const user = localStorage.getItem('USER_INFO');
+    const userInfo = user ? JSON.parse(user) : null;
+
+    res.render("dashboard.ejs", { user: userInfo });
+},
+  
+handleLogin: (req, res) => {
     try {
-      const { username, password } = req.body;
-      const authenticatedUser = usersController.authenticate(username, password);
-      if (authenticatedUser) {
-   
-        res.redirect('/dashboard');
-      } else {
-      
-        res.status(401).send('Invalid credentials');
-      }
+        const { username, password } = req.body;
+        console.log('Received form data:', { username, password });
+
+        const authenticatedUser = usersController.authenticate(username, password);
+
+        if (authenticatedUser) {
+            // Save user information in localStorage
+            localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
+            console.log(localStorage.getItem("USER_INFO"));
+
+            res.redirect('/dashboard');
+        } else {
+            res.status(401).send('Invalid credentials');
+        }
     } catch (error) {
-    
-      console.error(error.message);
-      res.status(500).send('Internal Server Error');
+        console.error(error.message);
+        res.status(500).send('Internal Server Error');
     }
-  }
+}
 };
 
 module.exports = usersController;

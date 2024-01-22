@@ -34,26 +34,9 @@ usersRouter.post('/register', upload.single('avatar'), (req, res) => {
 
 
 // Route to handle user login
-usersRouter.post('/login', (req, res) => {
-    try {
-      const { user, pass } = req.body; // Change to match form field names
-      console.log("request", req.body);
-      const authenticatedUser = usersController.authenticate(user, pass); // Change to match form field names
-      if (authenticatedUser) {
-        // Set user session or token (in a real-world scenario)
-        // You can redirect to the user dashboard or any other page after successful login
-        res.redirect('/');
-      } else {
-        // Handle login failure (invalid credentials)
-        res.status(401).send('Invalid credentials');
-      }
-    } catch (error) {
-      // Handle login errors
-      console.error(error.message);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+usersRouter.post('/login', usersController.handleLogin
+  );
 
-// Add more routes as needed
+usersRouter.get("/dashboard", usersController.getUserProfile)
 
 module.exports = usersRouter;

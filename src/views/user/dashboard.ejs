@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head')%>
+<body>
+    <%- include('../partials/header')%>  
+
+    <main>
+        <h1>Welcome to Your Dashboard, <%= user.username%></h1>
+
+        <!-- Add other dashboard content here -->
+        <section>
+            <h2>Your Profile</h2>
+            <p>Email: <%= user.email %></p>
+            <img src="<%= user.avatar %>" alt="<%= user.email %>""> 
+            <!-- Add more user-related information as needed -->
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer')%>
+</body>
+</html>
