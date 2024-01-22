@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./routes/main');
 const productRouter = require('./routes/productRouter');
+const usersRouter = require('./routes/userRouter');  
 const multer = require('multer');
 const app = express();
 
@@ -30,8 +31,10 @@ const upload = multer({ storage: storage });
 
 // Set up routes
 app.use('/products', productRouter(upload)); // Pass upload to productRouter
-app.use('/', router);
 
+app.use('/users', usersRouter);
+
+app.use('/', router);
 // Start the server
 const port = 3000;
 app.listen(port, () => {
