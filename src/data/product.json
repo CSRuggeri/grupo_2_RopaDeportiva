@@ -192,6 +192,17 @@
       "discount": "%15",
       "category": "a",
       "size": "S"
+    },
+    {
+      "id": 16,
+      "name": "meme",
+      "description": "esto es un meme de gatito",
+      "image": "/images/show/1706015694371-cat meme.png",
+      "link": "/detail/16",
+      "price": "123132",
+      "discount": "%14",
+      "category": "e",
+      "size": "XL"
     }
   ]
 }
