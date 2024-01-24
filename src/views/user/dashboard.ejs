@@ -9,12 +9,21 @@
         <h1>Welcome to Your Dashboard, <%= user.username%></h1>
 
         <!-- Add other dashboard content here -->
-        <section >
-            <h2>Your Profile</h2>
-            <p>Email: <%= user.email %></p>
-            <img src="<%= user.avatar %>" alt="<%= user.email %>""> 
-            <!-- Add more user-related information as needed -->
-        </section>
+        <div class="dashboard">
+            <section class="dashboard-section image-section">
+                <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
+                <!-- Add more user-related information as needed -->
+            </section>
+            <section class="dashboard-section">
+                <h2>Detalles de usuario</h2>
+                <p>Email: <%= user.email %></p>
+                <p>Nombre de usuario: <%= user.username %></p>
+                <p>Fecha de nacimiento: <%= user.birthDate %></p>
+                <p>Dirección: <%= user.address %></p>
+                <p>Perfil: <%= user.profile %></p>
+                <!-- Add more user-related information as needed -->
+            </section>
+        </div>
 
     </main>
 
