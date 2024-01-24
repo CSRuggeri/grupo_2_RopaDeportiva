@@ -2,6 +2,7 @@ const express = require('express');
 const usersRouter = express.Router();
 const usersController = require('../controllers/usersController');
 const multer = require('multer');
+const bcrypt = require('bcrypt');
 
 // Set up Multer storage
 const storage = multer.diskStorage({
@@ -15,14 +16,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-usersRouter.post('/register', upload.single('avatar'), (req, res) => {
+usersRouter.post('/register', upload.single('avatar'), async (req, res) => {
     try {
       const { username, password, email, birth_date, address, profile } = req.body;
       const avatar = req.file ? `/images/show/${req.file.filename}` : '';
   
+      // Para hashear la contraseña antes de almacenarla:
+      const hashedPassword = await bcrypt.hash(password, 10);
       
-  
-      const newUser = usersController.register(username, password, email, birth_date, address, profile, avatar);
+      const newUser = usersController.register(username, hashedPassword, email, birth_date, address, profile, avatar);
       // You can redirect to the login page or any other page after successful registration
       res.redirect('/login');
     } catch (error) {
