@@ -5,7 +5,9 @@ body {
   display: flex;
   flex-direction: column;
     align-items: center;
+  
 }
+
 
 header{
   width: 100%;
@@ -27,7 +29,7 @@ nav {
 }
 
 nav a {
-  color: white;
+  color: yellowgreen;
   text-decoration: none;
   padding: 10px 16px;
   display: inline-block;
@@ -38,6 +40,7 @@ nav a {
 nav a:hover {
   background-color: #ddd;
   color: rgb(197, 197, 197);
+  
 }
 
 .search-bar {
@@ -73,18 +76,31 @@ article img {
 }
 
 .main-article {
- margin-bottom: -6px;
-  text-align: center;
-  align-items: center;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #666;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 0 0 8px 8px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(2, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
   
 }
+  
+
 div.description-box{
  display: flex;
  flex-direction: column;
  
 
 
+}
+
+  .main-article:hover {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
 .description {
   color: #666; /* Change the font color */
@@ -100,7 +116,7 @@ div.description-box{
 }
 
 p {
-  color: rgb(0, 0, 0);
+  color: #ab9f12,
 }
 
 h4 {
@@ -157,6 +173,7 @@ main.login {
 }
 .login h2{
   font-family: Arial, sans-serif;
+  color: #ab9f12;
   background-color: #ea7500aa;
   border-radius: 7px;
   width: 50%;
@@ -214,15 +231,19 @@ footer{
   background-color: rgb(118 5 4);
   border-radius: 9px;
   width: 100%;
+  
 }
 .footer-section-img{
   height: 60px;
   width: auto; 
+ 
+  
 }
 .footer-section-img img {
   width: 100px;
   height: auto;
   flex-direction: initial;
+
 }
 .footer-content {
   display: flex;
@@ -231,7 +252,9 @@ footer{
   gap: 5px;
   width: 100%;
   align-items: center;
-  flex-wrap: nowrap;}
+  flex-wrap: nowrap;
+  color: #9acd32
+}
 
   
   .articulos-principalesdet {
@@ -263,7 +286,14 @@ footer{
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--verde-claro);
     background-color: rgb(255, 255, 255);
+    transition: box-shadow 0.3s ease;
+    border: 2px solid #ccc; /* Agregar un borde sólido con color gris claro */
   }
+  
+  .articulo-itemdet:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+  
   .articulo-itemdet img {
     height: 250px;
     margin: 10px;
@@ -297,3 +327,5 @@ footer{
 height: 30rem;
   
   }
+
+/* punto de partida
