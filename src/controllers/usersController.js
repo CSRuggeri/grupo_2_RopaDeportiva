@@ -51,7 +51,9 @@ const usersController = {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = users.find((u) => u.username === username && u.password === hashedPassword);
-
+      
+      console.log('Found user:', user);
+      
       return user;
     } catch (error) {
       console.error('Error al autenticar usuario:', error);
@@ -82,7 +84,7 @@ const usersController = {
   },
 
   getUserProfile: (req, res) => {
-    const user = localStorage.getItem('USER_INFO');
+    const user = req.session.loggedUser;
     const userInfo = user ? JSON.parse(user) : null;
 
     if (!userInfo) {
@@ -100,12 +102,19 @@ const usersController = {
 
       const authenticatedUser = await usersController.authenticate(username, password);
 
-      if (authenticatedUser) {
-        localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
-        res.redirect('/dashboard');
-      } else {
-        res.status(401).send('Invalid credentials');
-      }
+        if (authenticatedUser) {
+            // Save user information in localStorage
+            localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
+            console.log(localStorage.getItem("USER_INFO"));
+            req.session.loggedUser = authenticatedUser;
+            if (req.body.remember!=undefined){
+              res.cookie('remember',authenticatedUser.username,{maxAge: 100000})
+              console.log(req.cookies.remember)
+            }
+            res.redirect('/dashboard');
+        } else {
+            res.status(401).send('Invalid credentials');
+        }
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Internal Server Error');
