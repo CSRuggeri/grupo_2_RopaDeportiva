@@ -35,7 +35,7 @@ const productController = {
     const { name, description, price, category, talle } = req.body;
 
     // Generate a unique ID for the new product
-    const id = data.products.length + 1;
+    const id = data.products[data.products.length - 1 ] + 1
 
     // Handle Multer file upload
     const { filename } = req.file;

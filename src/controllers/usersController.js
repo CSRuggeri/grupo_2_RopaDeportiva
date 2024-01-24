@@ -83,6 +83,14 @@ console.log(req.body)
     const user = localStorage.getItem('USER_INFO');
     const userInfo = user ? JSON.parse(user) : null;
 
+    // Check if user is not logged in
+    if (!userInfo) {
+       alert("Debes iniciar sesion primero!")
+        res.redirect('/login');
+        return;
+    }
+
+    // User is logged in, render the dashboard
     res.render("dashboard.ejs", { user: userInfo });
 },
   
