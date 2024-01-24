@@ -65,6 +65,16 @@
       "address": "Holanda 2031",
       "profile": "sell",
       "avatar": "/images/show/1706072325748-WhatsApp Image 2021-07-06 at 13.01.08.jpeg"
+    },
+    {
+      "id": 8,
+      "username": "pepitoXD",
+      "password": "hola123",
+      "email": "pepito@pepito.com",
+      "birthDate": "2000-12-01",
+      "address": "calle pepito 123",
+      "profile": "sell",
+      "avatar": "/images/show/1706015838233-borrar-cuenta.png"
     }
   ]
 }
