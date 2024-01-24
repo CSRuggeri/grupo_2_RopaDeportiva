@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-usersRouter.post('/register', upload.single('avatar'), async (req, res) => {
+// Middleware para manejar la ruta de registro
+const registerMiddleware = async (req, res, next) => {
     try {
       const { username, password, email, birth_date, address, profile } = req.body;
       const avatar = req.file ? `/images/show/${req.file.filename}` : '';
@@ -24,7 +25,7 @@ usersRouter.post('/register', upload.single('avatar'), async (req, res) => {
       // Para hashear la contraseña antes de almacenarla:
       const hashedPassword = await bcrypt.hash(password, 10);
       
-      const newUser = usersController.register(username, hashedPassword, email, birth_date, address, profile, avatar);
+      const newUser = await usersController.register(username, hashedPassword, email, birth_date, address, profile, avatar);
       // You can redirect to the login page or any other page after successful registration
       res.redirect('/login');
     } catch (error) {
@@ -32,13 +33,16 @@ usersRouter.post('/register', upload.single('avatar'), async (req, res) => {
       console.error(error.message);
       res.status(400).send(error.message);
     }
-  });
+  };
 
 
-// Route to handle user login
-usersRouter.post('/login', usersController.handleLogin
-  );
+// Ruta de registro
+usersRouter.post('/register', upload.single('avatar'), registerMiddleware);
 
-usersRouter.get("/dashboard", usersController.getUserProfile)
+// Ruta de inicio de sesión
+usersRouter.post('/login', usersController.handleLogin);
+
+// Ruta de dashboard
+usersRouter.get('/dashboard', usersController.getUserProfile);
 
 module.exports = usersRouter;
