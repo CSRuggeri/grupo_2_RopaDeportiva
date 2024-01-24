@@ -1,4 +1,11 @@
-<h2>PAGOS</h2>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head')%>
+
+<%- include('../partials/header')%> 
+<body>
+  
+<div class="pay">
 <form action="/envio" method="post">
     <label for="nombre_tarjeta">Nombre del Titular :</label>
     <input type="text" id="nombre_tarjeta" name="nombre_tarjeta" required>
@@ -22,3 +29,6 @@
       </select>
       <input type="submit" value="Pagar">
     </form>
+  </div>
+  </body>
+  <%- include('../partials/footer')%>

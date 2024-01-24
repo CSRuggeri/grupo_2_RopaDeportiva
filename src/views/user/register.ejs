@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head')%>
+<body>
+    <%- include('../partials/header')%> 
+    <main class="register">
+        <form action="/users/register" method="POST" class="form-register" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Nombre y apellido">
+            <input type="text" name="username" placeholder="Nombre de usuario">
+            <input type="email" name="email" placeholder="E-mail">
+            
+            <label for="birth_date">Fecha de nacimiento</label>
+            <input type="date" name="birth_date" id="birth_date">
+            
+            <input type="text" name="address" placeholder="Domicilio">
+            
+            <h4>Perfil del usuario</h4>
+            <div class="profile">
+                <input type="radio" name="profile" value="buy" id="buy">
+                <label for="buy">Cliente</label>
+                
+                <input type="radio" name="profile" value="sell" id="sell">
+                <label for="sell">Vendedor</label>
+            </div>
+          
+            <h4>Elegí tu foto de usuario</h4>
+            <input type="file" name="avatar">
+            
+            <input type="password" name="password" placeholder="Elegí tu contraseña">
+            <input type="password" name="pass_confirm" placeholder="Confirmá tu contraseña">
+            
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+        </form>
+    </main>
+    <%- include('../partials/footer')%>
+</body>
+</html>

@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const controller= require('../controllers/mainController');
+const controller = require('../controllers/mainController');
+const productController = require('../controllers/productController');
+
+
+
+
 
 router.get('/', controller.home);
-router.get('/login',controller.login);
-router.get('/register',controller.register);
-router.get('/edit-product',controller.editProduct);
-router.get('/shopping-cart',controller.shoppingCart);
-router.get('/pagos',controller.pagos);
-router.get('/detail',controller.detail);
-
-
-module.exports= router
+router.get('/login', controller.login);
+router.get('/register', controller.register);
+router.get('/create', controller.editProduct);
+router.get('/shopping-cart', controller.shoppingCart);
+router.get('/pagos', controller.pagos);
+router.get('/detail/:id', controller.detail);
+router.get('/add-to-cart/:id', controller.addToCart);
+router.get('/dashboard',
+        controller.getUserProfile
+    );
+module.exports = router;

@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "santi",
+      "lastName": "ruggeri",
+      "email": "santiruu@gmail.com",
+      "password": "password123",
+      "category": "amin",
+      "image": "path/to/image1.jpg"
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "password": "securepass",
+      "category": "customer",
+      "image": "path/to/image2.jpg"
+    },
+    {
+      "id": 3,
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "pass123",
+      "category": "customer",
+      "image": "path/to/image3.jpg"
+    },
+    {
+      "id": 4,
+      "username": "peponaXD",
+      "email": "pepona@pepona.com",
+      "birthDate": "1997-07-16",
+      "address": "calle pepona 123",
+      "profile": "buy",
+      "avatar": "/images/show/1705955654120-cat.png"
+    },
+    {
+      "id": 5,
+      "username": "santiruu",
+      "password": "lolapolola123",
+      "email": "santiruu@gmail.com",
+      "birthDate": "1997-07-16",
+      "address": "8 de octubre 363",
+      "profile": "buy",
+      "avatar": "/images/show/1705956390040-pefil profesional.JPG"
+    },
+    {
+      "id": 6,
+      "username": "santiruu",
+      "password": "lolapolola123",
+      "email": "santiruu@gmail.com",
+      "birthDate": "1997-01-16",
+      "address": "8 de octubre 363",
+      "profile": "buy",
+      "avatar": "/images/show/1705957822963-pefil profesional.JPG"
+    }
+  ]
+}
