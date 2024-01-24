@@ -1,9 +1,8 @@
-// usersControllers.js
+// usersController.js
 const fs = require('fs');
 const path = require('path');
 const localStorage = require('localStorage');
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
 
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
@@ -46,16 +45,12 @@ const usersController = {
   },
 
   authenticate: async (username, password) => {
-    console.log('Attempting to authenticate:', username, password);
-
     try {
       const usersData = fs.readFileSync(usersFilePath, 'utf-8');
       const users = JSON.parse(usersData).users;
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = users.find((u) => u.username === username && u.password === hashedPassword);
-
-      console.log('Found user:', user);
 
       return user;
     } catch (error) {
@@ -64,12 +59,12 @@ const usersController = {
     }
   },
 
-  handleRegistration: (req, res) => {
+  handleRegistration: async (req, res) => {
     try {
       const { username, password, email, birthDate, address, profile } = req.body;
       const { filename } = req.file;
 
-      const newUser = usersController.register(
+      const newUser = await usersController.register(
         username,
         password,
         email,
@@ -99,16 +94,14 @@ const usersController = {
     res.render("dashboard.ejs", { user: userInfo });
   },
 
-  handleLogin: (req, res) => {
+  handleLogin: async (req, res) => {
     try {
       const { username, password } = req.body;
-      console.log('Received form data:', { username, password });
 
-      const authenticatedUser = usersController.authenticate(username, password);
+      const authenticatedUser = await usersController.authenticate(username, password);
 
       if (authenticatedUser) {
         localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
-        console.log(localStorage.getItem("USER_INFO"));
         res.redirect('/dashboard');
       } else {
         res.status(401).send('Invalid credentials');
