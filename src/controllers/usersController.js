@@ -46,7 +46,7 @@ const usersController = {
   authenticate: (username, password) => {
     console.log('Attempting to authenticate:', username, password);
 
-    const usersData = fs.readFileSync(usersFilePath, 'utf-8');
+    const usersData =fs.readFileSync(usersFilePath, 'utf-8');
     const users = JSON.parse(usersData).users;
     const user = users.find((u) => u.username === username && u.password === password);
 
@@ -80,7 +80,7 @@ console.log(req.body)
     }
   },
   getUserProfile: (req, res) => {
-    const user = localStorage.getItem('USER_INFO');
+    const user = req.session.loggedUser;
     const userInfo = user ? JSON.parse(user) : null;
 
     res.render("dashboard.ejs", { user: userInfo });
@@ -97,7 +97,11 @@ handleLogin: (req, res) => {
             // Save user information in localStorage
             localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
             console.log(localStorage.getItem("USER_INFO"));
-
+            req.session.loggedUser = authenticatedUser;
+            if (req.body.remember!=undefined){
+              res.cookie('remember',authenticatedUser.username,{maxAge: 100000})
+              console.log(req.cookies.remember)
+            }
             res.redirect('/dashboard');
         } else {
             res.status(401).send('Invalid credentials');
