@@ -58,16 +58,6 @@
     },
     {
       "id": 7,
-      "username": "Franco1389",
-      "password": "jaja2341",
-      "email": "francoralbornoz.12@gmail.com",
-      "birthDate": "",
-      "address": "Holanda 2031",
-      "profile": "sell",
-      "avatar": "/images/show/1706072325748-WhatsApp Image 2021-07-06 at 13.01.08.jpeg"
-    },
-    {
-      "id": 8,
       "username": "pepitoXD",
       "password": "hola123",
       "email": "pepito@pepito.com",
@@ -75,6 +65,26 @@
       "address": "calle pepito 123",
       "profile": "sell",
       "avatar": "/images/show/1706015838233-borrar-cuenta.png"
+    },
+    {
+      "id": 8,
+      "username": "Franco1389",
+      "password": "$2b$10$ad7laT2/q6ItDfEw9IguzumfORpiPxru1JJJqwnys2xRPc3.okHtm",
+      "email": "francoralbornoz.12@gmail.com",
+      "birthDate": "",
+      "address": "Holanda 2031",
+      "profile": "sell",
+      "avatar": "/images/show/1706474904806-448fd34d9e4fe80c52ce45f3aca39dcf.jpg"
+    },
+    {
+      "id": 9,
+      "username": "pepito123",
+      "password": "$2b$10$nnAYg6Rx7VxXb80MVaoj4.Kd583J4LR8Zz//szQyvbt4TTUpxEC/2",
+      "email": "jaja@gmail.com",
+      "birthDate": "",
+      "address": "lomalpingo",
+      "profile": "sell",
+      "avatar": ""
     }
   ]
 }
