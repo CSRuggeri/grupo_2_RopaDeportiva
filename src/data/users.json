@@ -85,6 +85,45 @@
       "address": "lomalpingo",
       "profile": "sell",
       "avatar": ""
+    },
+    {
+      "id": 10,
+      "username": "tomillo@gmail.com",
+      "password": "$2b$10$zdFs3lrAIZQusI4MVRXDYOLQyGmAYRseeFkuA7WZ3lESuJfqgYmrm",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "sell",
+      "avatar": ""
+    },
+    {
+      "id": 11,
+      "username": "tomillo@gmail.com",
+      "password": "$2b$10$Z1DwqZlbdHdT.fv/r8.VE.h1U5yFFZizM2CWaCp7NN/O4yC5CVMhK",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "buy",
+      "avatar": ""
+    },
+    {
+      "id": 12,
+      "username": "95eltom95@gmail.com",
+      "password": "$2b$10$mItmLd057SNEM/4m5wSRAuRY/VRZ6vpNIQfgAarov.v1wDT2szvhC",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "",
+      "address": "",
+      "avatar": ""
+    },
+    {
+      "id": 13,
+      "username": "95eltom95@gmail.com",
+      "password": "$2b$10$n9B/b1gK3sMMyyIR9siGouKbYfYbw4XElvuk76ys7jPGfAID./lhO",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "sell",
+      "avatar": ""
     }
   ]
 }
