@@ -1,3 +1,4 @@
+<!-- login.ejs -->
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../partials/head')%>
@@ -10,10 +11,18 @@
         
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
+            
+            <!-- Muestra mensajes de error o éxito -->
+            <% if (typeof error !== 'undefined') { %>
+                <p class="error-message"><%= error %></p>
+            <% } %>
+            <% if (typeof success !== 'undefined') { %>
+                <p class="success-message"><%= success %></p>
+            <% } %>
 
             <label for="remember">Recuerdame</label>
             <input type="checkbox" name="remember" id="remember">
-        
+
             <button type="submit">Login</button>
         </form>
     </main>

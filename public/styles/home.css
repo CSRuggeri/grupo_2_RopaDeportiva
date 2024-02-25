@@ -29,18 +29,18 @@ nav {
 }
 
 nav a {
-  color: yellowgreen;
+  color: white;
   text-decoration: none;
   padding: 10px 16px;
   display: inline-block;
   background-color: #88888881;
   border-radius: 9px;
+  transition: background-color 0.3s, color 0.3s
 }
 
 nav a:hover {
   background-color: #ddd;
-  color: rgb(197, 197, 197);
-  
+  color: #760504
 }
 
 .search-bar {
@@ -64,15 +64,21 @@ article {
   flex-direction: column;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 3px 3px 5px 5px #888888;
+  box-shadow: 0 0 10px rgba(2, 0, 0, 0.3);
   margin: 10px;
+  padding: 15px 0px;
   background-color: rgb(255, 255, 255);
   width: 50%;
+  transition: box-shadow 0.3s ease;
 }
-
+.price, .discount{
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
 article img {
-  width: 50%;
+  width: auto;
   border-radius: 8px 8px 0 0;
+  height: 100px;
 }
 
 .main-article {
@@ -80,14 +86,6 @@ article img {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: #666;
-  background-color: #f2f2f2;
-  padding: 10px;
-  border-radius: 0 0 8px 8px;
-  margin: 10px;
-  box-shadow: 0 0 10px rgba(2, 0, 0, 0.3);
-  transition: box-shadow 0.3s ease;
-  
 }
   
 
@@ -99,7 +97,7 @@ div.description-box{
 
 }
 
-  .main-article:hover {
+article:hover {
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
 .description {
@@ -111,8 +109,6 @@ div.description-box{
 
 .discount {
   color: #39b54a;
-  padding: 15px;
-  margin-bottom: 10px;
 }
 
 p {
@@ -205,6 +201,32 @@ input[type="submit"] {
 
 }
 
+.dashboard{
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-self: center;
+  
+}
+.dashboard-section{
+  width: 50%;
+  border-radius: 5%;
+  border-color: #666;
+  margin: 5% 0%;
+}
+.image-section{
+  display: flex;
+  justify-content: center;
+}
+.dashboard-section img{
+  height: auto;
+  width: 50%;
+  border-radius: 10%;
+  align-self: center;
+
+}
+
 @media (min-width: 0px) and (max-width : 361px) {
   article {
       box-shadow: 5px 5px 10px #888888;
@@ -233,14 +255,14 @@ footer{
   width: 100%;
   
 }
-.footer-section-img{
+.img{
   height: 60px;
   width: auto; 
  
   
 }
 .footer-section-img img {
-  width: 100px;
+  width: 200px;
   height: auto;
   flex-direction: initial;
 
@@ -248,12 +270,23 @@ footer{
 .footer-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 5px;
+  justify-content: space-around;
   width: 100%;
   align-items: center;
   flex-wrap: nowrap;
-  color: #9acd32
+  color: #FBDC6A
+}
+
+footer span{
+  padding: 10px
+}
+.footer-section-socials{
+  padding: 10px 0px;
+  color: #FBDC6A
+}
+ .footer-section-socials .fab{
+  color: #FBDC6A;
+  padding: 0px 5px
 }
 
   
