@@ -50,7 +50,7 @@ const usersController = {
       const users = JSON.parse(usersData).users;
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const user = users.find((u) => u.username === username && u.password === hashedPassword);
+      const user = users.find((u) => u.username === username && bcrypt.compare(u.password, hashedPassword));
       
       console.log('Found user:', user);
       
