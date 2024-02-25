@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Session middleware
-app.use(session({secret:'secret (?'}));
+app.use(session({secret:'secret (?', saveUninitialized:false,resave:false,}));
 
 //Cookie parser middleware
 app.use(cookieParser());

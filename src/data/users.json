@@ -58,16 +58,6 @@
     },
     {
       "id": 7,
-      "username": "Franco1389",
-      "password": "jaja2341",
-      "email": "francoralbornoz.12@gmail.com",
-      "birthDate": "",
-      "address": "Holanda 2031",
-      "profile": "sell",
-      "avatar": "/images/show/1706072325748-WhatsApp Image 2021-07-06 at 13.01.08.jpeg"
-    },
-    {
-      "id": 8,
       "username": "pepitoXD",
       "password": "hola123",
       "email": "pepito@pepito.com",
@@ -75,6 +65,65 @@
       "address": "calle pepito 123",
       "profile": "sell",
       "avatar": "/images/show/1706015838233-borrar-cuenta.png"
+    },
+    {
+      "id": 8,
+      "username": "Franco1389",
+      "password": "$2b$10$ad7laT2/q6ItDfEw9IguzumfORpiPxru1JJJqwnys2xRPc3.okHtm",
+      "email": "francoralbornoz.12@gmail.com",
+      "birthDate": "",
+      "address": "Holanda 2031",
+      "profile": "sell",
+      "avatar": "/images/show/1706474904806-448fd34d9e4fe80c52ce45f3aca39dcf.jpg"
+    },
+    {
+      "id": 9,
+      "username": "pepito123",
+      "password": "$2b$10$nnAYg6Rx7VxXb80MVaoj4.Kd583J4LR8Zz//szQyvbt4TTUpxEC/2",
+      "email": "jaja@gmail.com",
+      "birthDate": "",
+      "address": "lomalpingo",
+      "profile": "sell",
+      "avatar": ""
+    },
+    {
+      "id": 10,
+      "username": "tomillo@gmail.com",
+      "password": "$2b$10$zdFs3lrAIZQusI4MVRXDYOLQyGmAYRseeFkuA7WZ3lESuJfqgYmrm",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "sell",
+      "avatar": ""
+    },
+    {
+      "id": 11,
+      "username": "tomillo@gmail.com",
+      "password": "$2b$10$Z1DwqZlbdHdT.fv/r8.VE.h1U5yFFZizM2CWaCp7NN/O4yC5CVMhK",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "buy",
+      "avatar": ""
+    },
+    {
+      "id": 12,
+      "username": "95eltom95@gmail.com",
+      "password": "$2b$10$mItmLd057SNEM/4m5wSRAuRY/VRZ6vpNIQfgAarov.v1wDT2szvhC",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "",
+      "address": "",
+      "avatar": ""
+    },
+    {
+      "id": 13,
+      "username": "95eltom95@gmail.com",
+      "password": "$2b$10$n9B/b1gK3sMMyyIR9siGouKbYfYbw4XElvuk76ys7jPGfAID./lhO",
+      "email": "95eltom95@gmail.com",
+      "birthDate": "1995-09-26",
+      "address": "8 de octubre",
+      "profile": "sell",
+      "avatar": ""
     }
   ]
 }
