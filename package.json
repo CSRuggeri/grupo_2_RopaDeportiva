@@ -26,6 +26,7 @@
     "express-session": "^1.17.3",
     "localStorage": "^1.0.4",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.9.0"
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.37.1"
   }
 }
