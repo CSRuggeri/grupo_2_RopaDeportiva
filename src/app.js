@@ -1,14 +1,16 @@
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
-const router = require('./routes/main');
-const productRouter = require('./routes/productRouter');
-const usersRouter = require('./routes/userRouter');  
-const multer = require('multer');
-const app = express();
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
-const fs = require ('fs')
+const app = express();
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override')
+
+const mainRouter = require('./routes/mainRouter');
+const productRouter = require('./routes/productRouter');
+const usersRouter = require('./routes/userRouter');  
+
+const {upload, rememberMe} = require('./Middlewares/Middlewares')
 
 // Set up EJS view engine
 app.set('view engine', 'ejs');
@@ -19,44 +21,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Session middleware
-app.use(session({secret:'secret (?', saveUninitialized:false,resave:false,}));
+app.use(session({secret:'s8AOM0dvWl2k9pt', saveUninitialized:false,resave:false,}));
 
 //Cookie parser middleware
 app.use(cookieParser());
 
-//remember me middleware
-app.use((req,res,next)=>{
-  if (req.cookies.remember != undefined && req.session.loggedUser==undefined){
-    const usersFilePath = path.join(__dirname, './data/users.json');
-    const usersData =fs.readFileSync(usersFilePath, 'utf-8');
-    const users = JSON.parse(usersData).users;
-    const user = users.find((u) => u.username == req.cookies.remember );
-    req.session.loggedUser = user
-    console.log('se ha reestablecido la conexión')
-  }
-  next();
-})
+//Remember me middleware
+app.use(rememberMe)
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '../public')));
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images/show'); // Set the destination folder for your images
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); // Set a unique filename
-  },
-});
-
-const upload = multer({ storage: storage });
+// Method Override
+app.use(methodOverride('_method'))
 
 // Set up routes
-app.use('/products', productRouter(upload)); // Pass upload to productRouter
+app.use('/products', productRouter); // Pass upload to productRouter
 
 app.use('/users', usersRouter);
 
-app.use('/', router);
+app.use('/', mainRouter);
+
 // Start the server
 const port = 3000;
 app.listen(port, () => {
