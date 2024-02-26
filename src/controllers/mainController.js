@@ -22,19 +22,6 @@ const controller = {
     res.render("user/register.ejs");
   },
 
-  detail: (req, res) => {
-    const { id } = req.params;
-    const products = getAllProducts()
-    
-    const data = {
-      id: id,
-    };
-
-    const product = products.find((prod) => prod.id == id);
-
-    res.render("products/detail.ejs", { data, product, products });
-  },
-
   pagos: (req, res) => {
     res.render("user/pagos.ejs");
   },
@@ -46,8 +33,8 @@ const controller = {
     res.render("products/shopping-cart.ejs", { selectedProduct, products });
   },
 
-  editProduct: (req, res) => {
-    res.render("products/edit-product.ejs");
+  createProduct: (req, res) => {
+    res.render("products/createProductForm.ejs");
   },
 
   addToCart: (req, res) => {

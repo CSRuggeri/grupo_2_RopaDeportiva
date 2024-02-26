@@ -1,12 +1,12 @@
 const path = require('path');
-const fs = require ('fs')
 const express = require('express');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override')
 
-const mainRouter = require('./routes/main');
+const mainRouter = require('./routes/mainRouter');
 const productRouter = require('./routes/productRouter');
 const usersRouter = require('./routes/userRouter');  
 
@@ -17,8 +17,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 // Add body-parser middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Session middleware
 app.use(session({secret:'s8AOM0dvWl2k9pt', saveUninitialized:false,resave:false,}));
@@ -31,6 +31,9 @@ app.use(rememberMe)
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '../public')));
+
+// Method Override
+app.use(methodOverride('_method'))
 
 // Set up routes
 app.use('/products', productRouter); // Pass upload to productRouter
