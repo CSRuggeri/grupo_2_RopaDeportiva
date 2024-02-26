@@ -1,57 +1,52 @@
-const fs = require('fs');
-const path = require('path');
-const productsFilePath = path.join(__dirname, '../data/product.json');
+const db = require('../database/models');
 
-
-const getAllProducts = ()=>{
-    const productsFilePath = path.join(__dirname, '../data/product.json');
-    const productsData = fs.readFileSync(productsFilePath, 'utf-8');
-    const products = JSON.parse(productsData).products
-    return products
-}
-
-const getProductById = (id)=>{
-    const products = getAllProducts()
-    return products.find((product) => product.id == id)
-}
-
-const storeProduct = (req) =>{
-    const jsonData = fs.readFileSync(productsFilePath, 'utf-8');
-    const data = JSON.parse(jsonData);
-
-    // Ensure products is an array
-    if (!Array.isArray(data.products)) {
-        console.error('Products is not an array:', data.products);
-        return res.status(500).send('Internal Server Error');
+const getAllProducts = async () => {
+    try {
+        return await db.Product.findAll();
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error;
     }
+};
 
-    // Extract product data from request body
-    const { name, description, price, category, talle } = req.body;
-    // Generate a unique ID for the new product
-    const productsLength = data.products.length
-    const id = productsLength + 1
+const getProductById = async (id) => {
+    try {
+        return await db.Product.findByPk(id);
+    } catch (error) {
+        console.error('Error fetching product by ID:', error);
+        throw error;
+    }
+};
 
-    // Handle Multer file upload
-    const { filename } = req.file;
+const storeProduct = async (req) => {
+    try {
+        const { name, description, price, discount, category, size } = req.body;
 
-    const newProduct = {
-        id,
-        name,
-        description,
-        image: `/images/show/${filename}`, // Assuming Multer has stored the file
-        link: `products/${id}`,
-        price,
-        discount: req.body.discount || '', // Include the discount from the form
-        category,
-        size: talle,
-    };
+        // Handle Multer file upload
+        const { filename } = req.file;
 
-    // Add the new product to the array
-    data.products.push(newProduct);
+        // Find the category by name
+        const categoryInstance = await db.Category.findOne({ where: { name: category } });
+        if (!categoryInstance) {
+            throw new Error('Invalid category');
+        }
 
-    // Write the updated products array back to the file
-    fs.writeFileSync(productsFilePath, JSON.stringify(data, null, 2), 'utf-8');
-    return {msg: `producto ${id} creado exitosamente`,id: id}
-}
+        // Create the product using Sequelize
+        const newProduct = await db.Product.create({
+            name,
+            description,
+            price,
+            discount,
+            image: `/images/show/${filename}`,
+            category_id: categoryInstance.id,
+            size,
+        });
 
-module.exports = {getAllProducts,getProductById,storeProduct}
+        return { msg: `Product ${newProduct.id} created successfully`, id: newProduct.id };
+    } catch (error) {
+        console.error('Error creating product:', error);
+        throw error;
+    }
+};
+
+module.exports = { getAllProducts, getProductById, storeProduct };

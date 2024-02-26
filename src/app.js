@@ -14,6 +14,7 @@ const {upload, rememberMe} = require('./Middlewares/Middlewares')
 
 // Set up EJS view engine
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'))
 app.set('views', path.join(__dirname, '/views'));
 
 // Add body-parser middleware
@@ -33,7 +34,7 @@ app.use(rememberMe)
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Method Override
-app.use(methodOverride('_method'))
+
 
 // Set up routes
 app.use('/products', productRouter); // Pass upload to productRouter
