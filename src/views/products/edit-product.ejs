@@ -4,51 +4,51 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="edit-prod">
-        <form action="/products/create" method="POST" class="form-login" enctype="multipart/form-data">
-            <h2>Creá tu producto</h2>
+        <form action="/products/<%= product.id %>/update?_method=PUT" method="POST" class="form-login" enctype="multipart/form-data">
+            <h2>Editá tu producto</h2>
           
-            <input type="text" name="name" placeholder="Nombre del producto">
+            <input type="text" name="name" placeholder="Nombre del producto" value="<%= product.name %>">
             <input type="text" name="brand" placeholder="Marca">
-            <input type="radio" name="gender" value="male" id="male">
+            <input type="radio" name="gender" value="male" id="male" >
             <label for="male">Masculino</label>
             <input type="radio" name="gender" value="female" id="female">
             <label for="female">Femenino</label>
-            <input type="text" name="description" placeholder="Descripción">
+            <input type="text" name="description" placeholder="Descripción" value="<%= product.description %>">
               <h4>Categoría del producto</h4>
               
-                <input type="radio" name="category" value="a" id="a">
+                <input type="radio" name="category" value="a" id="a" <% if(product.category =='a') {%>checked<% } %>>
                 <label for="a">Runner</label>
             
-                <input type="radio" name="category" value="b" id="b">
+                <input type="radio" name="category" value="b" id="b" <% if(product.category =='b') {%>checked<% } %>>
                 <label for="b">Atletic</label>
             
-                <input type="radio" name="category" value="c" id="c">
+                <input type="radio" name="category" value="c" id="c" <% if(product.category =='c') {%>checked<% } %>>
                 <label for="c">footbol</label>
             
-                <input type="radio" name="category" value="d" id="d">
+                <input type="radio" name="category" value="d" id="d" <% if(product.category =='d') {%>checked<% } %>> 
                 <label for="d">Tennis</label>
             
-                <input type="radio" name="category" value="e" id="e">
+                <input type="radio" name="category" value="e" id="e" <% if(product.category =='e') {%>checked<% } %>>
                 <label for="e">Aire libre</label>
             
             <h4>Seleccione el talle</h4>
             
-                <input type="radio" id="talleS" name="talle" value="S">
+                <input type="radio" id="talleS" name="talle" value="S" <% if(product.size =='S') {%>checked<% } %>>
                 <label for="talleS">Talle S</label>
               
-                <input type="radio" id="talleM" name="talle" value="M">
+                <input type="radio" id="talleM" name="talle" value="M" <% if(product.size =='M') {%>checked<% } %>>
                 <label for="talleM">Talle M</label>
             
-                <input type="radio" id="talleL" name="talle" value="L">
+                <input type="radio" id="talleL" name="talle" value="L" <% if(product.size =='L') {%>checked<% } %>>
                 <label for="talleL">Talle L</label>
                 
-                <input type="radio" id="talleXL" name="talle" value="XL">
+                <input type="radio" id="talleXL" name="talle" value="XL" <% if(product.size =='XL') {%>checked<% } %>>
                 <label for="talleXL">Talle XL</label>
                 <h4>Elegí una imagen para tu producto</h4>
                 <input type="file" name="image">
                 
-                <input type="number" name="price" placeholder="Precio">
-                <input type="text" name="discount" placeholder="Descuento">
+                <input type="number" name="price" placeholder="Precio" value="<%= product.price %>">
+                <input type="text" name="discount" placeholder="Descuento" value="<%= product.discount %>">
             <input type="submit" value="Enviar">
         </form>
     </main>

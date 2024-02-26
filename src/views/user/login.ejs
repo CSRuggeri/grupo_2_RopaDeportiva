@@ -5,7 +5,11 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="login">
+        
         <form action="/users/login" method="POST" class="form-login">
+            <% if(locals.mensajeError) { %>
+                <p><%= mensajeError %></p>
+            <% } %>
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
         

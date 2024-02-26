@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `sportGoDb`.`product` (
     REFERENCES `brand` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
+
 );
   
 
