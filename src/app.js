@@ -17,8 +17,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 // Add body-parser middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Session middleware
 app.use(session({secret:'s8AOM0dvWl2k9pt', saveUninitialized:false,resave:false,}));
