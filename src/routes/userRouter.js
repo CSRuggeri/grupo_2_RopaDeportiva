@@ -72,10 +72,10 @@ const loginMiddleware = async (req, res, next) => {
 };
 
 // Ruta de registro
-usersRouter.post('/register', upload.single('avatar'), registerMiddleware);
+usersRouter.post('/register', upload.single('avatar'), usersController.handleRegistration);
 
 // Ruta de inicio de sesión
-usersRouter.post('/login', loginMiddleware);
+usersRouter.post('/login', usersController.handleLogin);
 
 // Ruta del dashboard
 usersRouter.get('/dashboard', usersController.getUserProfile);

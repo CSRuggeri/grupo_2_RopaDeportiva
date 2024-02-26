@@ -203,6 +203,17 @@
       "discount": "%14",
       "category": "e",
       "size": "XL"
+    },
+    {
+      "id": 17,
+      "name": "fatgs",
+      "description": "a",
+      "image": "/images/show/1708962779989-paisaje-e1549600034372.jpg",
+      "link": "/detail/17",
+      "price": "1000",
+      "discount": "10",
+      "category": "a",
+      "size": "L"
     }
   ]
 }

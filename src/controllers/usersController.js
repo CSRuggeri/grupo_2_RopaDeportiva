@@ -85,15 +85,14 @@ const usersController = {
 
   getUserProfile: (req, res) => {
     const user = req.session.loggedUser;
-    const userInfo = user ? JSON.parse(user) : null;
 
-    if (!userInfo) {
-      alert("Debes iniciar sesión primero!");
+    if (!user) {
+      req.session.notLogged = 'No ha iniciado sesión';
       res.redirect('/login');
       return;
     }
 
-    res.render("dashboard.ejs", { user: userInfo });
+    res.render("user/dashboard.ejs", { user });
   },
 
   handleLogin: async (req, res) => {
@@ -107,11 +106,12 @@ const usersController = {
             localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
             console.log(localStorage.getItem("USER_INFO"));
             req.session.loggedUser = authenticatedUser;
+            req.session.notLogged = undefined
             if (req.body.remember!=undefined){
               res.cookie('remember',authenticatedUser.username,{maxAge: 100000})
               console.log(req.cookies.remember)
             }
-            res.redirect('/dashboard');
+            res.redirect('/users/dashboard');
         } else {
             res.status(401).send('Invalid credentials');
         }

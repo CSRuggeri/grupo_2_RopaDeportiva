@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const fs = require('fs');
 const path = require('path');
 
@@ -8,10 +9,11 @@ const productsFilePath = path.join(__dirname, '../data/product.json');
 
 const productController = {
   // Read - Show all products
-  index: () => {
+  index: (req,res) => {
     const productsFilePath = path.join(__dirname, '../data/product.json');
     const productsData = fs.readFileSync(productsFilePath, 'utf-8');
-    return JSON.parse(productsData).products;
+    const products = JSON.parse(productsData).products
+    res.render('products/home', {products})
   },
   getProductById: (productId) => {
     const productsData = fs.readFileSync(productsFilePath, 'utf-8');
@@ -33,12 +35,13 @@ const productController = {
 
     // Extract product data from request body
     const { name, description, price, category, talle } = req.body;
-
     // Generate a unique ID for the new product
-    const id = data.products[data.products.length - 1 ] + 1
+    const productsLength = data.products.length
+    const id = productsLength + 1
 
     // Handle Multer file upload
     const { filename } = req.file;
+    console.log('Archivo de imagen -->'+ req.file)
     const newProduct = {
         id,
         name,
@@ -50,6 +53,7 @@ const productController = {
         category,
         size: talle,
     };
+    console.log('creado el producto')
 
     // Add the new product to the array
     data.products.push(newProduct);
@@ -102,8 +106,7 @@ const productController = {
     res.redirect('/');
   },
    createForm : (req, res) => {
-    // Your logic to render the form
-    res.render('createProductForm'); // Adjust the template name accordingly
+      res.render('products/createProductForm.ejs'); // Adjust the template name accordingly
   }
 };
 
