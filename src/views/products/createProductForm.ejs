@@ -8,28 +8,29 @@
             <h2>Creá tu producto</h2>
             
             <input type="text" name="name" placeholder="Nombre del producto">
-            <input type="text" name="brand" placeholder="Marca">
+            <select name="brand">
+                <option value="" selected>--Elige la Marca--</option>
+                <% brands.forEach(b =>{ %>
+                    <option value="<%=b.id%>"><%= b.name %></option>
+                <% }) %>
+            </select>
+            
             <input type="radio" name="gender" value="male" id="male">
             <label for="male">Masculino</label>
             <input type="radio" name="gender" value="female" id="female">
             <label for="female">Femenino</label>
+            <input type="radio" name="gender" value="unisex" id="unisex">
+            <label for="unisex">Unisex</label>
+
             <input type="text" name="description" placeholder="Descripción">
             
             <h4>Categoría del producto</h4>
-            <input type="radio" name="category_id" value="1" id="1">
-            <label for="1">Runner</label>
-            
-            <input type="radio" name="category_id" value="2" id="2">
-            <label for="2">Atletic</label>
-            
-            <input type="radio" name="category_id" value="3" id="3">
-            <label for="3">footbol</label>
-            
-            <input type="radio" name="category_id" value="4" id="4">
-            <label for="4">Tennis</label>
-            
-            <input type="radio" name="category_id" value="5" id="5">
-            <label for="5">Aire libre</label>
+            <select name="category_id">
+                <option value="" selected>--Elige la Categoría--</option>
+                <% category.forEach(c =>{ %>
+                    <option value="<%=c.category_id%>"><%= c.name %></option>
+                <% }) %>
+            </select>
             
             <h4>Seleccione el talle</h4>
             <input type="radio" id="talleS" name="size" value="S">
@@ -49,6 +50,7 @@
             
             <input type="number" name="price" placeholder="Precio">
             <input type="text" name="discount" placeholder="Descuento">
+            <input type="number" name="stock" placeholder="Stock">
             
             <input type="submit" value="Enviar">
         </form>

@@ -1,38 +1,33 @@
 module.exports = (sequelize, DataTypes) => {
     const Product = sequelize.define('Product', {
         id: {
-            type: DataTypes.INTEGER,
-            autoIncrement : true,
+            type: DataTypes.INTEGER.UNSIGNED,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            autoIncrement: true
         },
         name: {
             type: DataTypes.STRING(45),
             allowNull: false
         },
         price: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
         stock: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
         description: {
-            type: DataTypes.STRING(45),
+            type: DataTypes.STRING(150),
             allowNull: false
-        },
-        category: {
-            type: DataTypes.STRING(45),
-            allowNull: false
-        },
-      
+        },      
         gender: {
             type: DataTypes.STRING(45),
             allowNull: false
         },
         image: {
-            type: DataTypes.STRING(45),
+            type: DataTypes.STRING(150),
             allowNull: false
         },
         discount: {
@@ -44,12 +39,16 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         category_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: true
+        },
+        brand_id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: true
         }
     }, {
         tableName: 'product',
-        timestamps: false 
+        timestamps: true 
     });
 
     Product.associate = function (models) {
@@ -61,6 +60,13 @@ module.exports = (sequelize, DataTypes) => {
         Product.belongsTo(models.Brand, {
             foreignKey: 'brand_id', 
             as: 'productBrand'
+        });
+
+        Product.belongsToMany(models.User, {
+            through: models.Cart,
+            foreignKey: 'Product_id',
+            otherKey: 'userId',
+            as: 'cart'
         });
     };
 
