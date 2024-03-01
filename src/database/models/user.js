@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
@@ -20,32 +20,22 @@ module.exports = (sequelize, DataTypes) => {
         },
         rol: {
             type: DataTypes.STRING(45),
-            allowNull: false
+            allowNull: true
         },
         avatar: {
             type: DataTypes.STRING(45),
             allowNull: true // Nullable according to your SQL schema
-        },
-        carrito_userId: {
-            type: DataTypes.INTEGER,
-            allowNull: true // Nullable according to your SQL schema
-        },
-        carrito_Products_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true // Nullable according to your SQL schema
-        },
-        carrito_Products_category_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true // Nullable according to your SQL schema
         }
     }, {
         tableName: 'user',
-        timestamps: false // Assuming there are no timestamps columns
+        timestamps: true // Assuming there are no timestamps columns
     });
 
     User.associate = function(models) {
-        User.belongsTo(models.Cart, {
-            foreignKey: 'carrito_userId',
+        User.belongsToMany(models.Product, {
+            through: models.Cart,
+            foreignKey: 'userId',
+            otherKey: 'Product_id',
             as: 'cart'
         });
     };

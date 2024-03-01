@@ -3,16 +3,24 @@ module.exports = (sequelize, DataTypes) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            autoIncrement: true
         },
         name: {
             type: DataTypes.STRING(45),
-            allowNull: true // Nullable according to your SQL schema
+            allowNull: false // Nullable according to your SQL schema
         }
     }, {
         tableName: 'brand',
         timestamps: false // Assuming there are no timestamps columns
     });
+
+    Brand.associate = function (models) {
+        Brand.hasMany(models.Product, {
+            foreignKey: 'brand_id',
+            as: 'productBrand'
+        });
+    };
 
     return Brand;
 };

@@ -4,13 +4,12 @@ const localStorage = require("localStorage")
 const path = require('path')
 const fs = require('fs');
 const {getAllProducts} = require('../services/productServices')
+const db = require('../database/models'); 
 
 const controller = {
-    home: (req, res) => {
-      const productsFilePath = path.join(__dirname, '../data/product.json');
-      const productsData = fs.readFileSync(productsFilePath, 'utf-8');
-      const products = JSON.parse(productsData).products;
-        res.render("products/home", { products: products });
+    home: async(req, res) => {
+      const products = await getAllProducts()
+        res.render("products/home", { products });
       },
 
   login: (req, res) => {
@@ -31,10 +30,6 @@ const controller = {
     const products = getAllProducts() // Fetch products
     const selectedProduct = products.find((product) => product.id == id);
     res.render("products/shopping-cart.ejs", { selectedProduct, products });
-  },
-
-  createProduct: (req, res) => {
-    res.render("products/createProductForm.ejs");
   },
 
   addToCart: (req, res) => {

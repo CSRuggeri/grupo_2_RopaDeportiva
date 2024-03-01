@@ -1,78 +1,78 @@
 const { Console } = require('console');
 const fs = require('fs');
 const path = require('path');
-const {getAllProducts,getProductById,storeProduct} = require('../services/productServices')
+const {getAllProducts,getProductById,storeProduct, editProduct, destroyProductByPk} = require('../services/productServices')
+const db = require('../database/models'); 
+
 
 const productsFilePath = path.join(__dirname, '../data/product.json');
 
 const productController = {
   // Read - Show all products
-  index: (req,res) => {
-    const products = getAllProducts()
-    res.render('products/home', {products})
+  index: async (req,res) => {
+    try {
+      const products = await getAllProducts()
+      res.render('products/home', {products})
+    } catch (error) {
+      const products = []
+      res.render('products/home', {products})
+    }   
   },
   // Read - Show product details
-  detail: (req,res) =>{
-    const product = getProductById(req.params.id)
-    const products = getAllProducts()
+  detail: async (req,res) =>{
+    const product = await getProductById(req.params.id)
+    const products = await getAllProducts()
     const data = {
       id: req.params.id,
     };
-
+    console.log(product.image)
     res.render('products/detail',{product,products, data})
   },
  
-  store: (req, res) => {
-    const {id, msg} = storeProduct(req)
+  store: async (req, res) => {
+    const {id, msg} = await storeProduct(req)
     console.log(msg)
     res.redirect(`/products/${id}`);
   },
 
   // Update - Form to edit
-  edit: (req, res) => {
+  edit: async (req, res) => {
     const { id } = req.params;
-    const product = getProductById(id)
-    res.render('products/edit-product', { product });
+    const product = await getProductById(id)
+    const brands = await db.Brand.findAll()
+    const category = await db.Category.findAll()
+    res.render('products/edit-product', { product , brands, category});
   },
 
   // Update - Method to update
-  update: (req, res) => {
-    const { id } = req.params;
-    const products = getAllProducts()
-    const updatedProduct = req.body;
-    console.log(req.body)
-
-    // Find the index of the product to be updated
-    const index = products.findIndex((p) => p.id == id);
-
-    // Update the product in the array
-    products[index] = { id: id, ...updatedProduct };
-
-    // Write the updated products array back to the file
-    fs.writeFileSync(productsFilePath, JSON.stringify({ products }, null, 2), 'utf-8');
-
-    // Redirect to the product detail page after update
-    console.log('se actualizó el producto')
-    res.redirect(`/products/${id}`);
+  update: async (req, res) => {
+    try {
+      const {msg} = await editProduct(req)
+      console.log(msg)
+      res.redirect(`/products/${req.params.id}`);
+    } catch (error) {
+      console.log(error)
+      res.redirect(`/products/${req.params.id}/edit`)
+    }
   },
 
   // Delete - Delete one product from DB
-  destroy: (req, res) => {
-    const { id } = req.params;
-    let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
-    // Filter out the product to be deleted
-    products = products.filter((p) => p.id !== parseInt(id));
-
-    // Write the updated products array back to the file
-    fs.writeFileSync(productsFilePath, JSON.stringify({ products }, null, 2), 'utf-8');
-
-    // Redirect to the home page or any other page after deletion
-    res.redirect('/');
+  destroy: async (req, res) => {
+    try {
+      const Product = await destroyProductByPk(req.params.id)
+      console.log(Product)
+      res.redirect('/');
+      
+    } catch (error) {
+      console.log(error)
+      res.redirect(`/products/${req.params.id}`)
+    }
   },
 
-  createProduct: (req, res) => {
-    res.render("products/edit-product.ejs");
+  createProduct: async (req, res) => {
+    const brands = await db.Brand.findAll()
+    const category = await db.Category.findAll()
+    res.render("products/createProductForm.ejs", {brands, category});
   },
 };
 
