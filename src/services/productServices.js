@@ -21,8 +21,12 @@ const getProductById = async (id) => {
 
 const storeProduct = async (req) => {
     try {
-        const { name, description, price, discount, size, brand, category_id, gender } = req.body;
+        const { name, description, price, discount, size, brand, category_id, gender, stock} = req.body;
         const { filename } = req.file;
+
+        console.log(req.body)
+        console.log(req.file)
+
 
         // Validate required fields
         if (!category_id) {
@@ -50,7 +54,7 @@ const storeProduct = async (req) => {
             description,
             price,
             discount,
-            stock: 1, // Example value for stock, adjust as needed
+            stock, // Example value for stock, adjust as needed
             image: `/images/show/${filename}`,
             category_id,
             gender,
@@ -68,7 +72,69 @@ const storeProduct = async (req) => {
     }
 };
 
+const editProduct = async (req) => {
+    try {
+        const { name, description, price, discount, size, brand, category_id, gender, stock} = req.body;
+        const { filename } = req.file;
+
+        console.log(req.body)
+        console.log(req.file)
+
+
+        // Validate required fields
+        if (!category_id) {
+            throw new Error('Category ID is missing');
+        }
+        if (!gender) {
+            throw new Error('Gender is missing');
+        }
+
+        // Find brand by ID
+        const brandInstance = await db.Brand.findByPk(brand);
+        if (!brandInstance) {
+            throw new Error('Invalid brand');
+        }
+
+        // Find category by ID
+        const categoryInstance = await db.Category.findByPk(category_id);
+        if (!categoryInstance) {
+            throw new Error('Invalid category');
+        }
+
+        // Create the product using Sequelize
+        const editedProduct = await db.Product.update({
+            name,
+            description,
+            price,
+            discount,
+            stock, // Example value for stock, adjust as needed
+            image: `/images/show/${filename}`,
+            category_id,
+            gender,
+            size,
+            brand_id: brandInstance.id
+        }, {where: {id:req.params.id}});
+
+        return { msg: `Product ${req.params.id} created successfully`};
+    } catch (error) {
+        console.error('Error editing product:', error);
+        throw error;
+    }
+};
+
+const destroyProductByPk = async (id) => {
+    try {
+        const deletedProduct = await db.Product.findByPk(id)
+        db.Product.destroy({where:{id:id}})
+        return {msg: `Producto ${id} successfully removed`, deletedProduct}
+    } catch (error) {
+        throw error
+    }
+}
+    
+
+    
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct };
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk };

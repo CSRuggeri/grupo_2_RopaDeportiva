@@ -4,16 +4,18 @@ const fs = require ('fs')
 
 const multer = require('multer');
 
-const storage = multer.diskStorage({
+const storage = (folder) => multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, `./public/images/show`); // Set the destination folder for your images
+      cb(null, `./public/images/${folder}`); // Set the destination folder for your images
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + '-' + file.originalname); // Set a unique filename
     },
 });
   
-const upload = multer({ storage: storage });
+const uploadProduct = multer({ storage: storage('show') });
+const uploadAvatars = multer({ storage: storage('avatars') });
+
 
 // Remember me Middleware
 
@@ -29,4 +31,4 @@ let rememberMe = (req,res,next)=>{
     next();
 }
 
-module.exports = {upload, rememberMe}
+module.exports = {uploadProduct, uploadAvatars, rememberMe}

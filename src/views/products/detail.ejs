@@ -12,6 +12,9 @@
       <h3>Precio: $<%- product.price %></h3>
       <p><pre>Descuento: <%- product.discount %></pre></p>
       <a href="/products/<%= product.id %>/edit"><button>Editar producto</button></a>
+      <form action="/products/<%= product.id %>/delete?_method=DELETE" method="POST">
+        <button type="submit">Borrar producto</button>
+      </form>
     <% } else { %>
       <h1>No encontramos el producto: <%= data.id %></h1>
       <img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200px">

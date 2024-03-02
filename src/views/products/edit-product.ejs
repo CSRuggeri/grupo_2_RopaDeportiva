@@ -8,28 +8,27 @@
             <h2>Editá tu producto</h2>
           
             <input type="text" name="name" placeholder="Nombre del producto" value="<%= product.name %>">
-            <input type="text" name="brand" placeholder="Marca">
-            <input type="radio" name="gender" value="male" id="male" >
+            <select name="brand">
+                <option value="" selected>--Elige la Marca--</option>
+                <% brands.forEach(b =>{ %>
+                    <option value="<%=b.id%>" <% if(product.brand_id == b.id) {%>selected<% } %>><%= b.name %></option>
+                <% }) %>
+            </select>
+            <input type="radio" name="gender" value="male" id="male" <% if(product.gender =='male') {%>checked<% } %>>
             <label for="male">Masculino</label>
-            <input type="radio" name="gender" value="female" id="female">
+            <input type="radio" name="gender" value="female" id="female" <% if(product.gender =='female') {%>checked<% } %>>
             <label for="female">Femenino</label>
+            <input type="radio" name="gender" value="unisex" id="unisex" <% if(product.gender =='unisex') {%>checked<% } %>>
+            <label for="unisex">Unisex</label>
+
             <input type="text" name="description" placeholder="Descripción" value="<%= product.description %>">
               <h4>Categoría del producto</h4>
-              
-                <input type="radio" name="category" value="a" id="a" <% if(product.category =='a') {%>checked<% } %>>
-                <label for="a">Runner</label>
-            
-                <input type="radio" name="category" value="b" id="b" <% if(product.category =='b') {%>checked<% } %>>
-                <label for="b">Atletic</label>
-            
-                <input type="radio" name="category" value="c" id="c" <% if(product.category =='c') {%>checked<% } %>>
-                <label for="c">footbol</label>
-            
-                <input type="radio" name="category" value="d" id="d" <% if(product.category =='d') {%>checked<% } %>> 
-                <label for="d">Tennis</label>
-            
-                <input type="radio" name="category" value="e" id="e" <% if(product.category =='e') {%>checked<% } %>>
-                <label for="e">Aire libre</label>
+              <select name="category_id">
+                <option value="" selected>--Elige la Categoría--</option>
+                <% category.forEach(c =>{ %>
+                    <option value="<%=c.category_id%>" <% if(product.category_id == c.category_id) {%>selected<% } %>><%= c.name %></option>
+                <% }) %>
+                </select>
             
             <h4>Seleccione el talle</h4>
             
@@ -44,11 +43,14 @@
                 
                 <input type="radio" id="talleXL" name="talle" value="XL" <% if(product.size =='XL') {%>checked<% } %>>
                 <label for="talleXL">Talle XL</label>
+
                 <h4>Elegí una imagen para tu producto</h4>
                 <input type="file" name="image">
                 
                 <input type="number" name="price" placeholder="Precio" value="<%= product.price %>">
                 <input type="text" name="discount" placeholder="Descuento" value="<%= product.discount %>">
+                <input type="number" name="stock" placeholder="Stock" value="<%= product.stock %>">
+
             <input type="submit" value="Enviar">
         </form>
     </main>
