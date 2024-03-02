@@ -61,6 +61,7 @@ const productController = {
     try {
       const Product = await destroyProductByPk(req.params.id)
       console.log(Product)
+      fs.unlinkSync(path.join(__dirname+`/../../public${Product.deletedProduct.image}`))
       res.redirect('/');
       
     } catch (error) {
