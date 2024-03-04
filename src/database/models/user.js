@@ -10,12 +10,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(45),
             allowNull: false
         },
+        
         email: {
             type: DataTypes.STRING(45),
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING(45),
+            type: DataTypes.STRING(255),
             allowNull: false
         },
         rol: {
@@ -23,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         avatar: {
-            type: DataTypes.STRING(45),
+            type: DataTypes.STRING(255),
             allowNull: true // Nullable according to your SQL schema
         }
     }, {

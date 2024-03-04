@@ -3,40 +3,27 @@ const fs = require('fs');
 const path = require('path');
 const localStorage = require('localStorage');
 const bcrypt = require('bcrypt');
+const db = require('../database/models');
 
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
+
 const usersController = {
-  register: async (username, password, email, birthDate, address, profile, avatar) => {
+  register: async (name, password, email, birthDate, address, profile, avatar) => {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Mantenemos la lógica para leer y escribir en el archivo dentro del bloque try
-      const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-      const data = JSON.parse(usersData);
-
-      if (!Array.isArray(data.users)) {
-        console.error('Users is not an array:', data.users);
-        throw new Error('Internal Server Error');
-      }
-
-      const id = data.users.length + 1;
-
-      const newUser = {
-        id,
-        username,
+      // Create a new user in the database using Sequelize
+      const newUser = await db.User.create({
+        name,
         password: hashedPassword,
         email,
         birthDate,
         address,
         profile,
         avatar,
-      };
-    
-      data.users.push(newUser);
-    
-      fs.writeFileSync(usersFilePath, JSON.stringify(data, null, 2), 'utf-8');
-    
+      });
+
       return newUser;
     } catch (error) {
       console.error('Error al registrar usuario:', error);
@@ -44,43 +31,47 @@ const usersController = {
     }
   },
 
-  authenticate: async (username, password) => {
+  authenticate: async (email, password) => {
     try {
-      const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-      const users = JSON.parse(usersData).users;
-      const hashedPassword = await bcrypt.hash(password, 10);
+       
+        const user = await db.User.findOne({ where: { email } });
 
-      const user = users.find((u) => u.username === username && bcrypt.compare(u.password, hashedPassword));
-      
-      console.log('Found user:', user);
-      
-      return user;
+        if (!user) {
+            // User not found
+            return null;
+        }
+
+       
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            
+            return user;
+        } else {
+            
+            return null;
+        }
     } catch (error) {
-      console.error('Error al autenticar usuario:', error);
-      throw new Error('Internal Server Error');
+        console.error('Error al autenticar usuario:', error);
+        throw new Error('Internal Server Error');
     }
-  },
+},
 
   handleRegistration: async (req, res) => {
-    try {
-      const { username, password, email, birthDate, address, profile } = req.body;
-      const { filename } = req.file;
-
-      const newUser = await usersController.register(
-        username,
-        password,
-        email,
-        birthDate,
-        address,
-        profile,
-        `/images/show/${filename}`
-      );
-
-      res.redirect('/login');
-    } catch (error) {
-      console.error(error.message);
-      res.status(400).send(error.message);
-    }
+    const { name, password, email, birthDate, address, profile } = req.body;
+    const { filename } = req.file;
+  
+    const newUser = await usersController.register(
+      name,
+      password,
+      email,
+      birthDate,
+      address,
+      profile,
+      `/images/show/${filename}`
+    );
+  
+    res.redirect('/login');
   },
 
   getUserProfile: (req, res) => {
@@ -97,9 +88,9 @@ const usersController = {
 
   handleLogin: async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { email, password } = req.body;
 
-      const authenticatedUser = await usersController.authenticate(username, password);
+      const authenticatedUser = await usersController.authenticate(email, password);
 
         if (authenticatedUser) {
             // Save user information in localStorage
@@ -108,7 +99,7 @@ const usersController = {
             req.session.loggedUser = authenticatedUser;
             req.session.notLogged = undefined
             if (req.body.remember!=undefined){
-              res.cookie('remember',authenticatedUser.username,{maxAge: 100000})
+              res.cookie('remember',authenticatedUser.email,{maxAge: 100000})
               console.log(req.cookies.remember)
             }
             res.redirect('/users/dashboard');
@@ -120,6 +111,25 @@ const usersController = {
       res.status(500).send('Internal Server Error');
     }
   },
+
+  logout: (req, res) => {
+    try {
+        // Clear the user session
+        req.session.destroy();
+
+        // Clear user information from localStorage
+        localStorage.removeItem('USER_INFO');
+
+        // Clear remember cookie if set
+        res.clearCookie('remember');
+
+        // Redirect the user to the login page or any other page
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Error logging out:', error);
+        res.status(500).send('Internal Server Error');
+    }
+},
 };
 
 module.exports = usersController;

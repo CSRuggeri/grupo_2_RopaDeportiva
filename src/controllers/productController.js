@@ -5,7 +5,7 @@ const {getAllProducts,getProductById,storeProduct, editProduct, destroyProductBy
 const db = require('../database/models'); 
 
 
-const productsFilePath = path.join(__dirname, '../data/product.json');
+// const productsFilePath = path.join(__dirname, '../data/product.json');
 
 const productController = {
   // Read - Show all products
