@@ -42,10 +42,10 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `rol` VARCHAR(45) DEFAULT NULL,
-  `avatar` VARCHAR(45) DEFAULT NULL,
+  `avatar` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   

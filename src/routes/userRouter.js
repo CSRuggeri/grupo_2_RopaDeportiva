@@ -1,8 +1,8 @@
 const express = require('express');
 const usersRouter = express.Router();
 const usersController = require('../controllers/usersController');
-const multer = require('multer');
-
+const userService = require('../services/usersServices'); // Corregido el nombre del servicio de usuarios
+const multer = require('multer'); // Importado correctamente
 
 // Set up Multer storage
 const storage = multer.diskStorage({
@@ -16,14 +16,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
 // Ruta de registro
-usersRouter.post('/register', upload.single('avatar'), usersController.handleRegistration);
+usersRouter.post('/register', upload.single('avatar'), usersController.register);
 
 // Ruta de inicio de sesión
 usersRouter.post('/login', usersController.handleLogin);
-usersRouter.post("/logout", usersController.logout)
+usersRouter.post("/logout", usersController.logout);
+
 // Ruta del dashboard
 usersRouter.get('/dashboard', usersController.getUserProfile);
 

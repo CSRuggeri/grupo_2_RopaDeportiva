@@ -1,69 +1,81 @@
-// const fs = require('fs');
-// const path = require('path');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const localStorage = require('localStorage');
+const db = require ('../database/models')
 
-// const usersFilePath = path.join(__dirname, '../data/users.json');
+const userService = {
+  register: async (name, password, email, birthDate, address, profile, avatar) => {
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-// const userService = {
-//   register: async (username, password, email, birthDate, address, profile, avatar) => {
-//     try {
-//       const hashedPassword = await bcrypt.hash(password, 10);
+      // Create a new user in the database using Sequelize
+      const newUser = await db.User.create({
+        name,
+        password: hashedPassword,
+        email,
+        birthDate,
+        address,
+        profile,
+        avatar,
+      });
 
-//       const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-//       const data = JSON.parse(usersData);
+      console.log('User registered successfully:', newUser); // Agrega un registro de consola
 
-//       if (!Array.isArray(data.users)) {
-//         console.error('Users is not an array:', data.users);
-//         throw new Error('Internal Server Error');
-//       }
+      return newUser;
+    } catch (error) {
+      console.error('Error registering user:', error); // Agrega un registro de consola para capturar el error
+      throw new Error('Internal Server Error');
+    }
+  },
 
-//       const id = data.users.length + 1;
+  authenticate: async (email, password) => {
+    try {
+      const user = await db.User.findOne({ where: { email } });
 
-//       const newUser = {
-//         id,
-//         username,
-//         password: hashedPassword,
-//         email,
-//         birthDate,
-//         address,
-//         profile,
-//         avatar,
-//       };
+      if (!user) {
+        return null;
+      }
 
-//       data.users.push(newUser);
+      const passwordMatch = await bcrypt.compare(password, user.password);
 
-//       fs.writeFileSync(usersFilePath, JSON.stringify(data, null, 2), 'utf-8');
+      if (passwordMatch) {
+        return user;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error authenticating user:', error); // Agrega un registro de consola para capturar el error
+      throw new Error('Internal Server Error');
+    }
+  },
 
-//       return newUser;
-//     } catch (error) {
-//       console.error('Error al registrar usuario:', error);
-//       throw new Error('Internal Server Error');
-//     }
-//   },
+  saveUserSession: (req, user) => {
+    localStorage.setItem('USER_INFO', JSON.stringify(user));
+    req.session.loggedUser = user;
+    req.session.notLogged = undefined;
 
-//   authenticate: async (username, password) => {
-//     try {
-//       const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-//       const users = JSON.parse(usersData).users;
+    if (req.body.remember !== undefined) {
+      res.cookie('remember', user.email, { maxAge: 100000 });
+    }
+  },
 
-//       const user = users.find((u) => u.username === username);
+  logout: (req, res) => {
+    req.session.destroy();
+    localStorage.removeItem('USER_INFO');
+    res.clearCookie('remember');
+    res.redirect('/login');
+  },
 
-//       if (!user) {
-//         return null;
-//       }
+  getUserProfile: (req, res) => {
+    const user = req.session.loggedUser;
 
-//       const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!user) {
+      req.session.notLogged = 'No ha iniciado sesión';
+      res.redirect('/login');
+      return;
+    }
 
-//       if (!isPasswordValid) {
-//         return null;
-//       }
+    res.render('user/dashboard.ejs', { user });
+  },
+};
 
-//       return user;
-//     } catch (error) {
-//       console.error('Error al autenticar usuario:', error);
-//       throw new Error('Internal Server Error');
-//     }
-//   },
-// };
-
-// module.exports = userService;
+module.exports = userService;
