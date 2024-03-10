@@ -21,9 +21,12 @@ usersRouter.post('/register', upload.single('avatar'), usersController.register)
 
 // Ruta de inicio de sesión
 usersRouter.post('/login', usersController.handleLogin);
-usersRouter.post("/logout", usersController.logout);
+usersRouter.post('/logout', usersController.logout);
 
 // Ruta del dashboard
 usersRouter.get('/dashboard', usersController.getUserProfile);
+usersRouter.get('/:id/edit', usersController.edit);
+usersRouter.put('/:id', usersController.update);
+
 
 module.exports = usersRouter;

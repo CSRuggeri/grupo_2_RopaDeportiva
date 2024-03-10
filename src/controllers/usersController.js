@@ -44,17 +44,42 @@ const usersController = {
   },
 
   logout: (req, res) => {
+    console.log('Función de logout ejecutándose');
     try {
       userService.logout(req, res);
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error('Error al llamar a la función de logout:', error);
       res.status(500).send('Internal Server Error');
     }
   },
+  
 
   getUserProfile: (req, res) => {
     userService.getUserProfile(req, res);
   },
+  edit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await db.User.findByPk(id);
+      res.render('users/edit', { user });
+    } catch (error) {
+      console.error('Error al mostrar el formulario de edición de usuario:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  
+  update: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, email } = req.body;
+      await db.User.update({ name, email }, { where: { id } });
+      res.redirect('/users/dashboard');
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  
 };
 
 module.exports = usersController;
