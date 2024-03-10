@@ -20,7 +20,11 @@
                 <p>Fecha de nacimiento: <%= user.birthDate %></p>
                 <p>Dirección: <%= user.address %></p>
                 <p>Perfil: <%= user.profile %></p>
-                <button><a href="/logout">Logout</a></button>
+                <form action="/users/logout" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+                
+                
             </section>
         </div>
 
@@ -29,3 +33,4 @@
     <%- include('../partials/footer')%>
 </body>
 </html>
+

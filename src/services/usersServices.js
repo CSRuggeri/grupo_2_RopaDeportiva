@@ -58,12 +58,15 @@ const userService = {
   },
 
   logout: (req, res) => {
+    console.log('Función de logout ejecutándose');
     req.session.destroy();
     localStorage.removeItem('USER_INFO');
     res.clearCookie('remember');
+    console.log('Redireccionando a /login');
     res.redirect('/login');
   },
-
+  
+  
   getUserProfile: (req, res) => {
     const user = req.session.loggedUser;
 

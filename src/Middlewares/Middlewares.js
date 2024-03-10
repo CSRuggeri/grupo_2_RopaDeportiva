@@ -1,7 +1,5 @@
 const fs = require ('fs')
-
-// Multer middleware
-
+const db = require('../database/models');
 const multer = require('multer');
 
 const storage = (folder) => multer.diskStorage({
@@ -16,19 +14,20 @@ const storage = (folder) => multer.diskStorage({
 const uploadProduct = multer({ storage: storage('show') });
 const uploadAvatars = multer({ storage: storage('avatars') });
 
-
-// Remember me Middleware
-
-let rememberMe = (req,res,next)=>{
-    if (req.cookies.remember != undefined && req.session.loggedUser==undefined){
-      const usersFilePath = path.join(__dirname, './data/users.json');
-      const usersData =fs.readFileSync(usersFilePath, 'utf-8');
-      const users = JSON.parse(usersData).users;
-      const user = users.find((u) => u.username == req.cookies.remember );
-      req.session.loggedUser = user
-      console.log('se ha reestablecido la conexión')
+let rememberMe = async (req, res, next) => {
+  try {
+    if (req.cookies.remember && !req.session.loggedUser) {
+      const user = await db.User.findOne({ where: { username: req.cookies.remember } });
+      if (user) {
+        req.session.loggedUser = user;
+        console.log('Se ha restablecido la conexión');
+      }
     }
     next();
-}
+  } catch (error) {
+    console.error('Error al recuperar usuario:', error);
+    next(error); // Pasar el error al siguiente middleware o controlador de errores
+  }
+};
 
-module.exports = {uploadProduct, uploadAvatars, rememberMe}
+module.exports = { uploadProduct, uploadAvatars, rememberMe };
