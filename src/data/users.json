@@ -124,6 +124,24 @@
       "address": "8 de octubre",
       "profile": "sell",
       "avatar": ""
+    },
+    {
+      "id": 14,
+      "username": "santiruu",
+      "password": "$2b$10$iJsofzpzw1J/MG67W4FgSOqEE7C/zy4eazXFsjreZCRiv5vp4X8EG",
+      "email": "santiruu@gmail.com",
+      "address": "8 de octubre 363",
+      "profile": "buy",
+      "avatar": "/images/show/1709579844203-pefil profesional.JPG"
+    },
+    {
+      "id": 15,
+      "username": "panchitoxd",
+      "password": "$2b$10$ws1ynjnaYJuOHik86TXT6.wTdEPIL4U9ojqu9.Wh35UZ08WBa.EZG",
+      "email": "panchito@panchito.com",
+      "address": "xd 123",
+      "profile": "buy",
+      "avatar": "/images/show/1709579945331-pefil profesional.JPG"
     }
   ]
 }

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../partials/head')%>
+    <script src="js/registerValidations.js"></script>
 <body>
     <%- include('../partials/header')%> 
     <main class="register">
         <form action="/users/register" method="POST" class="form-register" enctype="multipart/form-data">
             <h2>Registrate en SportGO!</h2>
+            <% if(locals && locals.errores) { %>
+                <% errores.forEach(error => { %>
+                    <%= error.msg %>
+                <% }); %>
+            <% } %>
             <input type="text" name="name" placeholder="Nombre y apellido">
-            <input type="text" name="username" placeholder="Nombre de usuario">
+            <!-- <input type="text" name="username" placeholder="Nombre de usuario"> -->
             <input type="email" name="email" placeholder="E-mail">
             
             <label for="birth_date">Fecha de nacimiento</label>

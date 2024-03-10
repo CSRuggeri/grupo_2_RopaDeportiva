@@ -5,7 +5,7 @@ const {getAllProducts,getProductById,storeProduct, editProduct, destroyProductBy
 const db = require('../database/models'); 
 
 
-const productsFilePath = path.join(__dirname, '../data/product.json');
+// const productsFilePath = path.join(__dirname, '../data/product.json');
 
 const productController = {
   // Read - Show all products
@@ -25,7 +25,6 @@ const productController = {
     const data = {
       id: req.params.id,
     };
-    console.log(product.image)
     res.render('products/detail',{product,products, data})
   },
  
@@ -61,6 +60,7 @@ const productController = {
     try {
       const Product = await destroyProductByPk(req.params.id)
       console.log(Product)
+      fs.unlinkSync(path.join(__dirname+`/../../public${Product.deletedProduct.image}`))
       res.redirect('/');
       
     } catch (error) {

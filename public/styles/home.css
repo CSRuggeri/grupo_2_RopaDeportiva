@@ -11,9 +11,10 @@ body {
 
 header{
   width: 100%;
+  min-height: 10vh;
+  background-color: rgb(118 5 4);
 }
 nav {
-  background-color: rgb(118 5 4);
   overflow: hidden;
   display: flex;
   justify-content: space-evenly;
@@ -24,23 +25,42 @@ nav {
   flex-direction: row;
 }
 
-.logo{
+header nav div.logo {
   width: 25vh;
 }
-
-nav a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 16px;
-  display: inline-block;
-  background-color: #88888881;
-  border-radius: 9px;
-  transition: background-color 0.3s, color 0.3s
+header img{
+  width: 100%;
 }
 
-nav a:hover {
-  background-color: #ddd;
-  color: #760504
+header nav a.nav-buttons{
+  color: #f9f6ee;
+  text-decoration: none;
+  position: relative;
+  padding: 10px 16px;
+  display: inline-block;
+  transition: color 0.3s
+}
+
+header nav a.nav-buttons::before{
+  content:'';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0px;
+  left: 0px;
+  background: #ffffba;
+  transition: all 0.2s ease-in-out;
+  scale: 0 0;
+  visibility: hidden;
+}
+
+header nav a.nav-buttons:hover {
+  color: #ffffba;
+}
+
+header a.nav-buttons:hover::before {
+  visibility: visible;
+  scale: 1 1;
 }
 
 .search-bar {
@@ -52,6 +72,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  background-color: #fcfaf5;
 }
 .product-list{
   display: flex;
@@ -92,13 +113,15 @@ article img {
 div.description-box{
  display: flex;
  flex-direction: column;
- 
+}
 
-
+div.price-discounts{
+  display: flex;
+  flex-direction: row
 }
 
 article:hover {
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 10px rgba(118, 5, 4, 0.7);
 }
 .description {
   color: #666; /* Change the font color */

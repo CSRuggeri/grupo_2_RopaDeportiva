@@ -1,125 +1,108 @@
-// usersController.js
-const fs = require('fs');
-const path = require('path');
-const localStorage = require('localStorage');
 const bcrypt = require('bcrypt');
-
-const usersFilePath = path.join(__dirname, '../data/users.json');
+const db = require('../database/models');
+const userService = require('../services/usersServices'); // Importa el servicio de usuarios
+const {validationResult} = require('express-validator')
 
 const usersController = {
-  register: async (username, password, email, birthDate, address, profile, avatar) => {
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Mantenemos la lógica para leer y escribir en el archivo dentro del bloque try
-      const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-      const data = JSON.parse(usersData);
-
-      if (!Array.isArray(data.users)) {
-        console.error('Users is not an array:', data.users);
-        throw new Error('Internal Server Error');
-      }
-
-      const id = data.users.length + 1;
-
-      const newUser = {
-        id,
-        username,
-        password: hashedPassword,
-        email,
-        birthDate,
-        address,
-        profile,
-        avatar,
-      };
-    
-      data.users.push(newUser);
-    
-      fs.writeFileSync(usersFilePath, JSON.stringify(data, null, 2), 'utf-8');
-    
-      return newUser;
-    } catch (error) {
-      console.error('Error al registrar usuario:', error);
-      throw new Error('Internal Server Error');
+  login: (req, res) => {
+    if(req.session.loggedUser){
+      res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
     }
+    res.render("user/login.ejs", {user: req.session.loggedUser});
   },
 
-  authenticate: async (username, password) => {
-    try {
-      const usersData = fs.readFileSync(usersFilePath, 'utf-8');
-      const users = JSON.parse(usersData).users;
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const user = users.find((u) => u.username === username && bcrypt.compare(u.password, hashedPassword));
-      
-      console.log('Found user:', user);
-      
-      return user;
-    } catch (error) {
-      console.error('Error al autenticar usuario:', error);
-      throw new Error('Internal Server Error');
-    }
+  register: (req, res) => {
+    res.render("user/register.ejs", {user: req.session.loggedUser});
   },
 
-  handleRegistration: async (req, res) => {
+  handleRegister: async (req, res) => {
     try {
-      const { username, password, email, birthDate, address, profile } = req.body;
+      const errores = validationResult(req)
+
+      if(!errores.isEmpty()) {
+        console.log(errores)
+        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
+      } else{
+
+      const { name, password, email, birth_date, address, profile } = req.body;
       const { filename } = req.file;
 
-      const newUser = await usersController.register(
-        username,
+      const newUser = await userService.register(
+        name,
         password,
         email,
-        birthDate,
+        birth_date,
         address,
         profile,
-        `/images/show/${filename}`
+        `/images/avatars/${filename}`
       );
 
-      res.redirect('/login');
+     
+      res.redirect('/users/login');
+      }
     } catch (error) {
-      console.error(error.message);
-      res.status(400).send(error.message);
+      console.error('Error al registrar usuario:', error);
+      res.status(500).send('Internal Server Error');
     }
-  },
-
-  getUserProfile: (req, res) => {
-    const user = req.session.loggedUser;
-
-    if (!user) {
-      req.session.notLogged = 'No ha iniciado sesión';
-      res.redirect('/login');
-      return;
-    }
-
-    res.render("user/dashboard.ejs", { user });
   },
 
   handleLogin: async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { email, password } = req.body;
 
-      const authenticatedUser = await usersController.authenticate(username, password);
+      const authenticatedUser = await userService.authenticate(email, password);
 
-        if (authenticatedUser) {
-            // Save user information in localStorage
-            localStorage.setItem('USER_INFO', JSON.stringify(authenticatedUser));
-            console.log(localStorage.getItem("USER_INFO"));
-            req.session.loggedUser = authenticatedUser;
-            req.session.notLogged = undefined
-            if (req.body.remember!=undefined){
-              res.cookie('remember',authenticatedUser.username,{maxAge: 100000})
-              console.log(req.cookies.remember)
-            }
-            res.redirect('/users/dashboard');
-        } else {
-            res.status(401).send('Invalid credentials');
-        }
+      console.log(authenticatedUser)
+
+      if (authenticatedUser) {
+        userService.saveUserSession(req, authenticatedUser);
+        res.redirect(`/users/${authenticatedUser.id}/dashboard`);
+      } else {
+        res.status(401).send('Invalid credentials');
+      }
     } catch (error) {
-      console.error(error.message);
+      console.error('Error al autenticar usuario:', error);
       res.status(500).send('Internal Server Error');
     }
   },
+
+  logout: (req, res) => {
+    console.log('Función de logout ejecutándose');
+    try {
+      userService.logout(req, res);
+    } catch (error) {
+      console.error('Error al llamar a la función de logout:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+
+  getUserProfile: (req, res) => {
+    userService.getUserProfile(req, res);
+  },
+
+  edit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await db.User.findByPk(id);
+      res.render('users/edit', { user });
+    } catch (error) {
+      console.error('Error al mostrar el formulario de edición de usuario:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  
+  update: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, email } = req.body;
+      await db.User.update({ name, email }, { where: { id } });
+      res.redirect(`/users/${id}/dashboard`);
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  
 };
 
 module.exports = usersController;

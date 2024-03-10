@@ -22,5 +22,5 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
-    return Category;
+    return Category ;
 };
