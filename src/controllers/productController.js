@@ -25,7 +25,6 @@ const productController = {
     const data = {
       id: req.params.id,
     };
-    console.log(product.image)
     res.render('products/detail',{product,products, data})
   },
  

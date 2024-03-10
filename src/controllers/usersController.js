@@ -1,24 +1,46 @@
 const bcrypt = require('bcrypt');
 const db = require('../database/models');
 const userService = require('../services/usersServices'); // Importa el servicio de usuarios
+const {validationResult} = require('express-validator')
 
 const usersController = {
-  register: async (req, res) => {
+  login: (req, res) => {
+    let userSession = req.session.loggedUser
+    if(userSession){
+      res.redirect(`/${userSession.id}/dashboard`)
+    }
+    res.render("user/login.ejs");
+  },
+
+  register: (req, res) => {
+    res.render("user/register.ejs");
+  },
+
+  handleRegister: async (req, res) => {
     try {
-      const { name, password, email, birthDate, address, profile } = req.body;
+      const errores = validationResult(req)
+
+      if(!errores.isEmpty()) {
+        console.log(errores)
+        return res.render('user/register', {errores: errores.array()})
+      } else{
+
+      const { name, password, email, birth_date, address, profile } = req.body;
       const { filename } = req.file;
 
       const newUser = await userService.register(
         name,
         password,
         email,
-        birthDate,
+        birth_date,
         address,
         profile,
-        `/images/show/${filename}`
+        `/images/avatars/${filename}`
       );
 
-      res.redirect('/login');
+     
+      res.redirect('/users/login');
+      }
     } catch (error) {
       console.error('Error al registrar usuario:', error);
       res.status(500).send('Internal Server Error');
@@ -31,9 +53,11 @@ const usersController = {
 
       const authenticatedUser = await userService.authenticate(email, password);
 
+      console.log(authenticatedUser)
+
       if (authenticatedUser) {
         userService.saveUserSession(req, authenticatedUser);
-        res.redirect('/users/dashboard');
+        res.redirect(`/users/${authenticatedUser.id}/dashboard`);
       } else {
         res.status(401).send('Invalid credentials');
       }
