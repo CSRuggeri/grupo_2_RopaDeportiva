@@ -1,18 +1,17 @@
 <header>
     <nav>
         <div class="logo">
-            <image class="logo" src="/images/go-horizontal.png" alt="logo">
+            <a href="/"><image src="/images/go-horizontal.png" alt="logo"></a>
         </div>
         <form action="#" method="GET" class="search-bar">
             <input type="text" placeholder="Search...">
             <button type="submit">Search</button>
         </form>
-          <a href="/">Home</a>
-        <a href="/users/login">Login</a>
-          <a href="/users/register">Register</a>
-          <a href="/shopping-cart">Shopping Cart</a>
-          <a href="/products/create">Create</a>
-          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard">Profile</a> <% } %>
+          <a href="/users/login" class="nav-buttons">Login</a>
+          <a href="/users/register" class="nav-buttons">Register</a>
+          <a href="/shopping-cart" class="nav-buttons">Shopping Cart</a>
+          <a href="/products/create" class="nav-buttons">Create</a>
+          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard" class="nav-buttons">Profile</a> <% } %>
           
          
     </nav>

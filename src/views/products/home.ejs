@@ -14,9 +14,13 @@
                 <div class="main-article">
                   <img src="<%= product.image %>" alt="<%= product.name %>" >
                   <div class="description-box">
-                    <a href="/products/<%= product.id %>"><h4 class="description"><%= product.name %></h4></a>
-                    <p class="price">Precio: <%= product.price %></p>
-                    <p class="discount">Descuento:<%= product.discount %></p>
+                    <div>
+                      <a href="/products/<%= product.id %>"><h4 class="description"><%= product.name %></h4></a>
+                    </div>
+                    <div class="price-discounts">
+                      <p class="price"><%= product.price %></p>
+                      <p class="discount"><%= product.discount %></p>
+                    </div>
                   </div>   
                 </div>
               </article>
