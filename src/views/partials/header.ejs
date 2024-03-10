@@ -8,11 +8,12 @@
             <button type="submit">Search</button>
         </form>
           <a href="/">Home</a>
-        <a href="/login">Login</a>
-          <a href="/register">Register</a>
+        <a href="/users/login">Login</a>
+          <a href="/users/register">Register</a>
           <a href="/shopping-cart">Shopping Cart</a>
           <a href="/products/create">Create</a>
-          <a href="/users/dashboard">Profile</a>
+          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard">Profile</a> <% } %>
+          
          
     </nav>
 </header>

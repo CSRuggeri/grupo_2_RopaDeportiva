@@ -5,15 +5,14 @@ const {validationResult} = require('express-validator')
 
 const usersController = {
   login: (req, res) => {
-    let userSession = req.session.loggedUser
-    if(userSession){
-      res.redirect(`/${userSession.id}/dashboard`)
+    if(req.session.loggedUser){
+      res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
     }
-    res.render("user/login.ejs");
+    res.render("user/login.ejs", {user: req.session.loggedUser});
   },
 
   register: (req, res) => {
-    res.render("user/register.ejs");
+    res.render("user/register.ejs", {user: req.session.loggedUser});
   },
 
   handleRegister: async (req, res) => {
@@ -22,7 +21,7 @@ const usersController = {
 
       if(!errores.isEmpty()) {
         console.log(errores)
-        return res.render('user/register', {errores: errores.array()})
+        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
       } else{
 
       const { name, password, email, birth_date, address, profile } = req.body;
@@ -76,11 +75,11 @@ const usersController = {
       res.status(500).send('Internal Server Error');
     }
   },
-  
 
   getUserProfile: (req, res) => {
     userService.getUserProfile(req, res);
   },
+
   edit: async (req, res) => {
     try {
       const { id } = req.params;
@@ -97,7 +96,7 @@ const usersController = {
       const { id } = req.params;
       const { name, email } = req.body;
       await db.User.update({ name, email }, { where: { id } });
-      res.redirect('/users/dashboard');
+      res.redirect(`/users/${id}/dashboard`);
     } catch (error) {
       console.error('Error al actualizar el usuario:', error);
       res.status(500).send('Internal Server Error');

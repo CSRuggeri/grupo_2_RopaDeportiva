@@ -9,7 +9,7 @@ const db = require('../database/models');
 const controller = {
   home: async(req, res) => {
     const products = await getAllProducts()
-      res.render("products/home", { products });
+      res.render("products/home", { products , user: req.session.loggedUser});
   },
 
   pagos: (req, res) => {

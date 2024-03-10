@@ -65,24 +65,6 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   constraint `Product_FK` FOREIGN KEY (`Product_id`) REFERENCES `sportgodb`.`product` (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-select * from user;
-
-update user set rol = 'sell' where id=1;
-
-# INSERT INTO user (name, email, birthDate, password, rol, avatar)
-#VALUES 
-#('santi ruggeri', 'santiruu@gmail.com', ,'password123', 'admin', NULL),
-#('Jane Smith', 'jane.smith@example.com', ,'securepass', 'customer', NULL),
-#('Alice Johnson', 'alice.johnson@example.com', ,'pass123', 'customer', NULL),
-#('peponaXD', 'pepona@pepona.com', ,'hola123', 'customer', NULL),
-#('santiruu', 'santiruu@gmail.com', ,'lolapolola123', 'customer', NULL),
-#('pepitoXD', 'pepito@pepito.com', ,'hola123', 'customer', NULL),
-#('Franco1389', 'francoralbornoz.12@gmail.com', ,'hola123', 'customer', NULL),
-#('pepito123', 'jaja@gmail.com', ,'hola123', 'seller', NULL),
-#('tomi', 'tom95@gmail.com', ,'hola123', 'seller', NULL),
-#('tomillo', 'tom@gmail.com', ,'hola123', 'customer', NULL),
-#('95eltom', '95eltom95@gmail.com', ,'hola123', 'customer', NULL);
-
 INSERT INTO category (name)
 VALUES 
 ('Camisetas'),
