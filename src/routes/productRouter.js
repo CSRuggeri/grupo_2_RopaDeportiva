@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
 const {uploadProduct} = require('../Middlewares/Middlewares');
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
 // Validaciones
 const commonValidations = [
