@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const {uploadProduct} = require('../Middlewares/Middlewares')
+const {uploadProduct} = require('../Middlewares/Middlewares');
+const { body, validationResult } = require('express-validator');
+
+// Validaciones
+const commonValidations = [
+    body('name').trim().isLength({ min: 3 }).withMessage('El nombre debe tener al menos 3 caracteres'),
+  ];
 
 router.get('/', productController.index);
 router.get('/create', productController.createProduct);
