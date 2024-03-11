@@ -15,6 +15,7 @@ const commonValidations = [
   ];
 
 router.get('/', productController.index);
+
 router.get('/create', productController.createProduct);
 
 router.get("/:id", productController.detail);
@@ -42,7 +43,28 @@ router.post(
 
 
 router.get('/:id/edit', productController.edit)
-router.put('/:id/update', uploadProduct.single('image'), productController.update);
+
+router.put(
+    '/:id/update',
+    uploadProduct.single('image'),
+    commonValidations,
+    body('image').optional().isMimeType('image/*').withMessage('Solo se permiten imágenes'),
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+  
+      try {
+        await productController.update(req, res);
+        res.status(200).json({ message: 'Producto actualizado correctamente' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al actualizar el producto' });
+      }
+    }
+  );
+
 router.delete('/:id/delete', productController.destroy);
 
 module.exports = router
