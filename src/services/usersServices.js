@@ -51,7 +51,6 @@ const userService = {
   saveUserSession: (req, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
     req.session.loggedUser = user;
-    req.session.notLogged = undefined;
 
     if (req.body.remember !== undefined) {
       res.cookie('remember', user.email, { maxAge: 100000 });
@@ -73,7 +72,7 @@ const userService = {
 
     if (!user) {
       req.session.notLogged = 'No ha iniciado sesión';
-      res.redirect('/login');
+      res.redirect('/users/login');
       return;
     }
 

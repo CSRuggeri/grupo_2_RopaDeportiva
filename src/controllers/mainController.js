@@ -7,18 +7,9 @@ const {getAllProducts} = require('../services/productServices')
 const db = require('../database/models'); 
 
 const controller = {
-    home: async(req, res) => {
-      const products = await getAllProducts()
-        res.render("products/home", { products });
-      },
-
-  login: (req, res) => {
-    const mensajeError = req.session.notLogged
-    res.render("user/login.ejs", {mensajeError});
-  },
-
-  register: (req, res) => {
-    res.render("user/register.ejs");
+  home: async(req, res) => {
+    const products = await getAllProducts()
+      res.render("products/home", { products , user: req.session.loggedUser});
   },
 
   pagos: (req, res) => {
@@ -44,14 +35,7 @@ const controller = {
     req.session.cart.push(selectedProduct);
 
     res.redirect('/shopping-cart');
-  },
-
-  getUserProfile: (req, res) => {
-    const user = localStorage.getItem('USER_INFO');
-    const userInfo = user ? JSON.parse(user) : null;
-
-    res.render("user/dashboard.ejs", { user: userInfo });
-},
+  }
 };
 
 module.exports = controller;

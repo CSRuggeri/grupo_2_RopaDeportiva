@@ -2,7 +2,8 @@ const { Console } = require('console');
 const fs = require('fs');
 const path = require('path');
 const {getAllProducts,getProductById,storeProduct, editProduct, destroyProductByPk} = require('../services/productServices')
-const db = require('../database/models'); 
+const db = require('../database/models');
+const {validationResult} = require('express-validator')
 
 
 // const productsFilePath = path.join(__dirname, '../data/product.json');
@@ -25,11 +26,15 @@ const productController = {
     const data = {
       id: req.params.id,
     };
-    console.log(product.image)
     res.render('products/detail',{product,products, data})
   },
  
   store: async (req, res) => {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    } 
+    
     const {id, msg} = await storeProduct(req)
     console.log(msg)
     res.redirect(`/products/${id}`);
@@ -46,6 +51,10 @@ const productController = {
 
   // Update - Method to update
   update: async (req, res) => {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
     try {
       const {msg} = await editProduct(req)
       console.log(msg)

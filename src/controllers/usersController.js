@@ -1,24 +1,45 @@
 const bcrypt = require('bcrypt');
 const db = require('../database/models');
 const userService = require('../services/usersServices'); // Importa el servicio de usuarios
+const {validationResult} = require('express-validator')
 
 const usersController = {
-  register: async (req, res) => {
+  login: (req, res) => {
+    if(req.session.loggedUser){
+      res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
+    }
+    res.render("user/login.ejs", {user: req.session.loggedUser});
+  },
+
+  register: (req, res) => {
+    res.render("user/register.ejs", {user: req.session.loggedUser});
+  },
+
+  handleRegister: async (req, res) => {
     try {
-      const { name, password, email, birthDate, address, profile } = req.body;
+      const errores = validationResult(req)
+
+      if(!errores.isEmpty()) {
+        console.log(errores)
+        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
+      } else{
+
+      const { name, password, email, birth_date, address, profile } = req.body;
       const { filename } = req.file;
 
       const newUser = await userService.register(
         name,
         password,
         email,
-        birthDate,
+        birth_date,
         address,
         profile,
-        `/images/show/${filename}`
+        `/images/avatars/${filename}`
       );
 
-      res.redirect('/login');
+     
+      res.redirect('/users/login');
+      }
     } catch (error) {
       console.error('Error al registrar usuario:', error);
       res.status(500).send('Internal Server Error');
@@ -31,9 +52,11 @@ const usersController = {
 
       const authenticatedUser = await userService.authenticate(email, password);
 
+      console.log(authenticatedUser)
+
       if (authenticatedUser) {
         userService.saveUserSession(req, authenticatedUser);
-        res.redirect('/users/dashboard');
+        res.redirect(`/users/${authenticatedUser.id}/dashboard`);
       } else {
         res.status(401).send('Invalid credentials');
       }
@@ -52,11 +75,11 @@ const usersController = {
       res.status(500).send('Internal Server Error');
     }
   },
-  
 
   getUserProfile: (req, res) => {
     userService.getUserProfile(req, res);
   },
+
   edit: async (req, res) => {
     try {
       const { id } = req.params;
@@ -73,7 +96,7 @@ const usersController = {
       const { id } = req.params;
       const { name, email } = req.body;
       await db.User.update({ name, email }, { where: { id } });
-      res.redirect('/users/dashboard');
+      res.redirect(`/users/${id}/dashboard`);
     } catch (error) {
       console.error('Error al actualizar el usuario:', error);
       res.status(500).send('Internal Server Error');

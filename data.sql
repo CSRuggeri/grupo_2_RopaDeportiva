@@ -42,9 +42,11 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) NOT NULL,
+  `birthDate` DATETIME NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `rol` VARCHAR(45) DEFAULT NULL,
+  `profile` VARCHAR(45) DEFAULT NULL,
   `avatar` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -62,20 +64,6 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   constraint `userId_FK` FOREIGN KEY (`userId`) REFERENCES `sportgodb`.`user` (`id`),
   constraint `Product_FK` FOREIGN KEY (`Product_id`) REFERENCES `sportgodb`.`product` (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO user (name, email, password, rol, avatar)
-VALUES 
-('santi ruggeri', 'santiruu@gmail.com', 'password123', 'admin', NULL),
-('Jane Smith', 'jane.smith@example.com', 'securepass', 'customer', NULL),
-('Alice Johnson', 'alice.johnson@example.com', 'pass123', 'customer', NULL),
-('peponaXD', 'pepona@pepona.com', 'hola123', 'customer', NULL),
-('santiruu', 'santiruu@gmail.com', 'lolapolola123', 'customer', NULL),
-('pepitoXD', 'pepito@pepito.com', 'hola123', 'customer', NULL),
-('Franco1389', 'francoralbornoz.12@gmail.com', 'hola123', 'customer', NULL),
-('pepito123', 'jaja@gmail.com', 'hola123', 'seller', NULL),
-('tomi', 'tom95@gmail.com', 'hola123', 'seller', NULL),
-('tomillo', 'tom@gmail.com', 'hola123', 'customer', NULL),
-('95eltom', '95eltom95@gmail.com', 'hola123', 'customer', NULL);
 
 INSERT INTO category (name)
 VALUES 

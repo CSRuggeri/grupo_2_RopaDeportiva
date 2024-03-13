@@ -10,7 +10,7 @@ const mainRouter = require('./routes/mainRouter');
 const productRouter = require('./routes/productRouter');
 const usersRouter = require('./routes/userRouter');  
 
-const {upload, rememberMe} = require('./Middlewares/Middlewares')
+const {rememberMe} = require('./Middlewares/Middlewares')
 
 // Set up EJS view engine
 app.set('view engine', 'ejs');
@@ -48,5 +48,3 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
-module.exports = upload;
