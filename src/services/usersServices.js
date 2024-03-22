@@ -63,7 +63,7 @@ const userService = {
     localStorage.removeItem('USER_INFO');
     res.clearCookie('remember');
     console.log('Redireccionando a /login');
-    res.redirect('/login');
+    res.redirect('/users/login');
   },
   
   
