@@ -84,6 +84,16 @@ const productController = {
     const category = await db.Category.findAll()
     res.render("products/createProductForm.ejs", {brands, category});
   },
+
+  getAllProductsAPI: async (req, res) =>{
+    try {
+      const products = await getAllProducts()
+      res.json(products)
+    } catch (error) {
+      const products = []
+      res.status(400).json(products)
+    }   
+  },
 };
 
 module.exports = productController;

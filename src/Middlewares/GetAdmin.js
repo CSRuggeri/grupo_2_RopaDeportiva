@@ -1,6 +1,6 @@
 const db = require('../database/models');
  const isAdmin =  (req, res, next) => {
-   const admin= req.session.loggedUser.admin
+   const admin= req.session.loggedUser?.admin
       if (admin=== 1) {
        
        next()

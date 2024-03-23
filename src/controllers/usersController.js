@@ -102,7 +102,19 @@ const usersController = {
       res.status(500).send('Internal Server Error');
     }
   },
-  
+
+  /*api*/
+
+  getAllUsersAPI: async (req, res) =>{
+    try {
+      const users = await userService.getAll()
+      res.json(users)
+    } catch (error) {
+      const users = []
+      res.status(400).json(users)
+    }   
+  },
+
 };
 
 module.exports = usersController;
