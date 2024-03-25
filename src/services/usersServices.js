@@ -63,7 +63,7 @@ const userService = {
     localStorage.removeItem('USER_INFO');
     res.clearCookie('remember');
     console.log('Redireccionando a /login');
-    res.redirect('/login');
+    res.redirect('/users/login');
   },
   
   
@@ -78,6 +78,16 @@ const userService = {
 
     res.render('user/dashboard.ejs', { user });
   },
+
+  
+ getAll : async () => {
+  try {
+      return await db.User.findAll();
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+  }
+}
 };
 
 module.exports = userService;

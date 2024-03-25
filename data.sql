@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `password` VARCHAR(255) NOT NULL,
   `profile` VARCHAR(45) DEFAULT NULL,
   `avatar` VARCHAR(255) DEFAULT NULL,
+  `admin` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   

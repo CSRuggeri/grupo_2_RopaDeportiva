@@ -29,4 +29,8 @@ usersRouter.get('/:id/edit', usersController.edit);
 usersRouter.put('/:id', usersController.update);
 
 
+/*api*/
+
+usersRouter.get("/api/users", usersController.getAllUsersAPI)
+
 module.exports = usersRouter;

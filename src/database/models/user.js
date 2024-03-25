@@ -32,11 +32,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         avatar: {
             type: DataTypes.STRING(255),
-            allowNull: true // Nullable according to your SQL schema
+            allowNull: true 
+        },
+        admin: {
+            type: DataTypes.TINYINT(1),
+            
         }
     }, {
         tableName: 'user',
-        timestamps: true // Assuming there are no timestamps columns
+        timestamps: true 
     });
 
     User.associate = function(models) {
