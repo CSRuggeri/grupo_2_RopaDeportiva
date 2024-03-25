@@ -94,6 +94,18 @@ const productController = {
       res.status(400).json(products)
     }   
   },
+
+  createProductAPI: async(req,res )=>{
+    try{
+const newProduct = await storeProduct(req)
+    console.log(newProduct.msg)
+      res.json(newProduct)
+    }catch (error) {
+      res.status(400).json("creation failed")
+    }
+    
+    
+  }
 };
 
 module.exports = productController;

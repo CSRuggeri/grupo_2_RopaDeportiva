@@ -19,6 +19,10 @@ const commonValidations = [
 router.get('/', productController.index);
 
 router.get('/create',isLoggedIn, productController.createProduct);
+/*api*/
+router.get("/api", productController.getAllProductsAPI)
+router.post('/api',uploadProduct.single('image'), 
+commonValidations, productController.createProductAPI)  
 
 router.get("/:id", productController.detail);
 
@@ -41,8 +45,7 @@ router.put(
 
 router.delete('/:id/delete', productController.destroy);
 
-/*api*/
-router.get("/api/products", productController.getAllProductsAPI)
+
 
 
 
