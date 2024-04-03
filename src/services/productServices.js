@@ -19,14 +19,28 @@ const getProductById = async (id) => {
     }
 };
 
+class Product {
+    constructor(name, description, price, discount, size, brand_id, category_id, gender, stock, image) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
+        this.size = size;
+        this.brand_id = brand_id;
+        this.category_id = category_id;
+        this.gender = gender;
+        this.stock = stock;
+        this.image = image;
+    }
+}
+
 const storeProduct = async (req) => {
     try {
-        const { name, description, price, discount, size, brand, category_id, gender, stock} = req.body;
+        const { name, description, price, discount, size, brand, category_id, gender, stock } = req.body;
         const { filename } = req.file;
 
         console.log(req.body)
         console.log(req.file)
-
 
         // Validate required fields
         if (!category_id) {
@@ -48,24 +62,23 @@ const storeProduct = async (req) => {
             throw new Error('Invalid category');
         }
 
-        // Create the product using Sequelize
-        const newProduct = await db.Product.create({
+        // Create a new Product instance
+        const newProduct = new Product(
             name,
             description,
             price,
             discount,
-            stock, // Example value for stock, adjust as needed
-            image: `/images/show/${filename}`,
+            size,
+            brand,
             category_id,
             gender,
-            size,
-            brand_id: brandInstance.id
-        }, {
-            // Exclude the 'id' field from being inserted
-            fields: ['name', 'description', 'price', 'discount', 'stock', 'image', 'category_id', 'gender', 'size', 'brand_id']
-        });
+            stock,
+            `/images/show/${filename}`
+        );
 
-        return { msg: `Product ${newProduct.id} created successfully`, id: newProduct.id };
+        await db.Product.create(newProduct);
+
+        return { msg: `Product created successfully`, id: newProduct.id }; // Assuming newProduct has an id property
     } catch (error) {
         console.error('Error creating product:', error);
         throw error;

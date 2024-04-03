@@ -18,14 +18,30 @@ const usersController = {
   handleRegister: async (req, res) => {
     try {
       const errores = validationResult(req)
-
+      let emailVerification = await userService.findUserByEmail(req.body.email)
+      if(emailVerification){
+        errores.errors.push({
+          type:'field',
+          value:`${req.body.email}`,
+          msg: 'El email ingresado ya existe',
+          path: 'email',
+          location: 'body'
+        })
+      }
+      console.log(req.body)
       if(!errores.isEmpty()) {
-        console.log(errores)
-        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
+        return res.render('user/register', {errores: errores.mapped(), oldData: req.body})
       } else{
 
       const { name, password, email, birth_date, address, profile } = req.body;
-      const { filename } = req.file;
+      let filename;
+      if(req.file) {
+        filename = req.file.filename
+      } else {
+        filename = 'default-pfp.png'
+      }
+      
+      console.log(req.file)
 
       const newUser = await userService.register(
         name,
@@ -102,7 +118,19 @@ const usersController = {
       res.status(500).send('Internal Server Error');
     }
   },
-  
+
+  /*api*/
+
+  getAllUsersAPI: async (req, res) =>{
+    try {
+      const users = await userService.getAll()
+      res.json(users)
+    } catch (error) {
+      const users = []
+      res.status(400).json(users)
+    }   
+  },
+
 };
 
 module.exports = usersController;

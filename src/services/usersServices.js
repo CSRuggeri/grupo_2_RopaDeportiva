@@ -48,6 +48,10 @@ const userService = {
     }
   },
 
+  findUserByEmail: async (email) =>{
+    return await db.User.findOne({ where: { email } })
+  },
+
   saveUserSession: (req, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
     req.session.loggedUser = user;
@@ -63,7 +67,7 @@ const userService = {
     localStorage.removeItem('USER_INFO');
     res.clearCookie('remember');
     console.log('Redireccionando a /login');
-    res.redirect('/login');
+    res.redirect('/users/login');
   },
   
   
@@ -78,6 +82,16 @@ const userService = {
 
     res.render('user/dashboard.ejs', { user });
   },
+
+  
+ getAll : async () => {
+  try {
+      return await db.User.findAll();
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+  }
+}
 };
 
 module.exports = userService;

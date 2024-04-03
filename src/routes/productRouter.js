@@ -3,6 +3,8 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 const {uploadProduct} = require('../Middlewares/Middlewares');
 const { body } = require('express-validator');
+const isAdmin = require ('../Middlewares/GetAdmin');
+const isLoggedIn = require('../Middlewares/isLoggedIn');
 
 // Validaciones
 const commonValidations = [
@@ -16,7 +18,11 @@ const commonValidations = [
 
 router.get('/', productController.index);
 
-router.get('/create', productController.createProduct);
+router.get('/create',isLoggedIn, productController.createProduct);
+/*api*/
+router.get("/api", productController.getAllProductsAPI)
+router.post('/api',uploadProduct.single('image'), 
+commonValidations, productController.createProductAPI)  
 
 router.get("/:id", productController.detail);
 
@@ -38,5 +44,9 @@ router.put(
   );
 
 router.delete('/:id/delete', productController.destroy);
+
+
+
+
 
 module.exports = router

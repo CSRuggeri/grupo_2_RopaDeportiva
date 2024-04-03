@@ -82,8 +82,30 @@ const productController = {
   createProduct: async (req, res) => {
     const brands = await db.Brand.findAll()
     const category = await db.Category.findAll()
-    res.render("products/createProductForm.ejs", {brands, category});
+    res.render("products/createProductForm.ejs", {brands, category, user: req.session.loggedUser});
   },
+
+  getAllProductsAPI: async (req, res) =>{
+    try {
+      const products = await getAllProducts()
+      res.json(products)
+    } catch (error) {
+      const products = []
+      res.status(400).json(products)
+    }   
+  },
+
+  createProductAPI: async(req,res )=>{
+    try{
+const newProduct = await storeProduct(req)
+    console.log(newProduct.msg)
+      res.json(newProduct)
+    }catch (error) {
+      res.status(400).json("creation failed")
+    }
+    
+    
+  }
 };
 
 module.exports = productController;

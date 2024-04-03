@@ -1,17 +1,20 @@
 <header>
-    <nav>
+    
         <div class="logo">
             <a href="/"><image src="/images/go-horizontal.png" alt="logo"></a>
         </div>
         <form action="#" method="GET" class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button type="submit">Search</button>
+            <input type="text" placeholder="Buscar...">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
-          <a href="/users/login" class="nav-buttons">Login</a>
-          <a href="/users/register" class="nav-buttons">Register</a>
-          <a href="/shopping-cart" class="nav-buttons">Shopping Cart</a>
-          <a href="/products/create" class="nav-buttons">Create</a>
-          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard" class="nav-buttons">Profile</a> <% } %>
+    <div class="menu-button"><button><span class="material-symbols-outlined">menu</span></button></div>
+    
+    <nav>
+          <% if(!locals.user) { %><a href="/users/login" class="nav-buttons">Iniciar sesión</a><% } %>
+          <% if(!locals.user) { %><a href="/users/register" class="nav-buttons">Registrarse</a><% } %>
+          <% if(locals && locals.user) { %><a href="/products/create" class="nav-buttons">Publicar producto</a><% } %>
+          <a href="/shopping-cart" class="nav-buttons"><i class="fa-solid fa-cart-shopping"></i></a>
+          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard" class="nav-buttons"><i class="fa-solid fa-user"></i></a> <% } %>
           
          
     </nav>

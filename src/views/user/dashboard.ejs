@@ -5,27 +5,34 @@
 <body>
     <%- include('../partials/header')%>  
 
-    <main className="dashboard">
-        <h1>Welcome to Your Dashboard, <%= user.username%></h1>
+    <main class="dashboard">
+        <div class="white-bkg">
+            <h1>Welcome to Your Dashboard, <%= user.name%></h1>
+            <div class="dashboard">
+                <section class="dashboard-section image-section">
+                    <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
+                    <!-- Add more user-related information as needed -->
+                </section>
+                <section class="dashboard-section user-description">
+                    <h2>Detalles de usuario</h2>
+                    <p>Email: <%= user.email %></p>
+                    <p>Fecha de nacimiento: <%= user.birthDate %></p>
+                    <p>Dirección: <%= user.address %></p>
+                    <p>Perfil: <%= user.profile %></p>
+                    <form action="/users/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    
+                    
+                </section>
+            </div>
+            
+        </div>
+        
 
         <!-- Add other dashboard content here -->
         <div class="dashboard">
-            <section class="dashboard-section image-section">
-                <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
-                <!-- Add more user-related information as needed -->
-            </section>
-            <section class="dashboard-section">
-                <h2>Detalles de usuario</h2>
-                <p>Email: <%= user.email %></p>
-                <p>Fecha de nacimiento: <%= user.birthDate %></p>
-                <p>Dirección: <%= user.address %></p>
-                <p>Perfil: <%= user.profile %></p>
-                <form action="/users/logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
-                
-                
-            </section>
+            
         </div>
 
     </main>
