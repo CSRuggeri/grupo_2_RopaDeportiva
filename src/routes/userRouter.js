@@ -3,7 +3,8 @@ const usersRouter = express.Router();
 const usersController = require('../controllers/usersController');
 const userService = require('../services/usersServices'); // Corregido el nombre del servicio de usuarios
 const {uploadAvatars} = require('../Middlewares/Middlewares')
-const {body} = require('express-validator')
+const {body} = require('express-validator');
+const isAdmin = require('../Middlewares/GetAdmin');
 
 const registerValidations = [
     body('name').notEmpty().withMessage('Debe ingresar su nombre'),
@@ -24,7 +25,7 @@ usersRouter.post('/login', usersController.handleLogin);
 usersRouter.post('/logout', usersController.logout);
 
 // Ruta del dashboard
-usersRouter.get('/:id/dashboard', usersController.getUserProfile);
+usersRouter.get('/:id/dashboard', isAdmin, usersController.getUserProfile);
 usersRouter.get('/:id/edit', usersController.edit);
 usersRouter.put('/:id', usersController.update);
 

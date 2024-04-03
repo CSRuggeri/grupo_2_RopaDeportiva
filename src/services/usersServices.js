@@ -40,7 +40,7 @@ const userService = {
       if (passwordMatch) {
         return user;
       } else {
-        return null;
+        return console.error("Contraseña incorrecta");
       }
     } catch (error) {
       console.error('Error authenticating user:', error); // Agrega un registro de consola para capturar el error
