@@ -6,16 +6,30 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="login">
-        
-        <form action="/users/login" method="POST" class="form-login">
+
+        <form class="login-form white-bkg" action="/users/login" method="POST">
+            <h1>Iniciar sesión</h1>
+            <div class="input">
+                <input type="text" name="email" id="email" placeholder=" ">
+                <label for="email" class="input-label">E-mail</label>
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+            </div>
+            <div class="input">
+                <input type="password" id="password" name="password" placeholder=" " class="login-password">
+                <label for="password">Password</label>
+                <span class="material-symbols-outlined login-pass-icon">visibility</span>
+            </div>
+            <div class="check">
+                <input type="checkbox" name="remember" id="remember">
+                <label for="remember">Recuerdame</label>
+            </div>
+            <button type="submit" class="submit-button">Iniciar sesión</button>
+        </form>
             <!-- <% if(locals.mensajeError) { %>
                 <p><%= mensajeError %></p>
             <% } %> -->
-            <label for="email">email:</label>
-            <input type="text" name="email" id="email" >
-        
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
 <!--             
            
             <% if (typeof error !== 'undefined') { %>
@@ -24,13 +38,6 @@
             <% if (typeof success !== 'undefined') { %>
                 <p class="success-message"><%= success %></p>
             <% } %> -->
-
-            <label for="remember">Recuerdame</label>
-            <input type="checkbox" name="remember" id="remember">
-
-            <button type="submit">Login</button>
-        </form>
-    </main>
     <%- include('../partials/footer')%>
 </body>
 </html>

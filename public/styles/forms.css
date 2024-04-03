@@ -1,0 +1,109 @@
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.registro{
+    margin: 10vh;
+}
+.register-column{
+    width: 50%;
+    min-height: 400px;
+    padding-inline:3%
+}
+div.profile div{
+    align-content: start;
+    text-align: start;
+}
+
+img.pfp-preview {
+    width: 40%;
+    border-radius: 50%;
+    background-color: white;
+    aspect-ratio: 1 / 1;
+    object-fit:contain;
+}
+.form-width{
+    width: 60%;
+    text-align: center;
+    align-content: center;
+}
+.register-form{
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+.avatar-input {
+    display: none;
+}
+div.img{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.bd-label{
+    color: #0B1320;
+}
+.min-height{
+    min-height: 230px
+}
+
+/* login form */
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    aspect-ratio: 1 / 1;
+    background-color: white;
+    margin: 5%;
+    border-radius: 10px;
+    font-size: 2vw;
+}
+.login-form h1{
+    margin: 2vw;
+    font-size: 2rem;
+    color:#0B1320
+}
+
+@media screen and (min-width: 426px) and (max-width : 1023px){
+    .form-width{
+        width: 90%;
+    }
+    .login-form{
+        width: 50%;
+    }
+    .login-form h1{
+        margin-top: 6%;
+        font-size: 1.7rem;
+    }
+    .login-form button{
+        margin-bottom: 6%;
+    }
+}
+@media screen and (min-width: 0px) and (max-width : 425px){
+    .form-width{
+        width: 100%;
+    }
+    .register-form{
+        flex-direction: column;
+    }
+    .register-column{
+        width: 90%;
+        min-height:auto
+    }
+    .min-height{
+        min-height: auto;
+    }
+    .login-form{
+        width: 90%;
+        padding: 10px;    
+    }
+}
+

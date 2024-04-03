@@ -5,39 +5,90 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="register">
-        <form action="/users/register" method="POST" class="form-register" enctype="multipart/form-data">
-            <h2>Registrate en SportGO!</h2>
-            <% if(locals && locals.errores) { %>
-                <% errores.forEach(error => { %>
-                    <%= error.msg %>
-                <% }); %>
-            <% } %>
-            <input type="text" name="name" placeholder="Nombre y apellido">
-            <!-- <input type="text" name="username" placeholder="Nombre de usuario"> -->
-            <input type="email" name="email" placeholder="E-mail">
-            
-            <label for="birth_date">Fecha de nacimiento</label>
-            <input type="date" name="birth_date" id="birth_date">
-            
-            <input type="text" name="address" placeholder="Domicilio">
-            
-            <h4>Perfil del usuario</h4>
-            <div class="profile">
-                <input type="radio" name="profile" value="buy" id="buy">
-                <label for="buy">Cliente</label>
-                
-                <input type="radio" name="profile" value="sell" id="sell">
-                <label for="sell">Vendedor</label>
+        <form action="/users/register" method="POST" class="white-bkg form-width registro" enctype="multipart/form-data">
+            <h1>Crea una cuenta en SportGo!</h1>
+            <div class="register-form">
+                <div class="flex-column register-column">
+                    <div class="img min-height">
+                        <h4>Elegí tu foto de usuario</h4>
+                        <img src="/images/avatars/default-pfp.png" alt="Imagen default" class="pfp-preview">
+                        <input type="file" name="avatar" id="avatar" class="avatar-input">
+                        <label for="avatar" class="pfp-label submit-button">Elegir imagen</label>
+                    </div>
+                    <p class="error-msg avatar-error hidden"><span class="material-symbols-outlined error-span ">error</span></p>
+                    <div class="input">
+                        <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                        <label for="name">Nombre y apellido</label>
+                        <span class="material-symbols-outlined">person</span>  
+                    </div>                  
+                    <p class="error-msg name-error <% if(!locals.errores || !errores.name) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span ">error</span> 
+                        <% if(locals.errores && errores.name) { %><%= errores.name.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="text" name="email" id="email" placeholder=" " class="<% if(locals.errores && errores.email) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.email) {%><%=oldData.email  %><% } %>">
+                        <label for="email" class="input-label">E-mail</label>
+                        <span class="material-symbols-outlined">
+                            mail
+                        </span>
+                    </div>                    
+                    <p class="error-msg email-error <% if(!locals.errores || !errores.email) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                        <% if(locals.errores && errores.email) { %><%= errores.email.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="text" name="address" id="address" placeholder=" " value="<% if(locals.oldData && oldData.address) {%><%=oldData.address  %><% } %>">
+                        <label for="address" class="input-label">Dirección</label>
+                        <span class="material-symbols-outlined">
+                            home
+                        </span>
+                    </div>
+                </div>
+                <div class="flex-column register-column">
+                    <div class="min-height">
+                        <label for="birth_date" class="bd-label"><h4>Fecha de nacimiento</h4></label>
+                        <input type="date" name="birth_date" id="birth_date" class="dateinput" value="<% if(locals.oldData && oldData.birth_date) {%><%=oldData.birth_date  %><% } %>">
+                        <p class="error-msg date-error <% if(!locals.errores || !errores.birth_date) { %>hidden<% } %>">
+                            <span class="material-symbols-outlined error-span">error</span>
+                            Debe colocar su fecha de nacimiento
+                        </p>
+                        <h4>Perfil del usuario</h4>
+                        <div class="profile">
+                            <div>
+                                <input type="radio" name="profile" value="buy" id="buy" <% if(locals.oldData && oldData.profile == 'buy') {%><%= checked %><% } %>>
+                                <label for="buy" class="radio-label">Cliente</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="profile" value="sell" id="sell" <% if(locals.oldData && oldData.profile == 'sell') {%><%= checked %><% } %>>
+                                <label for="sell" class="radio-label">Vendedor</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input">
+                        <input type="password" id="password" name="password" placeholder=" " class="login-password <% if(locals.errores && errores.password) { %>error-input<% } %>">
+                        <label for="password">Contraseña</label>
+                        <span class="material-symbols-outlined login-pass-icon">visibility</span>
+                    </div>                    
+                    <p class="error-msg pass-error <% if(!locals.errores || !errores.password) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                        <% if(locals.errores && errores.password) { %><%= errores.password.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="password" id="pass_confirm" name="pass_confirm" placeholder=" " class="login-password">
+                        <label for="pass_confirm">Confirmar contraseña</label>
+                        <span class="material-symbols-outlined login-pass-icon">visibility</span>
+                    </div>
+                    <p class="error-msg pass-conf-error hidden">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                    </p>
+                </div>
             </div>
-          
-            <h4>Elegí tu foto de usuario</h4>
-            <input type="file" name="avatar">
-            
-            <input type="password" name="password" placeholder="Elegí tu contraseña">
-            <input type="password" name="pass_confirm" placeholder="Confirmá tu contraseña">
-            
-            <input type="submit" value="Enviar">
-            <input type="reset" value="Borrar">
+            <button class="submit-button" type="submit" value="Borrar">Crear cuenta</button>
+            <button class="erase-button" type="reset" value="Enviar">Borrar datos</button>
         </form>
     </main>
     <%- include('../partials/footer')%>

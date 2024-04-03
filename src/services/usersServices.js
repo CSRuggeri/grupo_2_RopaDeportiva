@@ -48,6 +48,10 @@ const userService = {
     }
   },
 
+  findUserByEmail: async (email) =>{
+    return await db.User.findOne({ where: { email } })
+  },
+
   saveUserSession: (req, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
     req.session.loggedUser = user;

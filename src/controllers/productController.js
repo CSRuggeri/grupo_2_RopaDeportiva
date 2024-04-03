@@ -82,7 +82,7 @@ const productController = {
   createProduct: async (req, res) => {
     const brands = await db.Brand.findAll()
     const category = await db.Category.findAll()
-    res.render("products/createProductForm.ejs", {brands, category});
+    res.render("products/createProductForm.ejs", {brands, category, user: req.session.loggedUser});
   },
 
   getAllProductsAPI: async (req, res) =>{

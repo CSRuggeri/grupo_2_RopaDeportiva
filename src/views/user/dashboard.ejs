@@ -6,31 +6,27 @@
     <%- include('../partials/header')%>  
 
     <main class="dashboard">
-        <h1>Welcome to Your Dashboard, <%= user.username %></h1>
-
-        <!-- Add other dashboard content here -->
-        <div class="dashboard">
-            <section class="dashboard-section image-section">
-                <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
-                <!-- Add more user-related information as needed -->
-            </section>
-            <section class="dashboard-section">
-                <h2>User Details</h2>
-                <p>Email: <%= user.email %></p>
-                <p>Date of Birth: <%= user.birthDate %></p>
-                <p>Address: <%= user.address %></p>
-                <p>Profile: <%= user.profile %></p>
-                <form action="/users/logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
-                
-                <% if (isAdmin) { %>
-                    <!-- Render the button for admin users -->
-                   <a class="nav-buttons" href="http://localhost:5173/">ADMINISTRADOR</a>
-                <% } %>
-            </section>
-        </div>
-
+        <div class="white-bkg">
+            <h1>Welcome to Your Dashboard, <%= user.name%></h1>
+            <div class="dashboard">
+                <section class="dashboard-section image-section">
+                    <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
+                    <!-- Add more user-related information as needed -->
+                </section>
+                <section class="dashboard-section user-description">
+                    <h2>Detalles de usuario</h2>
+                    <p>Email: <%= user.email %></p>
+                    <p>Fecha de nacimiento: <%= user.birthDate %></p>
+                    <p>Dirección: <%= user.address %></p>
+                    <p>Perfil: <%= user.profile %></p>
+                    <form action="/users/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                    
+                    
+                </section>
+            </div>
+        </div>      
     </main>
 
     <%- include('../partials/footer')%>
