@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) NOT NULL,
-  `birthDate` DATETIME NOT NULL,
+  `birthDate` DATE NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255) DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL,
@@ -109,3 +109,5 @@ VALUES
 
 insert into user (name, birthDate, email, address, password, profile, avatar) values
 ('Franco Albornoz', '2024-03-01 00:00:00', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', 'sell', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg');
+
+select * from user

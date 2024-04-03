@@ -11,7 +11,8 @@ const registerValidations = [
         .notEmpty().withMessage('Debe ingresar su email').bail()
         .isEmail().withMessage('Debe ingresar un formato de email válido'),
     body('password')
-        .notEmpty().withMessage('Debe ingresar una contraseña').isString()
+        .notEmpty().withMessage('Debe ingresar una contraseña').isString(),
+    body('birth_date').notEmpty().withMessage('Debe ingresar su fecha de nacimiento')
 ]
 
 // Ruta de registro

@@ -7,10 +7,12 @@
             <input type="text" placeholder="Buscar...">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
+    <div class="menu-button"><button><span class="material-symbols-outlined">menu</span></button></div>
+    
     <nav>
-          <a href="/users/login" class="nav-buttons">Iniciar sesión</a>
-          <a href="/users/register" class="nav-buttons">Registrarse</a>
-          <a href="/products/create" class="nav-buttons">Publicar producto</a>
+          <% if(!locals.user) { %><a href="/users/login" class="nav-buttons">Iniciar sesión</a><% } %>
+          <% if(!locals.user) { %><a href="/users/register" class="nav-buttons">Registrarse</a><% } %>
+          <% if(locals && locals.user) { %><a href="/products/create" class="nav-buttons">Publicar producto</a><% } %>
           <a href="/shopping-cart" class="nav-buttons"><i class="fa-solid fa-cart-shopping"></i></a>
           <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard" class="nav-buttons"><i class="fa-solid fa-user"></i></a> <% } %>
           

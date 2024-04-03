@@ -1,0 +1,21 @@
+.error-msg{
+    color:brown;
+    align-content: center;
+    font-size: small;
+    margin-top: 0px;
+}
+.error-span{
+    font-size: small;
+}
+div.input input.error-input{
+    border: 0.15rem solid brown;
+}
+div.input input.error-input:focus+label{
+    color: brown
+}
+div.input input.error-input:not(:placeholder-shown)+label{
+    color: brown;
+}
+.hidden{
+    display:none;
+}
