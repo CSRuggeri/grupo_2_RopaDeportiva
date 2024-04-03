@@ -3,23 +3,24 @@
 header{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    padding: 1%;
+    padding-block: 1%;
     width: 100%;
     min-height: 10vh;
     background-color: #1C3F60;
 }
 header div.logo {
-    width: 25%;
+    width: 20%;
+    text-align: center;
+    align-content: center;
 }
 header div.logo img{
     width:75%;
-    padding-left:10%;
 }
 .search-bar {
-    width: 25%;
+    width: 30%;
     display: flex;
     flex-direction: row;
     align-self: center;
@@ -29,6 +30,8 @@ header form input{
     align-self: center;
     border: none;
     border-radius: 0;
+    width: 70%;
+    padding: 10px;
 }
 header form button{
     background-color: #EAF1F6;
@@ -43,19 +46,20 @@ header form button:hover {
 nav {
     display: flex;
     justify-content: center;
-    gap: 5%;
     align-items: center;
-    width: 50%;
+    min-width: 30%;
+    width: auto;
     flex-wrap: wrap;
     flex-direction: row;
 }
 header nav a.nav-buttons{
     text-align: center;
-    font-size: 1vw;
+    font-size: 1.2vw;
+    padding:5px;
+    margin-inline: 20px;
     color: #FBF4EF;
     text-decoration: none;
     position: relative;
-    padding: 2%;
     display: block;
     transition: color 0.3s
 }
@@ -78,11 +82,24 @@ header a.nav-buttons:hover::before {
     visibility: visible;
     scale: 1 1;
 }
+header div.menu-button button {
+    display: none;
+    background-color: #1C3F60;
+    border: none;
+    color: #AFC1D0;
+}
+.nav-visibility {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 
 /* main basic settings */
 
 main {
     min-height: 80vh;
+    background-color: #d8dce3;
+    width: 100%;
 }
 
 /* footer settings */
@@ -105,30 +122,44 @@ footer {
 }
 .social-links{
     width: 20%;
+    text-align: center;
 }
-.social-links a img {
+
+.social-links div.logo {
     width: 100%;
+    text-align: center;
+    align-content: center;
+
+}
+.social-links div.logo img {
+    width:100%
 }
 .social-links ul li a{
     text-decoration:none;
     color: #EDD5BE;
-    font-size: 1.5rem;
+    font-size: 2vw;
+    transition: all 0.3s;
+}
+.social-links ul li a:hover{
+    color: #c7996e
 }
 .social-links ul li {
     width: 10%;
+    aspect-ratio: 1 / 1;
     text-align: center;
+    align-content: center;
 }
+
 .social-links ul {
     margin: 2% 0;
-    height: 50%;
+    height: auto;
     width: 100%;
     padding: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
     list-style-type: none;
-    gap: 5%;
 }
 
 .support{
@@ -136,7 +167,11 @@ footer {
     flex-direction: row;
     flex-wrap: wrap;
     width: 50%;
-    justify-content: space-around;
+    justify-content: center;
+}
+.support section {
+    margin-inline: 4%;
+    font-size: 1.2vw;
 }
 .support ul {
     padding: 0;
@@ -155,4 +190,94 @@ footer {
     padding: 0 2%;
     color:#FBF4EF;
     border-top: 1px solid #AFC1D0;
+    font-size: 1.3vw;
+}
+
+@media screen and (min-width: 0px) and (max-width : 425px) {
+    header {
+        padding: 0;
+    }
+    header div.logo {
+        width: 100%;
+        height: 10vh;
+        text-align: center;
+    }
+    header div.logo img {
+        width: 40%;
+        padding: 0px;
+    }
+    header nav{
+        display: none;
+    }
+    header nav a.nav-buttons {
+        font-size: 80%;
+        margin-bottom: 2%;
+    }
+    .search-bar {
+        width: 100%;
+        margin: 2%;
+    }
+    header div.menu-button{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2%;
+    }
+    header div.menu-button button {
+        display: block;
+    }
+    .social-links{
+        width: 60%;
+    }
+    .support{
+        width: 100%;
+    }
+    .support section{
+        font-size: 2.5vw;
+    }
+    .company-rights{
+        font-size: 2.5vw;
+    }
+    .social-links ul li a{
+        font-size: 5vw;
+    }
+}
+@media screen and (min-width: 426px) and (max-width : 1023px) {
+    nav {
+        gap: 2%;
+        justify-content: center;
+    }
+    header nav{
+        width: 100%;
+        margin-top: 1%;
+    }
+    header div.logo {
+        width: 40%;
+    }
+    .search-bar {
+        width: 40%;
+    }
+    header nav a.nav-buttons{
+        padding: 1%;
+        font-size: 80%;
+    }
+    .social-links{
+        width: 50%;
+    }
+    .social-links div.logo img {
+        width: 70%;
+    }
+    .support{
+        width: 100%;
+    }
+    .support section {
+        font-size: 2vw;
+    }
+    .company-rights{
+        font-size: 2vw;
+    }
+    .social-links ul li a{
+        font-size: 3vw;
+    }
 }

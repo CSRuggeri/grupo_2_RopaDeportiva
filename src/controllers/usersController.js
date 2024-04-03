@@ -18,14 +18,30 @@ const usersController = {
   handleRegister: async (req, res) => {
     try {
       const errores = validationResult(req)
-
+      let emailVerification = await userService.findUserByEmail(req.body.email)
+      if(emailVerification){
+        errores.errors.push({
+          type:'field',
+          value:`${req.body.email}`,
+          msg: 'El email ingresado ya existe',
+          path: 'email',
+          location: 'body'
+        })
+      }
+      console.log(req.body)
       if(!errores.isEmpty()) {
-        console.log(errores)
-        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
+        return res.render('user/register', {errores: errores.mapped(), oldData: req.body})
       } else{
 
       const { name, password, email, birth_date, address, profile } = req.body;
-      const { filename } = req.file;
+      let filename;
+      if(req.file) {
+        filename = req.file.filename
+      } else {
+        filename = 'default-pfp.png'
+      }
+      
+      console.log(req.file)
 
       const newUser = await userService.register(
         name,
@@ -114,7 +130,63 @@ const usersController = {
       res.status(400).json(users)
     }   
   },
+  registerUserAPI: async(req, res)=>{
+ 
+    try {
+      const errores = validationResult(req)
 
-};
+      if(!errores.isEmpty()) {
+        console.log(errores)
+        return res.render('user/register', {errores: errores.array(), user: req.session.loggedUser})
+      } else{
+
+      const { name, password, email, birth_date, address, profile } = req.body;
+      const { filename } = req.file;
+
+      const newUser = await userService.register(
+        name,
+        password,
+        email,
+        birth_date,
+        address,
+        profile,
+        `/images/avatars/${filename}`
+      );
+
+     
+      res.json(newUser);
+      }
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  
+},
+
+updateUserAPi: async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const editedUser = await userService.editUser(req); 
+    res.json(editedUser); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+}
+},
+destroyUserAPI: async (req, res) => {
+  try {
+    const user = await destroyUserByPk(req.params.id);
+    
+    res.json({ message: `User ${user.deletedUser.id} successfully deleted`, deletedUser: user.deletedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+}
 
 module.exports = usersController;

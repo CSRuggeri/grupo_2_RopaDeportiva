@@ -7,7 +7,7 @@ if(user){
     
    next() 
 }else{
-    res.send(`<script>alert("You must be logged in!");</script>
+    res.send(`<script>alert("Debes iniciar sesion o registrarte primero!");</script>
     <script>window.location.href = "/users/login";</script>`);
 }
 

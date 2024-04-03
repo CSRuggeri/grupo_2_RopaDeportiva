@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
-
+const cors = require('cors');
 const mainRouter = require('./routes/mainRouter');
 const productRouter = require('./routes/productRouter');
 const usersRouter = require('./routes/userRouter');  
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Method Override
 
-
+app.use(cors());
 // Set up routes
 app.use('/products', productRouter); // Pass upload to productRouter
 

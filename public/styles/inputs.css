@@ -1,0 +1,171 @@
+/* Input type text, password, email */
+div.input{
+    width: 80%;
+    position: relative;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 10px;
+}
+div.input input{
+    position: relative;
+    max-height: 4.2rem;
+    padding: 10px 20px;
+    padding-right: 5rem;
+    border: 0.15rem solid #1C3F60;
+    color: #0B1320;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    width: 100%;
+    background: transparent;
+
+}
+div.input label{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: fit-content;
+    font-size: 0.9rem;
+    transition: 0.1s;
+    font-weight: 500;
+    color:#AFC1D0;
+    padding: 0 0.3rem;
+    user-select: none;
+    transform: translateY(-50%);
+    cursor: text;
+}
+div.input input:focus+label{
+    top:0%;
+    left:7%;
+    background-color: white;
+    color: #1C3F60;
+}
+div.input input:not(:placeholder-shown)+label{
+    top:0%;
+    left:7%;
+    background-color: white;
+    color: #1C3F60;
+}
+div.input span{
+    position: absolute;
+    right:6%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1C3F60;
+    font-size: 1.2rem;
+    padding-left: 10px;
+    padding-block: 2px;
+    border-left: 0.15rem solid #AFC1D0;
+    cursor: pointer
+}
+
+/* Input type Checkbox */
+
+.check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px
+}
+.check input {
+    appearance: none;
+    width: 20px;
+    aspect-ratio: 1 / 1;
+    background-color: #AFC1D0;
+    border-radius: 5px;
+    outline: none;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s
+}
+.check input:after{
+    font-family: 'Font Awesome 6 Free';
+    content: '\f00c';
+    font-weight: 900;
+    font-size: 12px;
+    color: #d8dce3;
+    display: none;
+} 
+.check input:hover{
+    background-color: #d6d9de;
+}
+.check input:checked{
+    background-color: #1C3F60;
+}
+.check input:checked::after{
+    display: block;
+}
+.check label{
+    font-size: 1rem;
+    padding-inline: 5px;
+}
+
+/* Buttons */
+
+.submit-button{
+    color:#d6d9de;
+    font-family: "Poppins", sans-serif;
+    background-color: #1C3F60;
+    outline: none;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.2s;
+    margin: 15px
+}
+.submit-button:active{
+    background-color: #192b3c !important;
+}
+.submit-button:hover{
+    background-color: #17324c;
+
+}
+.erase-button{
+    color:#0B1320;
+    font-family: "Poppins", sans-serif;
+    background-color: #EDD5BE;
+    outline: none;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.2s;
+    margin-block: 1.5vw
+}
+.erase-button:active{
+    background-color: #b9a797 !important;
+}
+.erase-button:hover{
+    background-color: #E3C09F;
+
+}
+
+/* Input type Calendar */
+
+input[type='date']{
+    background-color: #1C3F60;
+    padding: 15px;
+    font-family: 'Poppins';
+    color: #d8dce3;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+::-webkit-calendar-picker-indicator {
+    background-color: #d8dce3;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Input type Checkbox */
+
+.radio-label{
+    margin-left: 5px;
+}
