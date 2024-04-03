@@ -3,11 +3,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector(".form-login");
 
-    form.addEventListener("submit", function(event) {
-        if (!validateForm()) {
-            event.preventDefault(); // Prevent form submission if validation fails
-        }
-    });
+    // form.addEventListener("submit", function(event) {
+    //     if (!validateForm()) {
+    //         event.preventDefault(); // Prevent form submission if validation fails
+    //     }
+    // });
 
     function validateForm() {
         const name = document.querySelector('input[name="name"]').value.trim();

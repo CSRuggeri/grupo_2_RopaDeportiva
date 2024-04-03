@@ -4,7 +4,26 @@
     <script src="/js/createValidation.js"></script>
 <body>
     <%- include('../partials/header')%> 
-    <main class="edit-prod">
+    <main class="create-prod">
+        <div class="white-bkg form-width create">
+            <h1>Publica tu prenda en SportGo!</h1>
+            <div class="create-form">
+                <div class="flex-column create-column">
+                    <div class="input">
+                        <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                        <label for="name">Nombre del producto</label>
+                        <span class="material-symbols-outlined">
+                            inventory_2
+                            </span> 
+                    </div>
+                    <input type="textarea" name="description" placeholder="Descripción">
+                </div>
+                <div class="flex-column create-column">
+
+                </div>
+            </div>
+            
+        </div>
         <form action="/products/create" method="POST" class="form-login" enctype="multipart/form-data">
             <h2>Creá tu producto</h2>
             
@@ -23,7 +42,7 @@
             <input type="radio" name="gender" value="unisex" id="unisex">
             <label for="unisex">Unisex</label>
 
-            <input type="text" name="description" placeholder="Descripción">
+            <input type="textarea" name="description" placeholder="Descripción">
             
             <h4>Categoría del producto</h4>
             <select name="category_id">

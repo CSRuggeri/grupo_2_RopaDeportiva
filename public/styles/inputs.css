@@ -16,7 +16,7 @@ div.input input{
     padding-right: 5rem;
     border: 0.15rem solid #1C3F60;
     color: #0B1320;
-    border-radius: 3rem;
+    border-radius: 0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
     outline: none;
@@ -169,3 +169,21 @@ input[type='date']{
 .radio-label{
     margin-left: 5px;
 }
+
+/* Input type Textarea */
+
+ input[type='textarea']{
+    position: relative;
+    font-family: 'Poppins';
+    border: 0.15rem solid #1C3F60;
+    color: #0B1320;
+    padding: 10px 20px;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    width: 67%;
+    background: transparent;
+    height: 100px;
+}
+div.input
