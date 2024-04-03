@@ -7,10 +7,14 @@
     <main>
         <h1>Product List</h1>
 
+        
+
         <div class="product-list">
           <% if (products && Array.isArray(products) && products.length > 0) { %>
             <% products.forEach(product => { %>
+              
               <article class="card-container">
+                
                 <div class="main-article">
                   <img src="<%= product.image %>" alt="<%= product.name %>" >
                   <div class="description-box">

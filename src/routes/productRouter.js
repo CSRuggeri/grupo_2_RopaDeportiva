@@ -24,6 +24,8 @@ router.get("/api", productController.getAllProductsAPI)
 router.post('/api',uploadProduct.single('image'), 
 commonValidations, productController.createProductAPI)  
 
+
+
 router.get("/:id", productController.detail);
 
 router.post(

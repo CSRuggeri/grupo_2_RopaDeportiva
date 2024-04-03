@@ -40,7 +40,7 @@ const userService = {
       if (passwordMatch) {
         return user;
       } else {
-        return null;
+        return console.error("Contraseña incorrecta");
       }
     } catch (error) {
       console.error('Error authenticating user:', error); // Agrega un registro de consola para capturar el error
@@ -82,7 +82,42 @@ const userService = {
 
     res.render('user/dashboard.ejs', { user });
   },
+   
+  editUser : async (req) => {
+    try {
+        const { name, password, email, birth_date, address, profile } = req.body;
+        const { filename } = req.file;
 
+        console.log(req.body);
+        console.log(req.file);
+
+        // Validate required fields
+        if (!email) {
+            throw new Error('Email is missing');
+        }
+
+        // Find user by email
+        const userInstance = await db.User.findOne({ where: { email } });
+        if (!userInstance) {
+            throw new Error('User not found');
+        }
+
+        // Update the user using Sequelize
+        const editedUser = await db.User.update({
+            name,
+            password,
+            birth_date,
+            address,
+            profile,
+            avatar: `/images/avatars/${filename}`
+        }, { where: { id: userInstance.id } });
+
+        return { msg: `User ${userInstance.id} updated successfully` };
+    } catch (error) {
+        console.error('Error editing user:', error);
+        throw error;
+    }
+},
   
  getAll : async () => {
   try {
@@ -91,7 +126,18 @@ const userService = {
       console.error('Error fetching users:', error);
       throw error;
   }
+},
+destroyUserByPk : async (id) => {
+  try {
+      const deletedUser = await db.User.findByPk(id);
+      await db.User.destroy({ where: { id } });
+      return { msg: `User ${id} successfully removed`, deletedUser };
+  } catch (error) {
+      throw error;
+  }
 }
+
+
 };
 
 module.exports = userService;
