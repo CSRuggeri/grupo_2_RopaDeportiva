@@ -13,9 +13,7 @@ const productValidations = [
       .notEmpty().withMessage('La descripción del producto es obligatoria').bail()
       .isLength({ max: 150 }).withMessage('La descripción del producto no puede superar los 150 caracteres'),
     body('gender')
-      .notEmpty().withMessage('El género del producto es obligatorio'),
-    body('image')
-      .notEmpty().withMessage('La imagen del producto es obligatoria').bail()
+      .notEmpty().withMessage('El género del producto es obligatorio')
       .isLength({ max: 150 }).withMessage('La URL de la imagen no puede superar los 150 caracteres'),
     body('size')
       .notEmpty().withMessage('La talla del producto es obligatoria'),
@@ -23,6 +21,16 @@ const productValidations = [
       .notEmpty().withMessage('Debes asignarle una categoria a tu producto'),
     body('brand_id')
       .notEmpty().withMessage('Debes asignarle una marca a tu producto'),
+    body('image')
+      .notEmpty().withMessage('La imagen del producto es obligatoria').bail()
+      .custom((value, { req })=>{
+        let file = req.file.filename;
+        if(!allowedExtensions.exec(file)) {
+            throw new Error('El archivo de imagen debe tener una extensión válida (JPG, JPEG, PNG, GIF)')
+        } else {
+            return true
+        }
+      }),
   ];
 
   module.export = productValidations
