@@ -22,15 +22,19 @@ const productValidations = [
     body('brand_id')
       .notEmpty().withMessage('Debes asignarle una marca a tu producto'),
     body('image')
-      .notEmpty().withMessage('La imagen del producto es obligatoria').bail()
       .custom((value, { req })=>{
-        let file = req.file.filename;
+        if(!req.file){
+            throw new Error('Ingresar una imagen')
+        } else{
+            let file = req.file.filename;
         if(!allowedExtensions.exec(file)) {
             throw new Error('El archivo de imagen debe tener una extensión válida (JPG, JPEG, PNG, GIF)')
         } else {
             return true
         }
-      }),
+        }
+        
+      })
   ];
 
   module.export = productValidations
