@@ -40,7 +40,12 @@ const productController = {
     if (!errores.isEmpty()) {
       const brands = await db.Brand.findAll();
       const category = await db.Category.findAll();
-      return res.render('products/createProductForm.ejs', {errores: errores.mapped(), oldData: req.body, brands, category})
+      return res.render('products/createProductForm.ejs',
+       {errores: errores.mapped(),
+         oldData: 
+           req.body,
+           brands,
+           category})
     }
 
     const { id, msg } = await storeProduct(req);
