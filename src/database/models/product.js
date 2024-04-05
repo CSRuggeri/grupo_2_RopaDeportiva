@@ -45,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         brand_id: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: true
+        },
+        iva: {
+            type: DataTypes.TINYINT(1),
         }
     }, {
         tableName: 'product',

@@ -2,58 +2,117 @@
 <html lang="en">
     <%- include('../partials/head')%>
     <script src="/js/createValidation.js"></script>
-<body>
-    <%- include('../partials/header')%> 
-    <main class="edit-prod">
-        <form action="/products/create" method="POST" class="form-login" enctype="multipart/form-data">
-            <h2>Creá tu producto</h2>
-            
-            <input type="text" name="name" placeholder="Nombre del producto">
-            <select name="brand">
-                <option value="" selected>--Elige la Marca--</option>
-                <% brands.forEach(b =>{ %>
-                    <option value="<%=b.id%>"><%= b.name %></option>
-                <% }) %>
-            </select>
-            
-            <input type="radio" name="gender" value="male" id="male">
-            <label for="male">Masculino</label>
-            <input type="radio" name="gender" value="female" id="female">
-            <label for="female">Femenino</label>
-            <input type="radio" name="gender" value="unisex" id="unisex">
-            <label for="unisex">Unisex</label>
-
-            <input type="text" name="description" placeholder="Descripción">
-            
-            <h4>Categoría del producto</h4>
-            <select name="category_id">
-                <option value="" selected>--Elige la Categoría--</option>
-                <% category.forEach(c =>{ %>
-                    <option value="<%=c.category_id%>"><%= c.name %></option>
-                <% }) %>
-            </select>
-            
-            <h4>Seleccione el talle</h4>
-            <input type="radio" id="talleS" name="size" value="S">
-            <label for="talleS">Talle S</label>
-            
-            <input type="radio" id="talleM" name="size" value="M">
-            <label for="talleM">Talle M</label>
-            
-            <input type="radio" id="talleL" name="size" value="L">
-            <label for="talleL">Talle L</label>
-            
-            <input type="radio" id="talleXL" name="size" value="XL">
-            <label for="talleXL">Talle XL</label>
-            
-            <h4>Elegí una imagen para tu producto</h4>
-            <input type="file" name="image">
-            
-            <input type="number" name="price" placeholder="Precio">
-            <input type="text" name="discount" placeholder="Descuento">
-            <input type="number" name="stock" placeholder="Stock">
-            
-            <input type="submit" value="Enviar">
+    <body>
+        <%- include('../partials/header')%> 
+        <main class="create-prod">
+            <form action="/products/create" method="POST" class="white-bkg form-width create" enctype="multipart/form-data">
+                <h2>Publica tu prenda en SportGo!</h2>
+                <div class="create-form">
+                    <div class="flex-column create-column">
+                        <div class="img">
+                            <h4>Sube una foto de tu prenda</h4>
+                            <img src="/images/show/product-default.png" alt="Imagen default" class="product-preview">
+                            <input type="file" name="image" id="image" class="product-input">
+                            <label for="image" class="product-label submit-button">Elegir imagen</label>
+                        </div>
+                        <div class="input">
+                            <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                            <label for="name">Nombre del producto</label>
+                            <span class="material-symbols-outlined">
+                                inventory_2
+                                </span> 
+                        </div>
+                        <div class="input">
+                            <textarea name="description" placeholder="Descripción" rows="1"></textarea>
+                        </div>
+                        <div class="select-container">
+                            <select name="brand" id="brand" class="select-box">
+                                <option value="">Elige la marca de tu prenda </option>
+                                <% brands.forEach(b =>{ %>
+                                    <option value="<%=b.id%>"><%= b.name %></option>
+                                <% }) %>
+                            </select>
+                            <div class="icon-container">
+                                <i class="fa-solid fa-caret-down"></i>
+                            </div>
+                    </div>
+                    <div class="select-container">
+                        <select name="category_id" id="category_id" class="select-box">
+                            <option value="">Elige la categoría de tu prenda </option>
+                            <% category.forEach(c =>{ %>
+                                <option value="<%=c.category_id%>"><%= c.name %></option>
+                            <% }) %>
+                        </select>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="flex-column create-column">
+                        <h4>Género de la prenda</h4>
+                        <div class="gender">
+                            <div>
+                                <input type="radio" name="gender" value="male" id="male">
+                                <label for="male">Masculino</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="gender" value="female" id="female">
+                                <label for="female">Femenino</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="gender" value="unisex" id="unisex">
+                                <label for="unisex">Unisex</label>
+                            </div>
+                        </div>
+                        <h4>Talle de la prenda</h4>
+                        <div class="size">
+                            <div>
+                                <input type="radio" id="talleS" name="size" value="S">
+                                <label for="talleS">Talle S</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="talleM" name="size" value="M">
+                                <label for="talleM">Talle M</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="talleL" name="size" value="L">
+                                <label for="talleL">Talle L</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="talleXL" name="size" value="XL">
+                                <label for="talleXL">Talle XL</label>
+                            </div>
+                        </div>
+                        <div class="input">
+                            <input type="number" id="stock" name="stock" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                            <label for="stock">Stock</label>
+                            <span class="material-symbols-outlined">
+                                inventory
+                                </span>
+                        </div>
+                        <div class="input">
+                            <input type="number" id="price" name="price" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                            <label for="price">Precio</label>
+                            <span class="material-symbols-outlined">
+                                attach_money
+                                </span>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" name="iva" id="iva">
+                            <label for="iva">Precio incluye IVA</label>
+                        </div>
+                        <div class="input">
+                            <input type="number" id="discount" name="discount" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                            <label for="discount">Descuento sugerido</label>
+                            <span class="material-symbols-outlined">
+                                savings
+                                </span> 
+                        </div>
+                    </div>
+                </div>
+            <button class="submit-button" type="submit" value="Borrar">Publicar prenda</button>
+            <button class="erase-button" type="reset" value="Enviar">Borrar datos</button>           
         </form>
     </main>
     <%- include('../partials/footer')%>

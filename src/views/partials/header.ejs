@@ -11,11 +11,16 @@
     <div class="menu-button"><button><span class="material-symbols-outlined">menu</span></button></div>
     
     <nav>
-          <% if(!locals.user) { %><a href="/users/login" class="nav-buttons">Iniciar sesión</a><% } %>
-          <% if(!locals.user) { %><a href="/users/register" class="nav-buttons">Registrarse</a><% } %>
-          <% if(locals && locals.user) { %><a href="/products/create" class="nav-buttons">Publicar producto</a><% } %>
+          <% if(!locals.logged) { %><a href="/users/login" class="nav-buttons">Iniciar sesión</a><% } %>
+          <% if(!locals.logged) { %><a href="/users/register" class="nav-buttons">Registrarse</a><% } %>
+          <% if(locals && locals.logged && locals.admin) { %><a href="/products/create" class="nav-buttons">Publicar producto</a><% } %>
           <a href="/shopping-cart" class="nav-buttons"><i class="fa-solid fa-cart-shopping"></i></a>
-          <% if(locals && locals.user) { %> <a href="/users/<%= user.id %>/dashboard" class="nav-buttons"><i class="fa-solid fa-user"></i></a> <% } %>
+          <% if(locals && locals.logged) { %> <a href="/users/<%= loggedUser.id %>/dashboard" class="nav-buttons">
+            <% if(!loggedUser.avatar) {%>
+                <i class="fa-solid fa-user"></i>
+            <% } else { %> 
+                <img src="<%= loggedUser.avatar %>" alt="pfp" class="pfp"> 
+            <% } %></a> <% } %>
           
           
          

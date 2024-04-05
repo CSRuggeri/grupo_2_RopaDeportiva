@@ -3,6 +3,7 @@
     align-content: center;
     font-size: small;
     margin-top: 0px;
+    padding-inline: 10%;
 }
 .error-span{
     font-size: small;
