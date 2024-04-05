@@ -6,7 +6,7 @@ const getAllProducts = async () => {
         return await db.Product.findAll();
     } catch (error) {
         console.error('Error fetching products:', error);
-        throw error;
+        return [];
     }
 };
 

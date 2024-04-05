@@ -34,8 +34,11 @@ app.use(rememberMe)
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Method Override
+app.use(methodOverride('_method'))
 
+//cors
 app.use(cors());
+
 // Set up routes
 app.use('/products', productRouter); // Pass upload to productRouter
 
@@ -48,3 +51,8 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+app.use((req,res,next)=>{
+    res.status(404).send('page not found');
+    next();
+})

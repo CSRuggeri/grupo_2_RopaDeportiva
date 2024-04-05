@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `sportGoDb`.`product` (
   `size` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL,
   `category_id` INT unsigned DEFAULT NULL,
   `brand_id` INT unsigned DEFAULT NULL,
+  `iva` TINYINT(1) NOT NULL DEFAULT 0,
   
   PRIMARY KEY (`id`),
   KEY `category_FK` (`category_id`),
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) NOT NULL,
   `birthDate` DATE NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) unique NOT NULL,
   `address` VARCHAR(255) DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL,
   `profile` VARCHAR(45) DEFAULT NULL,
