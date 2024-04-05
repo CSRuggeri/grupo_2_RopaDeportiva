@@ -52,12 +52,12 @@ const userService = {
     return await db.User.findOne({ where: { email } })
   },
 
-  saveUserSession: (req, user) => {
+  saveUserSession: (req, res, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
     req.session.loggedUser = user;
 
     if (req.body.remember !== undefined) {
-      res.cookie('remember', user.email, { maxAge: 100000 });
+      res.cookie('remember', user.email, { maxAge: 1000 * 60 * 15 });
     }
   },
 

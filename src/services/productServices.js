@@ -37,7 +37,12 @@ class Product {
 const storeProduct = async (req) => {
     try {
         const { name, description, price, discount, size, brand, category_id, gender, stock } = req.body;
-        const { filename } = req.file;
+        let filename;
+        if(req.file) {
+            filename = req.file.filename;
+        } else {
+            filename = 'product-default.png'
+        }
 
         console.log(req.body)
         console.log(req.file)

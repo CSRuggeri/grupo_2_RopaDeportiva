@@ -12,8 +12,8 @@
                         <div class="img">
                             <h4>Sube una foto de tu prenda</h4>
                             <img src="/images/show/product-default.png" alt="Imagen default" class="product-preview">
-                            <input type="file" name="avatar" id="avatar" class="product-input">
-                            <label for="avatar" class="product-label submit-button">Elegir imagen</label>
+                            <input type="file" name="image" id="image" class="product-input">
+                            <label for="image" class="product-label submit-button">Elegir imagen</label>
                         </div>
                         <div class="input">
                             <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
@@ -26,7 +26,7 @@
                             <textarea name="description" placeholder="Descripción" rows="1"></textarea>
                         </div>
                         <div class="select-container">
-                            <select name="" id="" class="select-box">
+                            <select name="brand" id="brand" class="select-box">
                                 <option value="">Elige la marca de tu prenda </option>
                                 <% brands.forEach(b =>{ %>
                                     <option value="<%=b.id%>"><%= b.name %></option>
@@ -37,7 +37,7 @@
                             </div>
                     </div>
                     <div class="select-container">
-                        <select name="" id="" class="select-box">
+                        <select name="category_id" id="category_id" class="select-box">
                             <option value="">Elige la categoría de tu prenda </option>
                             <% category.forEach(c =>{ %>
                                 <option value="<%=c.category_id%>"><%= c.name %></option>

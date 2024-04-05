@@ -108,7 +108,9 @@ VALUES
 ('campera deportiva Nike', 13650, 1, 'campera deportiva de polyester marca nike para mujer', 'female', '/images/show/camperaMujNike.jpg', '7%', 'S', 1, 2),
 ('campera deportiva', 10542, 5, 'campera deportiva generica', 'female', '/images/show/camperaMujSport.jpg', '6%', 'L', 1, 4);
 
-insert into user (name, birthDate, email, address, password, profile, avatar) values
-('Franco Albornoz', '2024-03-01 00:00:00', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', 'sell', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg');
+INSERT INTO user (name, birthDate, email, address, password, avatar, admin)
+VALUES 
+('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1');
+
 
 select * from user
