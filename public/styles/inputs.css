@@ -9,14 +9,18 @@ div.input{
     flex-direction: row;
     margin: 10px;
 }
-div.input input{
+div.input input[type='text'],
+div.input input[type='email'],
+div.input input[type='password'],
+div.input input[type='number']
+{
     position: relative;
     max-height: 4.2rem;
     padding: 10px 20px;
     padding-right: 5rem;
     border: 0.15rem solid #1C3F60;
     color: #0B1320;
-    border-radius: 3rem;
+    border-radius: 0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
     outline: none;
@@ -28,13 +32,15 @@ div.input label{
     position: absolute;
     top: 50%;
     left: 20px;
-    width: fit-content;
+    text-align: start;
+    max-height: 1.2rem;
+    overflow: hidden;
+    width:fit-content;
     font-size: 0.9rem;
     transition: 0.1s;
     font-weight: 500;
     color:#AFC1D0;
     padding: 0 0.3rem;
-    user-select: none;
     transform: translateY(-50%);
     cursor: text;
 }
@@ -168,4 +174,77 @@ input[type='date']{
 
 .radio-label{
     margin-left: 5px;
+}
+
+/* Input type Textarea */
+
+.input textarea{
+    width: 100%;
+    padding: 7px 20px;
+    font-family: "Poppins", sans-serif;
+    resize: none;
+    max-height: 100px;
+    align-content: start;
+    scrollbar-width: 0px;
+    outline: none;
+    border: 0.15rem solid #1C3F60;
+    color: #0B1320;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    field-sizing: content;
+}
+.input textarea::placeholder{
+    color: #AFC1D0;
+}
+/* Input type select */
+
+div.select-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    margin: 10px;
+}
+.select-box{
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    border-radius: 0.5rem;
+    appearance: none;
+    outline: none;
+    padding: 10px 20px;
+    padding-right: 40px;
+    color: #d6d9de;
+    background-color: #1C3F60;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.select-box:hover{
+    background-color: #16314B
+}
+
+div.select-container select option{
+    background-color: #d6d9de;
+    color:#0B1320;
+    border: none;
+}
+div.select-container .icon-container{
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-container{
+    color: #d6d9de;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

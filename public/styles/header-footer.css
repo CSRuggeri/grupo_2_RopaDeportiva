@@ -45,10 +45,10 @@ header form button:hover {
 }
 nav {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     min-width: 30%;
-    width: auto;
+    width: fit-content;
     flex-wrap: wrap;
     flex-direction: row;
 }
@@ -92,6 +92,12 @@ header div.menu-button button {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+.pfp{
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 50%;
+    width: 3vw;
 }
 
 /* main basic settings */
@@ -241,6 +247,9 @@ footer {
     }
     .social-links ul li a{
         font-size: 5vw;
+    }
+    .pfp{
+        width: 6vw;
     }
 }
 @media screen and (min-width: 426px) and (max-width : 1023px) {

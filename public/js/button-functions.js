@@ -4,9 +4,13 @@ window.addEventListener('load',()=>{
     let loginPass = document.querySelector('.login-password')
     let loginPassIcon = document.querySelector('.login-pass-icon')
     let avatarInput = document.querySelector('.avatar-input')
-    let img = document.querySelector('.pfp-preview')
-    let defaultPfp = '/images/default-pfp.png'
+    let avatarImg = document.querySelector('.pfp-preview')
     let pfpLabel = document.querySelector('.pfp-label')
+    let productInput = document.querySelector('.product-input')
+    let productImg = document.querySelector('.product-preview')
+    let productLabel = document.querySelector('.product-label')
+    let defaultPfp = '/images/avatars/default-pfp.png'
+    let defaultProductI = '/images/show/product-default.png'
 
     menuBtn.addEventListener('click',()=>{
         nav.classList.toggle('nav-visibility')
@@ -23,16 +27,18 @@ window.addEventListener('load',()=>{
         }
         loginPass.setAttribute('type',loginPass.getAttribute('type') == 'password' ? 'text' : 'password')
     })
+    
+    
     avatarInput.addEventListener('change',(e)=>{
         if(e.target.files[0]) {
             const reader = new FileReader()
             reader.onload = function (e) {
-                img.src = e.target.result
+                avatarImg.src = e.target.result
             }
             reader.readAsDataURL(e.target.files[0])
             pfpLabel.innerHTML = 'Cambiar imagen'
         } else {
-            img.src = defaultPfp
+            avatarImg.src = defaultPfp
             pfpLabel.innerHTML = 'Elegir imagen'
         }
     })

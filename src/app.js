@@ -10,7 +10,8 @@ const mainRouter = require('./routes/mainRouter');
 const productRouter = require('./routes/productRouter');
 const usersRouter = require('./routes/userRouter');  
 
-const {rememberMe} = require('./Middlewares/Middlewares')
+const rememberMe = require('./Middlewares/RememberMiddleware')
+const userCredentialsMiddleware = require('./Middlewares/userCredentialsMiddleware')
 
 // Set up EJS view engine
 app.set('view engine', 'ejs');
@@ -27,6 +28,9 @@ app.use(session({secret:'s8AOM0dvWl2k9pt', saveUninitialized:false,resave:false,
 //Cookie parser middleware
 app.use(cookieParser());
 
+// User credentials
+app.use(userCredentialsMiddleware)
+
 //Remember me middleware
 app.use(rememberMe)
 
@@ -34,8 +38,11 @@ app.use(rememberMe)
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Method Override
+app.use(methodOverride('_method'))
 
+//cors
 app.use(cors());
+
 // Set up routes
 app.use('/products', productRouter); // Pass upload to productRouter
 
@@ -48,3 +55,8 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+app.use((req,res,next)=>{
+    res.status(404).send('page not found');
+    next();
+})

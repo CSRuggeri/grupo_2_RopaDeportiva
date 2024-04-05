@@ -1,7 +1,4 @@
-
-
-
-function isLoggedIn (req, res, next){
+const isLoggedIn = (req, res, next)=>{
 const user = req.session.loggedUser
 if(user){
     
@@ -13,4 +10,4 @@ if(user){
 
 }
 
-module.exports=isLoggedIn
+module.exports= isLoggedIn

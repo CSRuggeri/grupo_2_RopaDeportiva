@@ -3,14 +3,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
 }
-.registro{
+.registro,.create{
     margin: 10vh;
 }
-.register-column{
+.register-column, .create-column{
     width: 50%;
     min-height: 400px;
-    padding-inline:3%
+    padding:3%
 }
 div.profile div{
     align-content: start;
@@ -29,14 +30,14 @@ img.pfp-preview {
     text-align: center;
     align-content: center;
 }
-.register-form{
+.register-form, .create-form{
     display: flex;
     flex: row;
     justify-content: center;
     align-items: flex-start;
 
 }
-.avatar-input {
+.avatar-input, .product-input {
     display: none;
 }
 div.img{
@@ -44,7 +45,7 @@ div.img{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 .bd-label{
     color: #0B1320;
@@ -72,6 +73,27 @@ div.img{
     color:#0B1320
 }
 
+/* Create form */
+
+.gender, .size{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.gender div,.size div{
+    margin: 10px;
+}
+.product-preview{
+    width: 40%;
+    padding: 5px;
+    margin: 5px;
+    background-color: white;
+    aspect-ratio: 3 / 4;
+    object-fit:contain;
+    box-shadow: 0 0 10px rgba(4.31, 7.45, 12.55, 0.3) ;
+}
+
 @media screen and (min-width: 426px) and (max-width : 1023px){
     .form-width{
         width: 90%;
@@ -91,10 +113,10 @@ div.img{
     .form-width{
         width: 100%;
     }
-    .register-form{
+    .register-form, .create-form{
         flex-direction: column;
     }
-    .register-column{
+    .register-column, .create-column{
         width: 90%;
         min-height:auto
     }

@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../partials/head')%>
-    <script src="js/loginValidation.js"></script>
 <body>
     <%- include('../partials/header')%> 
     <main class="login">
@@ -10,17 +9,25 @@
         <form class="login-form white-bkg" action="/users/login" method="POST">
             <h1>Iniciar sesión</h1>
             <div class="input">
-                <input type="text" name="email" id="email" placeholder=" ">
+                <input type="text" name="email" id="email" placeholder=" " class="<% if(locals.errores && errores.email) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.email) { %><%= oldData.email %><% } %>">
                 <label for="email" class="input-label">E-mail</label>
                 <span class="material-symbols-outlined">
                     mail
                 </span>
             </div>
+            <p class="error-msg email-error <% if(!locals.errores || !errores.email) { %>hidden<% } %>">
+                <span class="material-symbols-outlined error-span">error</span> 
+                <% if(locals.errores && errores.email) { %><%= errores.email.msg %><% } %>
+            </p>
             <div class="input">
-                <input type="password" id="password" name="password" placeholder=" " class="login-password">
+                <input type="password" id="password" name="password" placeholder=" " class="login-password <% if(locals.errores && errores.email) { %>error-input<% } %>">
                 <label for="password">Password</label>
                 <span class="material-symbols-outlined login-pass-icon">visibility</span>
             </div>
+            <p class="error-msg pass-error <% if(!locals.errores || !errores.password) { %>hidden<% } %>">
+                <span class="material-symbols-outlined error-span">error</span> 
+                <% if(locals.errores && errores.password) { %><%= errores.password.msg %><% } %>
+            </p>
             <div class="check">
                 <input type="checkbox" name="remember" id="remember">
                 <label for="remember">Recuerdame</label>

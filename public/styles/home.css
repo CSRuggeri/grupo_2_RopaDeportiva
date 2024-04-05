@@ -19,12 +19,13 @@ body {
 }
 h4{
   margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 /* main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-cont34ent: space-around;
   background-color: #FBF4EF;
 } */
 .product-list{

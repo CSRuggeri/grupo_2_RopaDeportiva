@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `sportGoDb`.`product` (
   `size` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL,
   `category_id` INT unsigned DEFAULT NULL,
   `brand_id` INT unsigned DEFAULT NULL,
+  `iva` TINYINT(1) NOT NULL DEFAULT 0,
   
   PRIMARY KEY (`id`),
   KEY `category_FK` (`category_id`),
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) NOT NULL,
   `birthDate` DATE NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) unique NOT NULL,
   `address` VARCHAR(255) DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL,
   `profile` VARCHAR(45) DEFAULT NULL,
@@ -107,7 +108,9 @@ VALUES
 ('campera deportiva Nike', 13650, 1, 'campera deportiva de polyester marca nike para mujer', 'female', '/images/show/camperaMujNike.jpg', '7%', 'S', 1, 2),
 ('campera deportiva', 10542, 5, 'campera deportiva generica', 'female', '/images/show/camperaMujSport.jpg', '6%', 'L', 1, 4);
 
-insert into user (name, birthDate, email, address, password, profile, avatar) values
-('Franco Albornoz', '2024-03-01 00:00:00', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', 'sell', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg');
+INSERT INTO user (name, birthDate, email, address, password, avatar, admin)
+VALUES 
+('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1');
+
 
 select * from user

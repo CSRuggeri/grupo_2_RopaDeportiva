@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const {uploadProduct} = require('../Middlewares/Middlewares');
+const {uploadProduct} = require('../Middlewares/multerMiddleware');
 const { body } = require('express-validator');
-const isAdmin = require ('../Middlewares/GetAdmin');
 const isLoggedIn = require('../Middlewares/isLoggedIn');
+const isAdmin = require('../Middlewares/isAdmin')
 
 // Validaciones
 const commonValidations = [
@@ -18,34 +18,19 @@ const commonValidations = [
 
 router.get('/', productController.index);
 
-router.get('/create',isLoggedIn, productController.createProduct);
+router.get('/create',isAdmin, productController.createProduct);
+
 /*api*/
 router.get("/api", productController.getAllProductsAPI)
-router.post('/api',uploadProduct.single('image'), 
-commonValidations, productController.createProductAPI)  
+router.post('/api',uploadProduct.single('image'), commonValidations, productController.createProductAPI)  
 
 
+router.post('/create', uploadProduct.single('image'), commonValidations, productController.store);
 
 router.get("/:id", productController.detail);
-
-router.post(
-    '/create', 
-    uploadProduct.single('image'), 
-    commonValidations,
-    productController.store
-  );
-
-
-router.get('/:id/edit', productController.edit)
-
-router.put(
-    '/:id/update',
-    uploadProduct.single('image'),
-    commonValidations,
-    productController.update
-  );
-
-router.delete('/:id/delete', productController.destroy);
+router.get('/:id/edit', isAdmin, productController.edit)
+router.put('/:id/update',uploadProduct.single('image'),commonValidations,productController.update);
+router.delete('/:id/delete', isAdmin, productController.destroy);
 
 
 
