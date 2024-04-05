@@ -37,17 +37,10 @@ const productController = {
   store: async (req, res) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      const { brands, category } = await Promise.all([
-        db.Brand.findAll(),
-        db.Category.findAll(),
-      ]);
-      return res.render('products/createProductForm.ejs', {
-        errors: errors.array(),
-        brands,
-        category,
-        user: req.session.loggedUser,
-      });
+    if (!errores.isEmpty()) {
+      const brands = await db.Brand.findAll();
+      const category = await db.Category.findAll();
+      return res.render('products/createProductForm.ejs', {errores: errores.mapped(), oldData: req.body, brands, category})
     }
 
     const { id, msg } = await storeProduct(req);
