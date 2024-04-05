@@ -10,33 +10,25 @@ const isAdmin = require('../Middlewares/isAdmin')
 
   const productValidations = [
     body('name')
-      .notEmpty().withMessage('El nombre del producto es obligatorio')
+      .notEmpty().withMessage('El nombre del producto es obligatorio').bail()
       .isLength({ max: 45 }).withMessage('El nombre del producto no puede superar los 45 caracteres'),
     body('price')
-      .notEmpty().withMessage('El precio del producto es obligatorio')
+      .notEmpty().withMessage('El precio del producto es obligatorio').bail()
       .isInt({ min: 0 }).withMessage('El precio del producto debe ser un número entero mayor o igual a 0'),
-    body('stock')
-      .notEmpty().withMessage('El stock del producto es obligatorio')
-      .isInt({ min: 1 }).withMessage('El stock del producto debe ser un número entero mayor o igual a 1'),
     body('description')
-      .notEmpty().withMessage('La descripción del producto es obligatoria')
+      .notEmpty().withMessage('La descripción del producto es obligatoria').bail()
       .isLength({ max: 150 }).withMessage('La descripción del producto no puede superar los 150 caracteres'),
     body('gender')
-      .notEmpty().withMessage('El género del producto es obligatorio')
-      .isLength({ max: 45 }).withMessage('El género del producto no puede superar los 45 caracteres'),
+      .notEmpty().withMessage('El género del producto es obligatorio'),
     body('image')
-      .notEmpty().withMessage('La imagen del producto es obligatoria')
+      .notEmpty().withMessage('La imagen del producto es obligatoria').bail()
       .isLength({ max: 150 }).withMessage('La URL de la imagen no puede superar los 150 caracteres'),
-    body('discount')
-      .optional()
-      .isLength({ max: 45 }).withMessage('El descuento no puede superar los 45 caracteres'),
     body('size')
-      .notEmpty().withMessage('La talla del producto es obligatoria')
-      .isLength({ max: 45 }).withMessage('La talla del producto no puede superar los 45 caracteres'),
-    //body('category_id')
-    // .isInt({ min: 1 }).withMessage('La categoría del producto debe ser un número entero mayor a 0')
-    //body('brand_id')
-    // .isInt({ min: 1 }).withMessage('La marca del producto debe ser un número entero mayor a 0'),
+      .notEmpty().withMessage('La talla del producto es obligatoria'),
+    body('category_id')
+      .notEmpty().withMessage('Debes asignarle una categoria a tu producto'),
+    body('brand_id')
+      .notEmpty().withMessage('Debes asignarle una marca a tu producto'),
   ];
 
 router.get('/', productController.index);
