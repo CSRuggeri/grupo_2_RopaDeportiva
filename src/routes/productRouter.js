@@ -6,14 +6,37 @@ const { body } = require('express-validator');
 const isLoggedIn = require('../Middlewares/isLoggedIn');
 const isAdmin = require('../Middlewares/isAdmin')
 
-// Validaciones
-const commonValidations = [
-    body('name').trim().isLength({ min: 3 }).withMessage('El nombre debe tener al menos 3 caracteres'),
-    body('price').isNumeric().withMessage('El precio debe ser un número positivo'),
-    body('stock').isInt({ min: 1 }).withMessage('El stock debe ser un número entero positivo'),
-    body('description').trim().isLength({ min: 10 }).withMessage('La descripción debe tener al menos 10 caracteres'),
-    body('category_id').isInt({ min: 1 }).withMessage('Seleccione una categoría válida'),
-    body('brand').isInt({ min: 1 }).withMessage('Seleccione una marca válida')
+// Validaciones para la creación del producto
+
+  const productValidations = [
+    body('name')
+      .notEmpty().withMessage('El nombre del producto es obligatorio')
+      .isLength({ max: 45 }).withMessage('El nombre del producto no puede superar los 45 caracteres'),
+    body('price')
+      .notEmpty().withMessage('El precio del producto es obligatorio')
+      .isInt({ min: 0 }).withMessage('El precio del producto debe ser un número entero mayor o igual a 0'),
+    body('stock')
+      .notEmpty().withMessage('El stock del producto es obligatorio')
+      .isInt({ min: 1 }).withMessage('El stock del producto debe ser un número entero mayor o igual a 1'),
+    body('description')
+      .notEmpty().withMessage('La descripción del producto es obligatoria')
+      .isLength({ max: 150 }).withMessage('La descripción del producto no puede superar los 150 caracteres'),
+    body('gender')
+      .notEmpty().withMessage('El género del producto es obligatorio')
+      .isLength({ max: 45 }).withMessage('El género del producto no puede superar los 45 caracteres'),
+    body('image')
+      .notEmpty().withMessage('La imagen del producto es obligatoria')
+      .isLength({ max: 150 }).withMessage('La URL de la imagen no puede superar los 150 caracteres'),
+    body('discount')
+      .optional()
+      .isLength({ max: 45 }).withMessage('El descuento no puede superar los 45 caracteres'),
+    body('size')
+      .notEmpty().withMessage('La talla del producto es obligatoria')
+      .isLength({ max: 45 }).withMessage('La talla del producto no puede superar los 45 caracteres'),
+    //body('category_id')
+    // .isInt({ min: 1 }).withMessage('La categoría del producto debe ser un número entero mayor a 0')
+    //body('brand_id')
+    // .isInt({ min: 1 }).withMessage('La marca del producto debe ser un número entero mayor a 0'),
   ];
 
 router.get('/', productController.index);
