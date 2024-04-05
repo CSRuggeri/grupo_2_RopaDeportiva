@@ -21,7 +21,9 @@ h4{
   margin-bottom: 5px;
   margin-top: 10px;
 }
-
+.error404-msg{
+  padding: 5vw;
+}
 /* main {
   display: flex;
   flex-wrap: wrap;

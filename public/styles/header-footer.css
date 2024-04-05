@@ -27,11 +27,15 @@ header div.logo img{
     justify-content: center;
 }
 header form input{
+    font-family: 'Poppins';
+    outline: none;
     align-self: center;
     border: none;
     border-radius: 0;
     width: 70%;
     padding: 10px;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 header form button{
     background-color: #EAF1F6;
@@ -39,6 +43,8 @@ header form button{
     border: none;
     padding: 10px 10px;
     transition: background-color 0.3s;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 header form button:hover {
     background-color: #AFC1D0;

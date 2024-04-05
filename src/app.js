@@ -57,6 +57,6 @@ app.listen(port, () => {
 });
 
 app.use((req,res,next)=>{
-    res.status(404).send('page not found');
+    res.status(404).render('error-404');
     next();
 })
