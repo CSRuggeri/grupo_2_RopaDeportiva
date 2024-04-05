@@ -57,11 +57,11 @@
                         <h4>Perfil del usuario</h4>
                         <div class="profile">
                             <div>
-                                <input type="radio" name="profile" value="buy" id="buy" <% if(locals.oldData && oldData.profile == 'buy') {%><%= checked %><% } %>>
+                                <input type="radio" name="profile" value="buy" id="buy" <% if(locals.oldData && oldData.profile == 'buy') {%>checked<% } %>>
                                 <label for="buy" class="radio-label">Cliente</label>
                             </div>
                             <div>
-                                <input type="radio" name="profile" value="sell" id="sell" <% if(locals.oldData && oldData.profile == 'sell') {%><%= checked %><% } %>>
+                                <input type="radio" name="profile" value="sell" id="sell" <% if(locals.oldData && oldData.profile == 'sell') {%>checked<% } %>>
                                 <label for="sell" class="radio-label">Vendedor</label>
                             </div>
                         </div>

@@ -4,10 +4,10 @@
     align-items: center;
     justify-content: flex-start;
 }
-.registro{
+.registro,.create{
     margin: 10vh;
 }
-.register-column{
+.register-column, .create-column{
     width: 50%;
     min-height: 400px;
     padding-inline:3%
@@ -29,7 +29,7 @@ img.pfp-preview {
     text-align: center;
     align-content: center;
 }
-.register-form{
+.register-form, .create-form{
     display: flex;
     flex: row;
     justify-content: center;

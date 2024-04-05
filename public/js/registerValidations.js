@@ -6,14 +6,14 @@ window.addEventListener("load", function () {
   let emailI = document.querySelector('.registro input[name="email"]');
   let passI = document.querySelector('.registro input[name="password"]');
   let passConfI= document.querySelector('.registro input[name="pass_confirm"]')
-  let passConfE= document.querySelector('p.pass-conf-error')
+  let passConfE= document.querySelector('.registro p.pass-conf-error')
   let dateI= document.querySelector('.registro input[name="birth_date"]')
-  let dateE= document.querySelector('p.date-error')
+  let dateE= document.querySelector('.registro p.date-error')
   let avatarI = document.querySelector('.registro input[name="avatar"]');
-  let avatarE = document.querySelector('p.avatar-error')
-  let emailE = document.querySelector("p.email-error");
-  let passE = document.querySelector("p.pass-error");
-  let nameE = document.querySelector("p.name-error");
+  let avatarE = document.querySelector('.registro p.avatar-error')
+  let emailE = document.querySelector(".registro p.email-error");
+  let passE = document.querySelector(".registro p.pass-error");
+  let nameE = document.querySelector(".registro p.name-error");
   console.log(nameI, emailI, passI);
 
   nameI.addEventListener("blur", () => {
@@ -73,20 +73,20 @@ window.addEventListener("load", function () {
     }
   })
 
-//   form.addEventListener("submit", function (event) {
-//     let errores = []
-//     validateForm(errores)
+  form.addEventListener("submit", function (event) {
+    let errores = []
+    validateForm(errores)
     
-//     // const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-//     // if (!allowedExtensions.exec(avatarI)) {
-//     //     avatarE.innerHTML = "<span class='material-symbols-outlined error-span'>error</span> El archivo de imagen debe tener una extensión válida (JPG, JPEG, PNG, GIF)";
-//     //     avatarE.classList.remove("hidden");  
-//     //     errores.push('avatar error')
-//     // }
-//     if(errores.length>0){
-//         event.preventDefault()
-//     }
-//   });
+    // const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    // if (!allowedExtensions.exec(avatarI)) {
+    //     avatarE.innerHTML = "<span class='material-symbols-outlined error-span'>error</span> El archivo de imagen debe tener una extensión válida (JPG, JPEG, PNG, GIF)";
+    //     avatarE.classList.remove("hidden");  
+    //     errores.push('avatar error')
+    // }
+    if(errores.length>0){
+        event.preventDefault()
+    }
+  });
 
   function validateForm(errorArray) {
     if (nameI.value.trim().length < 2) {

@@ -12,8 +12,14 @@ const registerValidations = [
         .notEmpty().withMessage('Debe ingresar su email').bail()
         .isEmail().withMessage('Debe ingresar un formato de email válido'),
     body('password')
-        .notEmpty().withMessage('Debe ingresar una contraseña').isString(),
+        .notEmpty().withMessage('Debe ingresar una contraseña').bail()
+        .isLength({min:8}).withMessage('La contraseña debe tener al menos 8 caracteres'),
     body('birth_date').notEmpty().withMessage('Debe ingresar su fecha de nacimiento')
+]
+
+const loginValidations = [
+    body('email').notEmpty().withMessage('Debe ingresar su email'),
+    body('password').notEmpty().withMessage('Debe ingresar una contraseña')
 ]
 
 // Ruta de registro
@@ -22,7 +28,7 @@ usersRouter.post('/register', uploadAvatars.single('avatar'), registerValidation
 
 // Ruta de inicio de sesión
 usersRouter.get('/login', usersController.login);
-usersRouter.post('/login', usersController.handleLogin);
+usersRouter.post('/login', loginValidations, usersController.handleLogin);
 usersRouter.post('/logout', usersController.logout);
 
 // Ruta del dashboard
