@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const localStorage = require('localStorage');
 const db = require ('../database/models')
@@ -54,11 +55,12 @@ const userService = {
 
   saveUserSession: async (req, res, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
-    const userCart = await db.Cart.findAll({where: { userId: user.id },include:['product']})
+    const activeOrder = await db.Order.findOne({ where: {user_id: user.id, status:{[Op.like]: '%Comprando%'}}})
+    if (activeOrder) {
+      const cart = await db.OrderP.findAll({ where: { orderId: activeOrder.id }, include:['product'] })
+      req.session.cart = cart;
+    }
     req.session.loggedUser = user;
-    req.session.cart = userCart;
-    console.log(req.session.loggedUser)
-
 
     if (req.body.remember !== undefined) {
       res.cookie('remember', user.email, { maxAge: 1000 * 60 * 15 });

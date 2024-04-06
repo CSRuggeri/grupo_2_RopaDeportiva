@@ -51,18 +51,34 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   PRIMARY KEY (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   
-  CREATE TABLE IF NOT EXISTS `sportgodb`.`cart` (
+  CREATE TABLE IF NOT EXISTS `sportgodb`.`order` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  `user_id` INT unsigned not null,
+  `status` varchar(45) DEFAULT NULL,
+  `total` INT unsigned null,
+  PRIMARY KEY (`id`),
+  KEY `order_user_id_FK` (`user_id`),
+  constraint `order_user_id_FK` FOREIGN KEY (`user_id`) REFERENCES `sportgodb`.`user` (`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  
+  CREATE TABLE IF NOT EXISTS `sportgodb`.`orderproducts` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `userId` INT unsigned DEFAULT NULL,
   `Product_id` INT unsigned DEFAULT NULL,
   `Product_quantity` INT unsigned DEFAULT NULL,
+  `subtotal` INT unsigned DEFAULT NULL,
+  `orderId` INT unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `userId_FK` (`userId`),
-  KEY `Product_FK` (`Product_id`),
-  constraint `userId_FK` FOREIGN KEY (`userId`) REFERENCES `sportgodb`.`user` (`id`),
-  constraint `Product_FK` FOREIGN KEY (`Product_id`) REFERENCES `sportgodb`.`product` (`id`)
+  KEY `orderProd_user_id_FK` (`userId`),
+  KEY `orderProd_Prod_id_FK` (`Product_id`),
+  KEY `order_FK` (`orderId`),
+  constraint `orderProd_user_id_FK` FOREIGN KEY (`userId`) REFERENCES `sportgodb`.`user` (`id`),
+  constraint `orderProd_Prod_id_FK` FOREIGN KEY (`Product_id`) REFERENCES `sportgodb`.`product` (`id`),
+  constraint `order_FK` FOREIGN KEY (`orderId`) REFERENCES `sportgodb`.`order` (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO category (name)
@@ -90,7 +106,7 @@ VALUES
 INSERT INTO product (name, price, stock, description, gender, image, discount, size, category_id, brand_id)
 VALUES 
 ('Campera deportiva Puma (H)', 6770, 3, 'campera deportiva puma para hombres', 'male', '/images/show/camperaPumaH.jpg', 5, 'S', 1, 1),
-('Bincha Nike', 1500, 1, 'bincha deportiva nike de material de toalla', 'unisex', '/images/show/binchaNike.jpg', 30, 'S', 2, 2),
+('Bincha Nike', 1500, 5, 'bincha deportiva nike de material de toalla', 'unisex', '/images/show/binchaNike.jpg', 30, 'S', 2, 2),
 ('Campera deportiva Adiddas', 8500, 2, 'campera deportiva marca addidas para mujer', 'female', '/images/show/camperaAdiddasF.jpg', 23, 'S', 1, 3),
 ('Conjunto Adiddas (hombre)', 22300, 2, 'Conjunto remera y pantalon addidas color negro', 'female', '/images/show/conjuntoAdiddasH.jpg', 12, 'M', 3, 3),
 ('Conjunto deportivo Nike (mujer)', 37855, 1, 'conjunto campera y pantalon para mujer color negro marca Nike', 'female', '/images/show/conjuntoNikeF.jpg', 16, 'S', 3, 2),
@@ -108,8 +124,8 @@ INSERT INTO user (name, birthDate, email, address, password, avatar, admin)
 VALUES 
 ('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1');
 
-insert into cart (userId,Product_id,Product_quantity) values 
-(1,1,5),(1,2,3);
+insert into order (userId,status) values 
+(1,'Comprando');
 
 select * from user 
 inner join cart on userId = user.id

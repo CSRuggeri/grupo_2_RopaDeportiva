@@ -34,24 +34,36 @@ const controller = {
 
   shoppingCart: async (req, res) => {
     const cart = req.session.cart;
-
-    const total = cart.reduce((ac,row)=>ac+Number(row.product.price * row.Product_quantity),0)
+    const total = cart.reduce((ac,row)=>ac+Number(row.product.price*(1-(row.product.discount)/100) * row.Product_quantity),0)
     // const products = await getAllProducts() // Fetch products
     res.render('products/shopping-cart',{cart, total});
   },
 
   addToCart: (req, res) => {
-    const { id } = req.params;
-    const products = getAllProducts(); // Fetch products
-    const selectedProduct = products.find((product) => product.id == id);
+    const product = getProductById(id); // Fetch products
 
-    // Get the existing cart from the session or create an empty one
-    req.session.cart = req.session.cart || [];
+
+
+
 
     // Add the selected product to the cart
     req.session.cart.push(selectedProduct);
 
-    res.redirect('/shopping-cart');
+    res.redirect('/cart');
+  },
+  modifyCart: async (req,res) =>{
+    if(req.body.keepSearching){
+      
+    }
+
+    if (req.body.endBuy) {
+      
+    }
+    console.log(Object.keys(req.body))
+
+    res.redirect('/cart')
+
+
   }
 };
 

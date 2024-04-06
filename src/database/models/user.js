@@ -27,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull: false
         },
-        profile: {
-            type: DataTypes.STRING(45),
-            allowNull: true
-        },
         avatar: {
             type: DataTypes.STRING(255),
             allowNull: true 
@@ -45,11 +41,15 @@ module.exports = (sequelize, DataTypes) => {
 
     User.associate = function(models) {
         User.belongsToMany(models.Product, {
-            through: models.Cart,
+            through: models.OrderP,
             foreignKey: 'userId',
             otherKey: 'Product_id',
-            as: 'cart'
+            as: 'userOrderP'
         });
+        User.hasMany(models.Order,{
+            foreignKey: 'user_id',
+            as: 'userOrder'
+        })
     };
 
     return User;

@@ -1,38 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
-    const Cart = sequelize.define('Cart', {
+    const Order = sequelize.define('Order', {
         id:{
             type: DataTypes.INTEGER.UNSIGNED,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        userId: {
+        user_id: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: true
         },
-        Product_id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+        status: {
+            type: DataTypes.STRING(45),
             allowNull: true
         },
-        Product_quantity: {
+        total: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: true
         }
     }, {
-        tableName: 'cart',
+        tableName: 'order',
         timestamps: true // Assuming there are no timestamps columns
     });
 
-    Cart.associate = function(models) {
-        Cart.belongsTo(models.Product, {
-            foreignKey: 'Product_id',
-            as: 'product'
+    Order.associate = function(models) {
+        Order.belongsTo(models.User, {
+            foreignKey: 'user_id',
+            as: 'userOrder'
         });
-        Cart.belongsTo(models.User, {
-            foreignKey: 'userId',
-            as: 'user'
-        });
+        Order.hasMany(models.OrderP,{
+            foreignKey: 'orderId',
+            as: 'order'
+        })
     };
 
-    return Cart;
+    return Order;
 };
