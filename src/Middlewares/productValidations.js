@@ -37,4 +37,4 @@ const productValidations = [
       })
   ];
 
-  module.export = productValidations
+  module.exports = productValidations
