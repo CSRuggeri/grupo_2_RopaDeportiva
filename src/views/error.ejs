@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head')%>
+<body>
+    <%- include('./partials/header')%> 
+    <main>
+        <div class="error404-msg">
+            <h1>Error <%= status %></h1>
+            <p><%= msg %></p>
+            <p>Si consideras que se trata de un error, <a href="">comunicate con nosotros</a></p>
+            <a href="/">Regresar a la página principal</a>
+        </div>
+    </main>
+    <%- include('./partials/footer')%>
+</body>
+</html>

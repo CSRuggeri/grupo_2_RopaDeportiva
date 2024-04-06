@@ -30,7 +30,6 @@ const userService = {
   authenticate: async (email, password) => {
     try {
       const user = await db.User.findOne({ where: { email } });
-
       if (!user) {
         return null;
       }
@@ -49,12 +48,17 @@ const userService = {
   },
 
   findUserByEmail: async (email) =>{
-    return await db.User.findOne({ where: { email } })
+    const user = await db.User.findOne({ where: { email } })
+    return user 
   },
 
-  saveUserSession: (req, res, user) => {
+  saveUserSession: async (req, res, user) => {
     localStorage.setItem('USER_INFO', JSON.stringify(user));
+    const userCart = await db.Cart.findAll({where: { userId: user.id },include:['product']})
     req.session.loggedUser = user;
+    req.session.cart = userCart;
+    console.log(req.session.loggedUser)
+
 
     if (req.body.remember !== undefined) {
       res.cookie('remember', user.email, { maxAge: 1000 * 60 * 15 });

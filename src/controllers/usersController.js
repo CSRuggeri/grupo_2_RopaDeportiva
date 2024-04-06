@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const db = require('../database/models');
 const userService = require('../services/usersServices'); // Importa el servicio de usuarios
 const {validationResult} = require('express-validator')
+const path = require('path')
+const fs = require('fs')
 
 const usersController = {
   login: (req, res) => {
@@ -14,8 +16,8 @@ const usersController = {
 
   handleRegister: async (req, res) => {
     try {
-      
       const errores = validationResult(req)
+
       let emailVerification = await userService.findUserByEmail(req.body.email)
       if(emailVerification){
         errores.errors.push({
@@ -26,21 +28,23 @@ const usersController = {
           location: 'body'
         })
       }
+
       if(!errores.isEmpty()) {
+
+        if(req.file){
+          fs.unlinkSync(
+            path.join(__dirname + `/../../public/images/avatars/${req.file.filename}`)
+          );
+        }
         return res.render('user/register', {errores: errores.mapped(), oldData: req.body})
-      } else{
+
+      }else{
 
       const { name, password, email, birth_date, address, profile } = req.body;
       let filename;
-      if(req.file) {
-        filename = req.file.filename
-      } else {
-        filename = 'default-pfp.png'
-      }
+      req.file ? filename = req.file.filename : filename = 'default-pfp.png'
       
-      console.log(req.file)
-
-      const newUser = await userService.register(
+      let newUser = await userService.register(
         name,
         password,
         email,
@@ -50,12 +54,13 @@ const usersController = {
         `/images/avatars/${filename}`
       );
 
+      userService.saveUserSession(req, res, newUser)
      
-      res.redirect('/users/login');
+      res.redirect(`/users/${newUser.id}/dashboard`);
       }
     } catch (error) {
       console.error('Error al registrar usuario:', error);
-      res.status(500).send('Internal Server Error');
+      res.render('error',{status:500, msg: 'Internal Server Error'});
     }
   },
 
@@ -94,7 +99,7 @@ const usersController = {
       } else{
       
       if (authenticatedUser) {
-        userService.saveUserSession(req, res, authenticatedUser);
+        await userService.saveUserSession(req, res, authenticatedUser);
         res.redirect(`/users/${authenticatedUser.id}/dashboard`);
       } else {
         res.status(401).send('Invalid credentials');
@@ -102,7 +107,7 @@ const usersController = {
     }
     } catch (error) {
       console.error('Error al autenticar usuario:', error);
-      res.status(500).send('Internal Server Error');
+      res.render('error',{status:500, msg: 'Internal Server Error'});
     }
   },
 
@@ -116,7 +121,7 @@ const usersController = {
     }
   },
 
-  getUserProfile: (req, res) => {
+  getUserProfile: async (req, res) => {
     userService.getUserProfile(req, res);
   },
 

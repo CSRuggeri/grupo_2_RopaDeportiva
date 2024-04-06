@@ -8,7 +8,7 @@
 .error-span{
     font-size: small;
 }
-div.input input.error-input{
+div.input input.error-input, div.input textarea.error-input{
     border: 0.15rem solid brown;
 }
 div.input input.error-input:focus+label{

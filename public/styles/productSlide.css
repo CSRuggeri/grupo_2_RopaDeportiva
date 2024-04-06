@@ -1,0 +1,17 @@
+.container{
+    background-color: white;
+    height: auto;
+    width: 100%;
+    overflow-x: none;
+}
+.slide-wrapper{
+    padding: 2%;
+    height: fit-content;
+    display: flex;
+    overflow-x: auto;
+}
+.slide-wrapper div{
+    flex: 0 0 auto; 
+    height: auto; 
+    scroll-snap-align: start;
+}

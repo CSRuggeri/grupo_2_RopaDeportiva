@@ -17,6 +17,8 @@ usersRouter.get('/login', isGuest, usersController.login);
 usersRouter.post('/login', loginValidations, usersController.handleLogin);
 usersRouter.post('/logout', usersController.logout);
 
+
+
 // Ruta del dashboard
 usersRouter.get('/:id/dashboard', isLoggedIn, isThatUser, usersController.getUserProfile);
 usersRouter.get('/:id/edit', isLoggedIn, isThatUser, usersController.edit);

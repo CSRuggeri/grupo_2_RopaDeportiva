@@ -14,7 +14,7 @@
           <% if(!locals.logged) { %><a href="/users/login" class="nav-buttons">Iniciar sesión</a><% } %>
           <% if(!locals.logged) { %><a href="/users/register" class="nav-buttons">Registrarse</a><% } %>
           <% if(locals && locals.logged && locals.admin) { %><a href="/products/create" class="nav-buttons">Publicar producto</a><% } %>
-          <a href="/shopping-cart" class="nav-buttons"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a href="/cart" class="nav-buttons"><i class="fa-solid fa-cart-shopping"></i><p class="cart-items">0</p></a>
           <% if(locals && locals.logged) { %> <a href="/users/<%= loggedUser.id %>/dashboard" class="nav-buttons">
             <% if(!loggedUser.avatar) {%>
                 <i class="fa-solid fa-user"></i>

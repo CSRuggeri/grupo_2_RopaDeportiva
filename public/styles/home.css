@@ -11,17 +11,45 @@ body {
   display: flex;
   flex-direction: column;
     align-items: center;
-  
 }
 .white-bkg{
   background-color: white;
   border-radius: 10px;
 }
+h1{
+  font-size: max(2vw,3vh);
+  margin-inline: 5%;
+  text-align: center;
+}
 h4{
   margin-bottom: 5px;
   margin-top: 10px;
 }
-
+.error404-msg{
+  padding: 5vw;
+}
+.categories{
+  width: 90%;
+  padding-inline: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+.categories img{
+  aspect-ratio: 1/1;
+  padding: 10px;
+  object-fit: contain;
+  width: 100px;
+  border-radius: 50%;
+  background-color: #1C3F60;
+}
+.categories p{
+  text-align: center;
+  font-weight: 600;
+  margin-top: 0;
+}
 /* main {
   display: flex;
   flex-wrap: wrap;
@@ -86,10 +114,6 @@ article:hover {
 
 .discount {
   color: #39b54a;
-}
-
-p {
-  color: #ab9f12,
 }
 
 h4 {
@@ -164,6 +188,12 @@ label {
   nav a{
     display: none;
     
+  }
+  .categories img{
+    width: 70px;
+  }
+  .categories{
+    gap: 10%;
   }
 }
 
