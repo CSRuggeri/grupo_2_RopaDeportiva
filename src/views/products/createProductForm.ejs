@@ -14,11 +14,12 @@
                             <img src="/images/show/product-default.png" alt="Imagen default" class="product-preview">
                             <input type="file" name="image" id="image" class="product-input">
                             <label for="image" class="product-label submit-button">Elegir imagen</label>
-                            <p class=error-msg <% if(!locals.errores || !errores.image) { %>hidden<% } %>"><span class="material-symbols-outlined error-span ">error</span><% if(locals.errores && errores.avatar)image { %><%= errores.image.msg %><% } %></p>
+                            <p class="error-msg" <% if (!locals.errores || !errores.image) { %>hidden<% } %>><span class="material-symbols-outlined error-span">error</span><% if (locals.errores && errores.image) { %><%= errores.image.msg %><% } %></p>
                         </div>
                         <div class="input">
                             <input type="text" id="name" name="name" placeholder=" " class= <% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
                             <label for="name">Nombre del producto</label>
+                            <p class="error-msg" <% if (!locals.errores || !errores.name) { %>hidden<% } %>><span class="material-symbols-outlined error-span">error</span><% if (locals.errores && errores.name) { %><%= errores.name.msg %><% } %></p>
                             <span class="material-symbols-outlined">
                                 inventory_2
                                 </span> 
@@ -95,6 +96,7 @@
                         <div class="input">
                             <input type="number" id="price" name="price" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
                             <label for="price">Precio</label>
+                            <p class="error-msg" <% if (!locals.errores || !errores.price) { %>hidden<% } %>><span class="material-symbols-outlined error-span">error</span><% if (locals.errores && errores.price) { %><%= errores.price.msg %><% } %></p>
                             <span class="material-symbols-outlined">
                                 attach_money
                                 </span>
