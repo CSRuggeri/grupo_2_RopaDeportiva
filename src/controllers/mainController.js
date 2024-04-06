@@ -3,24 +3,41 @@ const usersController = require("./usersController");
 const localStorage = require("localStorage")
 const path = require('path')
 const fs = require('fs');
-const {getAllProducts} = require('../services/productServices')
-const db = require('../database/models'); 
+const {getAllProducts, findProductsByCategoryId} = require('../services/productServices')
+const db = require('../database/models');
+
+function get2RandomNumbers(min,max){
+  let num1 = Math.floor(Math.random() * (max-min+1)) + min
+  let num2 = Math.floor(Math.random() * (max-min+1)) + min
+  while (num1 == num2) {
+    num2 = Math.floor(Math.random() * (max-min+1)) + min
+  }
+  return {num1,num2}
+}
 
 const controller = {
   home: async(req, res) => {
-    let products = await getAllProducts()
-    res.render("products/home", { products , user: req.session.loggedUser});
+    try {
+      const {num1,num2} = get2RandomNumbers(1,8)
+      let products = await getAllProducts()
+      let prodCat1 = await findProductsByCategoryId(num1)
+      let prodCat2 = await findProductsByCategoryId(num2)
+      res.render("products/home", { products , prodCat1, prodCat2});
+    } catch (error) {
+      res.render("products/home", { products });
+    }
   },
 
   pagos: (req, res) => {
     res.render("user/pagos.ejs");
   },
 
-  shoppingCart: (req, res) => {
-    const { id } = req.session.cart;
-    const products = getAllProducts() // Fetch products
-    const selectedProduct = products.find((product) => product.id == id);
-    res.render("products/shopping-cart.ejs", { selectedProduct, products });
+  shoppingCart: async (req, res) => {
+    const cart = req.session.cart;
+
+    const total = cart.reduce((ac,row)=>ac+Number(row.product.price * row.Product_quantity),0)
+    // const products = await getAllProducts() // Fetch products
+    res.render('products/shopping-cart',{cart, total});
   },
 
   addToCart: (req, res) => {

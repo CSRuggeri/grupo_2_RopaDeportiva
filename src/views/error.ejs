@@ -5,8 +5,8 @@
     <%- include('./partials/header')%> 
     <main>
         <div class="error404-msg">
-            <h1>Error 404</h1>
-            <p>La página que estás intentando visitar no existe en nuestro sitio web</p>
+            <h1>Error <%= status %></h1>
+            <p><%= msg %></p>
             <p>Si consideras que se trata de un error, <a href="">comunicate con nosotros</a></p>
             <a href="/">Regresar a la página principal</a>
         </div>

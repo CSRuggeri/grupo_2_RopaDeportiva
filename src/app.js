@@ -57,6 +57,6 @@ app.listen(port, () => {
 });
 
 app.use((req,res,next)=>{
-    res.status(404).render('error-404');
+    res.render('error',{status: 404, msg:'La página que estás intentando visitar no existe en nuestro sitio web'});
     next();
 })
