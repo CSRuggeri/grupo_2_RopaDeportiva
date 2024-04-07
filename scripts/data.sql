@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `sportGoDb`.`product` (
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `name` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL,
-  `price` INT unsigned NOT NULL,
+  `price` DECIMAL(11,2) unsigned NOT NULL,
   `stock` INT unsigned NOT NULL DEFAULT 1,
   `description` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
   `gender` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `updatedAt` timestamp NULL DEFAULT NULL,
   `user_id` INT unsigned not null,
   `status` varchar(45) DEFAULT NULL,
-  `total` INT unsigned null,
+  `total` DECIMAL(11,2) unsigned null,
   PRIMARY KEY (`id`),
   KEY `order_user_id_FK` (`user_id`),
   constraint `order_user_id_FK` FOREIGN KEY (`user_id`) REFERENCES `sportgodb`.`user` (`id`)
@@ -67,16 +67,13 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
-  `userId` INT unsigned DEFAULT NULL,
   `Product_id` INT unsigned DEFAULT NULL,
   `Product_quantity` INT unsigned DEFAULT NULL,
-  `subtotal` INT unsigned DEFAULT NULL,
+  `subtotal` DECIMAL(11,2) unsigned DEFAULT NULL,
   `orderId` INT unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `orderProd_user_id_FK` (`userId`),
   KEY `orderProd_Prod_id_FK` (`Product_id`),
   KEY `order_FK` (`orderId`),
-  constraint `orderProd_user_id_FK` FOREIGN KEY (`userId`) REFERENCES `sportgodb`.`user` (`id`),
   constraint `orderProd_Prod_id_FK` FOREIGN KEY (`Product_id`) REFERENCES `sportgodb`.`product` (`id`),
   constraint `order_FK` FOREIGN KEY (`orderId`) REFERENCES `sportgodb`.`order` (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -122,14 +119,14 @@ VALUES
 
 INSERT INTO user (name, birthDate, email, address, password, avatar, admin)
 VALUES 
-('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1');
+('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1'),
+('aa', '2024-03-01', 'a@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '0');
 
-insert into order (userId,status) values 
+INSERT INTO `sportgodb`.`order` (user_id,status) values 
 (1,'Comprando');
 
-select * from user 
-inner join cart on userId = user.id
-inner join product on product.id = cart.Product_id
-where user.name = 'Franco Albornoz' 
+insert into orderproducts (Product_id,Product_quantity,orderId) values 
+(1,2,1),(2,3,1);
 
-
+select * from `sportgodb`.`order`;
+select * from user

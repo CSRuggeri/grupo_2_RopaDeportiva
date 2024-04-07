@@ -1,14 +1,7 @@
 window.addEventListener('load',()=>{
     let productsQuantity = document.querySelectorAll('.product-quantity')
     let total = document.querySelector('tfoot .total')
-    let subTotals = document.querySelectorAll('.subtotal')
-    let payMethod = document.querySelector('.pay-method')
-    let payMethodI = document.querySelector('select[name="pay-method"]')
-
-    payMethod.addEventListener('click',(e)=>{
-        e.preventDefault()
-        payMethodI.hidden == true ? payMethodI.hidden = false : payMethodI.hidden = true
-    })
+    let subTotals = document.querySelectorAll('.subtotal')    
 
     function actualizarTotal() {
         const suma = calcularSumaTotal();

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         total: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.DECIMAL(11, 2).UNSIGNED,
             allowNull: true
         }
     }, {
@@ -28,10 +28,12 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'user_id',
             as: 'userOrder'
         });
-        Order.hasMany(models.OrderP,{
+        Order.belongsToMany(models.Product, {
+            through: models.OrderProduct,
             foreignKey: 'orderId',
-            as: 'order'
-        })
+            otherKey: 'Product_id',
+            as: 'orderP'
+        });
     };
 
     return Order;

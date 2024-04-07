@@ -57,6 +57,7 @@ nav {
     width: fit-content;
     flex-wrap: wrap;
     flex-direction: row;
+    
 }
 header nav a.nav-buttons{
     text-align: center;

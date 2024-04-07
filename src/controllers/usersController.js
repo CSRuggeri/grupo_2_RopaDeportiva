@@ -54,7 +54,7 @@ const usersController = {
         `/images/avatars/${filename}`
       );
 
-      userService.saveUserSession(req, res, newUser)
+      await userService.saveUserSession(req, res, newUser)
      
       res.redirect(`/users/${newUser.id}/dashboard`);
       }
@@ -122,7 +122,10 @@ const usersController = {
   },
 
   getUserProfile: async (req, res) => {
-    userService.getUserProfile(req, res);
+    await userService.getProcessOrders(req, req.session.loggedUser)
+    const user = req.session.loggedUser;
+    const Orders = req.session.processOrder
+    res.render('user/dashboard.ejs', { user,Orders  });
   },
 
   edit: async (req, res) => {

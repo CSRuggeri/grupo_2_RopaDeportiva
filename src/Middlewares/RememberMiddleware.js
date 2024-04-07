@@ -9,9 +9,12 @@ let rememberMe = async (req, res, next) => {
         if (user) {
           req.session.loggedUser = user;
           if (activeOrder) {
-            const cart = await db.OrderP.findAll({ where: { orderId: activeOrder.id }, include:['product'] })
+            req.session.activeOrder = activeOrder
+            const cart = await db.OrderProduct.findAll({ where: { orderId: activeOrder.id }, include:['orderProducts'] })
             if (cart) {
               req.session.cart = cart
+            } else {
+              req.session.cart = []
             }
           }
           console.log('Se ha restablecido la conexión');

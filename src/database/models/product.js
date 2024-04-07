@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         price: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.DECIMAL(11, 2).UNSIGNED,
             allowNull: false
         },
         stock: {
@@ -61,11 +61,11 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'brand_id', 
             as: 'productBrand'
         });
-        Product.belongsToMany(models.User, {
-            through: models.OrderP,
+        Product.belongsToMany(models.Order, {
+            through: models.OrderProduct,
             foreignKey: 'Product_id',
-            otherKey: 'userId',
-            as: 'ProductOrderP'
+            otherKey: 'orderId',
+            as: 'orderProducts'
         });
     };
 
