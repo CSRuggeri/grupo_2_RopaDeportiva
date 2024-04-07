@@ -13,8 +13,18 @@ window.addEventListener('load',()=>{
     let defaultProductI = '/images/show/product-default.png'
 
     menuBtn.addEventListener('click',()=>{
-        nav.classList.toggle('nav-visibility')
+        if (window.innerWidth <= 425) {
+            nav.classList.toggle('nav-visibility')
+        }
     })
+
+    window.addEventListener('resize',()=>{
+        if (window.innerWidth > 425) {
+            nav.classList.remove('nav-visibility')
+        }
+    })
+
+
     loginPassIcon.addEventListener('click',(e)=>{
         console.log(e)
        
@@ -43,5 +53,7 @@ window.addEventListener('load',()=>{
         }
     })
 
-   
+
+
+
 })
