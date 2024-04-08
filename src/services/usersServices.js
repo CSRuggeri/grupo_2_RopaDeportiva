@@ -4,7 +4,7 @@ const localStorage = require('localStorage');
 const db = require ('../database/models')
 
 const userService = {
-  register: async (name, password, email, birthDate, address, profile, avatar) => {
+  register: async (name, password, email, birthDate, address, avatar) => {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -15,7 +15,6 @@ const userService = {
         email,
         birthDate,
         address,
-        profile,
         avatar,
       });
 
@@ -104,39 +103,30 @@ const userService = {
     res.redirect('/users/login');
   },
 
-  editUser : async (req) => {
+  editUser : async (req, userToEdit) => {
     try {
-        const { name, password, email, birth_date, address, profile } = req.body;
-        const { filename } = req.file;
+      const { name, password, email, birth_date, address } = req.body;
+      let filename;
+      req.file ? filename = `/images/avatars/${req.file.filename}` : filename = userToEdit.avatar
+      
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log(req.body);
-        console.log(req.file);
+      await db.User.update({
+        name,
+        password: hashedPassword,
+        email,
+        birthDate: birth_date,
+        address,
+        avatar: filename,
+      },{where: {id: req.params.id}});
 
-        // Validate required fields
-        if (!email) {
-            throw new Error('Email is missing');
-        }
+      const editedUser = await db.User.findByPk(req.params.id) 
 
-        // Find user by email
-        const userInstance = await db.User.findOne({ where: { email } });
-        if (!userInstance) {
-            throw new Error('User not found');
-        }
-
-        // Update the user using Sequelize
-        const editedUser = await db.User.update({
-            name,
-            password,
-            birth_date,
-            address,
-            profile,
-            avatar: `/images/avatars/${filename}`
-        }, { where: { id: userInstance.id } });
-
-        return { msg: `User ${userInstance.id} updated successfully` };
+      console.log('User updated successfully:', editedUser); // Agrega un registro de consola
+      return editedUser;
     } catch (error) {
-        console.error('Error editing user:', error);
-        throw error;
+      console.error('Error updating user:', error); // Agrega un registro de consola para capturar el error
+      throw new Error('Internal Server Error');
     }
   },
   
@@ -166,16 +156,36 @@ const userService = {
     req.session.cart = []
   },
 
-  addProductToCart: async (product,req) =>{
+  addProductToCart: async (product,req,quantity) =>{
     const verifyIfItem = await db.OrderProduct.findOne({where:{
       orderId: req.session.activeOrder.id,
       Product_id: product.id
     },include:['orderProducts']})
     if (verifyIfItem) {
-      if (verifyIfItem.orderProducts.stock > verifyIfItem.Product_quantity) {
-        let subtotal = Number(verifyIfItem.subtotal) + product.price*(1-(product.discount)/100)
+      if (!quantity) {
+        if (verifyIfItem.orderProducts.stock > verifyIfItem.Product_quantity) {
+          let subtotal = Number(verifyIfItem.subtotal) + product.price*(1-(product.discount)/100)
+          await db.OrderProduct.update({
+            Product_quantity: verifyIfItem.Product_quantity+1,
+            subtotal: subtotal,
+          },{
+            where:{orderId: req.session.activeOrder.id,
+              Product_id: product.id}
+          })
+        }
+      } else if(verifyIfItem.orderProducts.stock > verifyIfItem.Product_quantity+quantity) {
+        let subtotal = Number(verifyIfItem.subtotal) + (product.price*(1-(product.discount)/100))*quantity
         await db.OrderProduct.update({
-          Product_quantity: verifyIfItem.Product_quantity+1,
+          Product_quantity: verifyIfItem.Product_quantity+quantity,
+          subtotal: subtotal,
+        },{
+          where:{orderId: req.session.activeOrder.id,
+            Product_id: product.id}
+        })
+      } else {
+        let subtotal = (product.price*(1-(product.discount)/100))*verifyIfItem.orderProducts.stock
+        await db.OrderProduct.update({
+          Product_quantity: verifyIfItem.orderProducts.stock,
           subtotal: subtotal,
         },{
           where:{orderId: req.session.activeOrder.id,
@@ -183,17 +193,30 @@ const userService = {
         })
       }
     } else {
-      let subtotal = product.price*(1-(product.discount)/100);
-      await db.OrderProduct.create({
-        Product_id: product.id,
-        Product_quantity: 1,
-        subtotal: subtotal,
-        orderId: req.session.activeOrder.id
-      })
+      if(quantity) {
+        let subtotal = (product.price*(1-(product.discount)/100))*quantity;
+        console.log(subtotal)
+        await db.OrderProduct.create({
+          Product_id: product.id,
+          Product_quantity: quantity || 1,
+          subtotal: subtotal,
+          orderId: req.session.activeOrder.id
+        })
+      } else {
+        let subtotal = (product.price*(1-(product.discount)/100));
+        console.log(subtotal)
+        await db.OrderProduct.create({
+          Product_id: product.id,
+          Product_quantity: 1,
+          subtotal: subtotal,
+          orderId: req.session.activeOrder.id
+        })
+      }
       
     }
     const cart = await db.OrderProduct.findAll(({ where: { orderId: req.session.activeOrder.id }, include:['orderProducts'] }))
     req.session.cart = cart
+    console.log(cart)
   },
 
   updateCart: async (cantidad,req) =>{
@@ -282,9 +305,57 @@ const userService = {
     }, include:['orderProducts'] 
   })
     req.session.cart = cart
+  },
+  endOrder: async (id,req) => {
+    await db.Order.update({
+      status: 'Entregado',
+    },{
+      where:{
+        id: id
+      }
+    })
+    await db.OrderProduct.update({
+      status: 1,
+    },{
+      where:{
+        orderId: id
+      }
+    })
+    const orderProducts = await db.OrderProduct.findAll({ where: { orderId: id }, include:['orderProducts'] })
+    for(let i =0; i<orderProducts.length;i++){
+      const orderProduct = orderProducts[i]
+      await db.Product.decrement('stock', { by: orderProduct.Product_quantity, where: { id: orderProduct.Product_id } })
+      const product = await db.Product.findByPk(orderProduct.Product_id)
+      const orderWithProduct = await db.OrderProduct.findAll({where: {Product_id: product.id, orderId: {[Op.ne]: id}}})
+      for(let j =0; j<orderWithProduct.length;j++){
+        if(orderWithProduct[j].Product_quantity > product.stock) {
+          await db.OrderProduct.update({
+            Product_quantity: product.stock,
+            subtotal: (Number(product.price)*(1-(product.discount)/100))*product.stock
+          },{
+            where: {Product_id: product.id, id: orderWithProduct[j].id}}
+          )
+        }
+      }
+    }
+    await db.OrderProduct.destroy({
+      where: {
+        Product_quantity: 0
+      }
+    })
+  },
+  updateTotals: async () => {
+    let order = await db.Order.findAll({where:{status:{[Op.ne]: 'Entregado'}}})
+    
+    for(let i=0; i<order.length; i++) {
+      const orderProducts = await db.OrderProduct.findAll({where:{orderId: order[i].id}})
+      let total =0;
+      orderProducts.forEach(element => {
+        total += Number(element.subtotal)
+      });
+      await db.Order.update({total: total},{where: {id: order[i].id}})
+    }
   }
-  
-
 };
 
 module.exports = userService;

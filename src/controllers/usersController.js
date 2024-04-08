@@ -122,6 +122,7 @@ const usersController = {
   },
 
   getUserProfile: async (req, res) => {
+    
     await userService.getProcessOrders(req, req.session.loggedUser)
     const user = req.session.loggedUser;
     const Orders = req.session.processOrder
@@ -132,7 +133,8 @@ const usersController = {
     try {
       const { id } = req.params;
       const user = await db.User.findByPk(id);
-      res.render('users/edit', { user });
+      console.log(user)
+      res.render('user/editProfile.ejs', { user });
     } catch (error) {
       console.error('Error al mostrar el formulario de edición de usuario:', error);
       res.status(500).send('Internal Server Error');
@@ -141,10 +143,24 @@ const usersController = {
   
   update: async (req, res) => {
     try {
-      const { id } = req.params;
-      const { name, email } = req.body;
-      await db.User.update({ name, email }, { where: { id } });
-      res.redirect(`/users/${id}/dashboard`);
+      const errores = validationResult(req)
+      const userToEdit = await db.User.findByPk(req.params.id)
+
+      if(!errores.isEmpty()) {
+
+        if(req.file){
+          fs.unlinkSync(
+            path.join(__dirname + `/../../public/images/avatars/${req.file.filename}`)
+          );
+        }
+        return res.render('user/editProfile', {errores: errores.mapped(), oldData: req.body, user: userToEdit})
+
+      }else{
+      console.log('Actualizando usuario')
+      const editedUser = await userService.editUser(req, userToEdit);
+      await userService.saveUserSession(req, res, editedUser)
+      res.redirect(`/users/${editedUser.id}/dashboard`)
+      }
     } catch (error) {
       console.error('Error al actualizar el usuario:', error);
       res.status(500).send('Internal Server Error');

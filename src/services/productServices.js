@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../database/models');
 const brand = require('../database/models/brand');
 
@@ -14,7 +15,7 @@ const getAllProducts = async () => {
 
 const getProductById = async (id) => {
     try {
-        return await db.Product.findByPk(id);
+        return await db.Product.findByPk(id, {include: ['productBrand']});
     } catch (error) {
         console.error('Error fetching product by ID:', error);
         return []
@@ -171,12 +172,43 @@ const getXProducts = async (cantidad) =>{
         include: [{'association':'productCategory'}],
         limit: cantidad
     })
-
 }
-    
+
+const findXProductsByCategoryId = async (categoryId, cantidad, noBuscar) =>{
+    try {
+        const category = await db.Category.findByPk(categoryId)
+        if(!noBuscar) {
+        const products = await db.Product.findAll({
+            where:{
+                category_id: categoryId
+            },
+            include: [{'association':'productCategory'}],
+            limit: cantidad
+        })
+        return {products,category}
+        } else {
+            const products = await db.Product.findAll({
+                where:{
+                    category_id: categoryId,
+                    id:{[Op.ne]: noBuscar}
+                },
+                include: [{'association':'productCategory'}],
+                limit: cantidad
+            })
+            return {products,category}
+        }
+        
+    } catch (error) {
+        return {products:[],category:''}
+    }
+}
+
+const getCategories = async () => {
+    return await db.Category.findAll()
+}
 
     
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId, getXProducts};
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId, getXProducts, findXProductsByCategoryId, getCategories};
