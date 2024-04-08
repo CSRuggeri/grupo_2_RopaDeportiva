@@ -7,35 +7,37 @@
 
     <main class="dashboard">
             <% if (allOrders.length>0) { %>
-             <table>
-                <thead>
-                    <tr>
-                        <th>Id del pedido</th>
-                        <th>Detalle del pedido</th>
-                        <th>Total</th>
-                        <th>Estado del pedido</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% allOrders.forEach(order => { %>
-                        <tr>
-                            <td><%= order.id %></td>
-                            <td><% order.orderP.forEach(product => { %>
-                                <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
-                            <% }) %></td>
-                            <td><%= order.total %></td>
-                            <td><%= order.status %></td>
-                            <td><% if (order.status == 'Esperando validación' || order.status == 'A pagar') { %>
-                                <form action="/finishbuy/<%= order.id %>" method="Post">
-                                    <button type="submit">Validar transacción</button>
-                                </form>
-                            <% } %>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-             </table>
+                <div class="orders">
+                    <table>
+                       <thead>
+                           <tr>
+                               <th>Id del pedido</th>
+                               <th>Detalle del pedido</th>
+                               <th>Total</th>
+                               <th>Estado del pedido</th>
+                               <th></th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <% allOrders.forEach(order => { %>
+                               <tr>
+                                   <td><%= order.id %></td>
+                                   <td><% order.orderP.forEach(product => { %>
+                                       <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
+                                   <% }) %></td>
+                                   <td><%= order.total %></td>
+                                   <td><%= order.status %></td>
+                                   <td><% if (order.status == 'Esperando validación' || order.status == 'A pagar') { %>
+                                       <form action="/finishbuy/<%= order.id %>" method="Post">
+                                           <button type="submit">Validar transacción</button>
+                                       </form>
+                                   <% } %>
+                                   </td>
+                               </tr>
+                           <% }); %>
+                       </tbody>
+                    </table>
+                </div>
             <% } else { %>
                 <h1>No hay productos para procesar</h1>
             <% } %>  

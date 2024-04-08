@@ -21,11 +21,12 @@ window.addEventListener('load',()=>{
     productsQuantity.forEach(productQuantity =>{
         let fila = productQuantity.closest('tr')
         let precio = fila.querySelector('.price').innerHTML
-        let precioNumber = parseFloat(precio.replace(/\./g, '').replace(',', '.'))
+        let precioNumber;
+        precio.includes(',') ? precioNumber = parseFloat(precio.replace(/\./g, '').replace(',', '.')) : precioNumber = precio
         let subTotal = fila.querySelector('.subtotal')
         actualizarTotal()
         productQuantity.addEventListener('change',()=>{
-            subTotal.innerHTML = (precioNumber*productQuantity.value).toLocaleString('es-Ar',{style:
+            subTotal.innerHTML = (Number(precioNumber)*Number(productQuantity.value)).toLocaleString('es-Ar',{style:
                 'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
             actualizarTotal()
         })

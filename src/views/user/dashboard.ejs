@@ -30,50 +30,49 @@
                     
                 </section>
             </div>
-            <% if (Orders.length>0) { %>
-             <table>
-                <thead>
-                    <tr>
-                        <th>Id del pedido</th>
-                        <th>Detalle del pedido</th>
-                        <th>Total</th>
-                        <th>Estado del pedido</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% Orders.forEach(order => { %>
-                        <tr>
-                            <td><%= order.id %></td>
-                            <td><% order.orderP.forEach(product => { %>
-                                <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
-                            <% }) %></td>
-                            <td><%= order.total %></td>
-                            <td><%= order.status %></td>
-                            <td><% if (order.status == 'A pagar') { %>
-                             <button>Subir comprobante</button>
-                            <% } if(order.status == 'Entregado') {%>
-                                <button>Descargar factura</button>
-                                <% } %>
-                            </td>
-                            <td>
-                            <form action="/order/<%= order.id %>/delete" method="post">
-                                <button type="submit">Eliminar order</button>
-                            </form>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-             </table>
-            <% } %>
-            <% if (locals.admin) { %>
-             <a href="/ordersList" class="submit-button">Administrar pedidos</a>
-            <% } %>
-            <% if (locals.admin) { %>
-                <a href="http://localhost:5173" class="submit-button">Admin Dashboard</a>
-               <% } %>
         </div>      
+        <% if (Orders.length>0) { %>
+            <div class="orders">
+                <table>
+                   <thead>
+                       <tr>
+                           <th>Id del pedido</th>
+                           <th>Detalle del pedido</th>
+                           <th>Total</th>
+                           <th>Estado del pedido</th>
+                           <th></th>
+                           <th></th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <% Orders.forEach(order => { %>
+                           <tr>
+                               <td><%= order.id %></td>
+                               <td><% order.orderP.forEach(product => { %>
+                                   <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
+                               <% }) %></td>
+                               <td><%= order.total %></td>
+                               <td><%= order.status %></td>
+                               <td><% if (order.status == 'A pagar') { %>
+                                <button>Subir comprobante</button>
+                               <% } if(order.status == 'Entregado') {%>
+                                   <button>Descargar factura</button>
+                                   <% } %>
+                               </td>
+                               <td>
+                               <form action="/order/<%= order.id %>/delete" method="post">
+                                   <button type="submit">Eliminar orden</button>
+                               </form>
+                               </td>
+                           </tr>
+                       <% }); %>
+                   </tbody>
+                </table>
+            </div>
+        <% } %>
+        <% if (locals.admin) { %>
+         <a href="/ordersList" class="submit-button">Administrar pedidos</a>
+        <% } %>
     </main>
 
     <%- include('../partials/footer')%>

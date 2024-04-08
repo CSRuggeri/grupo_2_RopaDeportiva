@@ -15,6 +15,7 @@ fetchCategories,
 searchProduct
 } = require("../services/productServices");
 const db = require("../database/models");
+const userServices = require("../services/usersServices");
 const { validationResult } = require("express-validator");
 
 const productController = {
@@ -126,8 +127,10 @@ try {
     }
 
     try {
-      const { msg } = await editProduct(req);
+      const { msg, editedProduct } = await editProduct(req);
       console.log(msg);
+      await userServices.updateOrders(editedProduct)
+      await userServices.updateTotals()
       res.redirect(`/products/${req.params.id}`);
     } catch (error) {
       console.log(error);
@@ -139,6 +142,7 @@ try {
   destroy: async (req, res) => {
     try {
       const Product = await destroyProductByPk(req.params.id);
+      await userServices.updateTotals()
       console.log(Product);
       fs.unlinkSync(
         path.join(__dirname + `/../../public${Product.deletedProduct.image}`)

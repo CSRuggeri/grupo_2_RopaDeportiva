@@ -6,7 +6,7 @@
         <main>
           <% if (cart.length >0) { %>
             <h1>Carrito</h1>
-            <form action="/cart" method="post" class="white-bkg">
+            <form action="/cart" method="post" class="white-bkg form-width cart">
               <table>
                 <thead>
                   <th>Nombre del producto</th>
@@ -36,11 +36,13 @@
                       <% if(row.orderProducts.discount>0) {%><td class="subtotal"><%=
                         (row.orderProducts.price*(1-(row.orderProducts.discount)/100)*row.Product_quantity).toLocaleString('es-AR',{style:
                         'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
-                        %></td><% } else { %><td><%=
+                        %></td><% } else { %><td class="subtotal"><%=
                           (row.orderProducts.price*row.Product_quantity).toLocaleString('es-AR',{style:
                         'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
                         %></td><% } %>
-                        <td><button type="submit" formaction="/cart/<%= row.orderProducts.id %>/delete">Borrar producto</button></td>
+                        <td><button type="submit" formaction="/cart/<%= row.orderProducts.id %>/delete"><span class="material-symbols-outlined">
+                          delete
+                          </span></button></td>
                     </tr>
                     <% }) %>
                 </tbody>
@@ -48,17 +50,20 @@
                   <tr>
                     <td></td>
                     <td></td>
-                    <td>Total</td>
+                    <td class="total-text">Total</td>
                     <td class="total"></td>
                   </tr>
                 </tfoot>
               </table>
-              <p>Método de pago: Transferencia bancaria</p>
-              <p>Retiro en sucursal</p>
-              <small>Estamos trabajando en añadir más metodos de pago y métodos de envío</small>
-              <br>
-              <button class="submit-button" type="submit" name="eb" value="eb">Finalizar compra</button>
-              <button class="erase-button" type="submit" name="ks" value="ks">Seguir comprando</button>
+              <div class="cart-info">
+
+                <p>Método de pago: Transferencia bancaria</p>
+                <p>Retiro en sucursal</p>
+                <small>Estamos trabajando en añadir más metodos de pago y métodos de envío</small>
+                <br>
+                <button class="submit-button" type="submit" name="eb" value="eb">Finalizar compra</button>
+                <button class="erase-button" type="submit" name="ks" value="ks">Seguir comprando</button>
+              </div>
               
             </form>
           <% } else { %>

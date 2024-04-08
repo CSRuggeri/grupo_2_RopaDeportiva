@@ -33,3 +33,21 @@ main.dashboard div.white-bkg{
 .user-description{
     text-align: start;
 }
+
+@media screen and (min-width: 0px) and (max-width : 425px) {
+    .image-section{
+        width: 100%;
+    }
+    .user-description{
+        width: 100%;
+        padding-inline: 5%;
+    }
+}
+@media screen and (min-width: 426px) and (max-width : 1023px){
+    .image-section{
+        width: 40%;
+    }
+    .user-description{
+        width: 60%;
+    }
+}
