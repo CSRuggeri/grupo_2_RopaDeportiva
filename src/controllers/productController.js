@@ -7,6 +7,9 @@ const {
   storeProduct,
   editProduct,
   destroyProductByPk,
+  findProductsByCategoryId,
+  findXProductsByCategoryId,
+  getXProducts,
 findProductById,
 fetchCategories,
 searchProduct
@@ -46,7 +49,8 @@ const productController = {
   // Read - Show product details
   detail: async (req, res) => {
     const product = await getProductById(req.params.id);
-    const products = await getAllProducts();
+    const {products} = await findXProductsByCategoryId(product.category_id,5 ,product.id);
+    console.log(products)
     const data = {
       id: req.params.id,
     };
@@ -99,11 +103,9 @@ try {
     const product = await getProductById(id);
     const brands = await db.Brand.findAll();
     const category = await db.Category.findAll();
+    console.log(product)
 
-    // Verificamos si hay una sesión activa (opcional)
-    const user = req.session?.loggedUser;
-
-    res.render("products/edit-product", { product, brands, category, user });
+    res.render("products/edit-product", { product, brands, category });
   },
 
   // Update - Method to update
@@ -146,6 +148,10 @@ try {
       console.log(error);
       res.redirect(`/products/${req.params.id}`);
     }
+  },
+  categoryProducts: async (req,res) =>{
+    const products = await findProductsByCategoryId(req.params.id)
+    res.render('products/productsList', {products, categoria: true})
   },
 
   // API - Get all products

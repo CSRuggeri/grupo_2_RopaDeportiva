@@ -3,7 +3,7 @@ const usersController = require("./usersController");
 const localStorage = require("localStorage")
 const path = require('path')
 const fs = require('fs');
-const {getAllProducts, findProductsByCategoryId, getProductById, getXProducts} = require('../services/productServices')
+const {getAllProducts, findProductsByCategoryId, getProductById, getXProducts, findXProductsByCategoryId, getCategories} = require('../services/productServices')
 const db = require('../database/models');
 const userService = require("../services/usersServices");
 
@@ -20,21 +20,16 @@ const controller = {
   home: async(req, res) => {
     try {
       const {num1,num2} = get2RandomNumbers(1,8)
+      let category = await getCategories()
       let products = await getXProducts(10)
-      let prodCat1 = await findProductsByCategoryId(num1)
-      let prodCat2 = await findProductsByCategoryId(num2)
-      res.render("products/home", { products: products.sort(() => Math.random() - 0.5) , prodCat1, prodCat2});
+      let prodCat1 = await findXProductsByCategoryId(num1, 10)
+      let prodCat2 = await findXProductsByCategoryId(num2, 10)
+      res.render("products/home", { products: products.sort(() => Math.random() - 0.5) , prodCat1, prodCat2, category});
     } catch (error) {
-      res.render("products/home", { products });
+      res.render("products/home", { products: [], category: [] });
     }
   },
 
-
-
-
-  pagos: (req, res) => {
-    res.render("user/pagos.ejs");
-  },
 
   shoppingCart: async (req, res) => {
     if (!req.session.cart) {
@@ -48,8 +43,11 @@ const controller = {
     if(!req.session.activeOrder) {
       await userService.createCart(req)
     }
-    const product = await getProductById(req.params.id); // Fetch products
-    await userService.addProductToCart(product,req)
+    const product = await getProductById(req.params.id);
+    // if(req.body){
+    //   const quantity = req.body.quantity
+    // }
+    await userService.addProductToCart(product,req, req.body.quantity)
     res.redirect('/cart');
   },
 
@@ -76,6 +74,7 @@ const controller = {
   },
   deleteOrder: async (req,res) => {
     await userService.deleteOrderById(req.params.id)
+    await userService.getProcessOrders(req, req.session.loggedUser)
     res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
   },
   deleteProduct: async (req,res) => {
@@ -85,7 +84,10 @@ const controller = {
     console.log(req.session.cart)
     res.redirect('/cart')
   },
-
+  finishBuy: async (req,res) => {
+    await userService.endOrder(req.params.id, req)
+    await userService.updateTotals()
+    res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
 
   orderlistAPI: async (req, res) =>{
   try {

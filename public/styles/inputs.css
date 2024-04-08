@@ -123,9 +123,10 @@ div.input span{
     outline: none;
     border: none;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     transition: 0.2s;
-    margin: 15px
+    margin: 15px;
+    font-size: 0.9rem;
 }
 .submit-button:active{
     background-color: #192b3c !important;
@@ -141,9 +142,10 @@ div.input span{
     outline: none;
     border: none;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     transition: 0.2s;
-    margin-block: 1.5vw
+    margin: 15px;
+    font-size: 0.9rem;
 }
 .erase-button:active{
     background-color: #b9a797 !important;
@@ -155,6 +157,12 @@ div.input span{
 .submit-button a, .erase-button a{
     color: inherit;
     text-decoration: none
+
+}
+a.submit-button{
+    text-decoration: none;
+    margin: 15px;
+    font-size: 0.9rem;
 }
 
 /* Input type Calendar */

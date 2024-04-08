@@ -37,6 +37,9 @@ h4{
   align-items: center;
   gap: 5%;
 }
+.categories div {
+  text-align: center;
+}
 .categories img{
   aspect-ratio: 1/1;
   padding: 10px;
@@ -60,9 +63,10 @@ h4{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
-article {
+/* article {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,11 +77,11 @@ article {
   background-color: rgb(255, 255, 255);
   width: 50%;
   transition: box-shadow 0.3s ease;
-}
-.price, .discount{
+} */
+/* .price, .discount{
   margin-top: 0px;
   margin-bottom: 10px;
-}
+} */
 article img {
   width: auto;
   border-radius: 8px 8px 0 0;

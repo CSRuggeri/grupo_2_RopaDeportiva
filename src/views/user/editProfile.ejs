@@ -5,19 +5,19 @@
 <body>
     <%- include('../partials/header')%> 
     <main class="register">
-        <form action="/users/register" method="POST" class="white-bkg form-width registro" enctype="multipart/form-data">
-            <h1>Crea una cuenta en SportGo!</h1>
+        <form action="/users/<%= user.id %>?_method=PUT" method="POST" class="white-bkg form-width registro" enctype="multipart/form-data">
+            <h1>Actualiza tu cuenta de SportGo!</h1>
             <div class="register-form">
                 <div class="flex-column register-column">
                     <div class="img min-height">
                         <h4>Elegí tu foto de usuario</h4>
-                        <img src="/images/avatars/default-pfp.png" alt="Imagen default" class="pfp-preview">
-                        <input type="file" name="avatar" id="avatar" class="avatar-input">
+                        <img src="<%= user.avatar %>" alt="Imagen default" class="pfp-preview">
+                        <input type="file" name="avatar" id="avatar" class="avatar-input" value="<%= user.avatar %>">
                         <label for="avatar" class="pfp-label submit-button">Elegir imagen</label>
                         <p class="error-msg avatar-error <% if(!locals.errores || !errores.avatar) { %>hidden<% } %>"><span class="material-symbols-outlined error-span ">error</span><% if(locals.errores && errores.avatar) { %><%= errores.avatar.msg %><% } %></p>
                     </div>
                     <div class="input">
-                        <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } %>">
+                        <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } else { %><%= user.name %><% } %>">
                         <label for="name">Nombre y apellido</label>
                         <span class="material-symbols-outlined">person</span>  
                     </div>                  
@@ -27,7 +27,7 @@
                     </p>
                     
                     <div class="input">
-                        <input type="text" name="email" id="email" placeholder=" " class="<% if(locals.errores && errores.email) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.email) {%><%=oldData.email  %><% } %>">
+                        <input type="text" name="email" id="email" placeholder=" " class="<% if(locals.errores && errores.email) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.email) {%><%=oldData.email  %><% } else {%><%= user.email %><% } %>">
                         <label for="email" class="input-label">E-mail</label>
                         <span class="material-symbols-outlined">
                             mail
@@ -39,7 +39,7 @@
                     </p>
                     
                     <div class="input">
-                        <input type="text" name="address" id="address" placeholder=" " value="<% if(locals.oldData && oldData.address) {%><%=oldData.address  %><% } %>">
+                        <input type="text" name="address" id="address" placeholder=" " value="<% if(locals.oldData && oldData.address) {%><%=oldData.address  %><% } else { %><%= user.address %><% } %>">
                         <label for="address" class="input-label">Dirección</label>
                         <span class="material-symbols-outlined">
                             home
@@ -49,7 +49,7 @@
                 <div class="flex-column register-column">
                     <div class="min-height">
                         <label for="birth_date" class="bd-label"><h4>Fecha de nacimiento</h4></label>
-                        <input type="date" name="birth_date" id="birth_date" class="dateinput" value="<% if(locals.oldData && oldData.birth_date) {%><%=oldData.birth_date  %><% } %>">
+                        <input type="date" name="birth_date" id="birth_date" class="dateinput" value="<% if(locals.oldData && oldData.birth_date) {%><%=oldData.birth_date  %><% } else { %><%= user.birthDate %><% } %>">
                         <p class="error-msg date-error <% if(!locals.errores || !errores.birth_date) { %>hidden<% } %>">
                             <span class="material-symbols-outlined error-span">error</span>
                             Debe colocar su fecha de nacimiento
@@ -75,8 +75,7 @@
                     </p>
                 </div>
             </div>
-            <p>¿Ya tienes una cuenta? <a href="/users/login">Inicia sesión</a></p>
-            <button class="submit-button" type="submit" value="Borrar">Crear cuenta</button>
+            <button class="submit-button" type="submit" value="Borrar">Editar cuenta</button>
             <button class="erase-button" type="reset" value="Enviar">Borrar datos</button>
         </form>
     </main>

@@ -3,41 +3,113 @@
 <%- include('../partials/head')%>
 <body>
   <%- include('../partials/header')%> 
+  <main>
 
-  <div class="articulos-principalesdet">
-    <% if (product) { %>
-      <h1>Detalle del producto <%= product.id %> :</h1>
-      <img src="<%= product.image %>" alt="Imagen del Producto: <%= product.id %>" width="200px">
-      <p>Nombre: <%- product.name %></p>
-      <h3>Precio: $<%- product.price %></h3>
-      <p><pre>Descuento: <%- product.discount %></pre></p>
-      <a href="/products/<%= product.id %>/edit"><button>Editar producto</button></a>
-      <form action="/products/<%= product.id %>/delete?_method=DELETE" method="POST">
-        <button type="submit">Borrar producto</button>
-      </form>
-    <% } else { %>
-      <h1>No encontramos el producto: <%= data.id %></h1>
-      <img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200px">
-      <h3>Pero te podemos sugerir los siguientes productos</h3>
-    <% } %>
-  </div>
+    <div class="white-bkg form-width detail">
+      <% if (product) { %>
+  
+        <h1><%= product.name %></h1>
+        <div class="detail-info">
 
-  <br>
-  <h1>Articulos Relacionados: </h1>
-  <div class="articulosRelacionados">
-    <% for (let i = 0; i < products.length; i++) { %>
-      <% if (products[i].id !== data.id) { %>
-        <div class="articulo-itemdet">
-         
-<img src="<%- products[i].image %>" alt="Imagen del Producto: <%= products[i].id %>" width="100px">
-          <p>Nombre: <%- products[i].name %></p>
-          <h3>Precio: $<%- products[i].price %></h3>
-<p><pre>Descuento: <%- products[i].discount %></pre></p>
-          <a href="/detail/<%= products[i].id %>">Ver detalles</a>
+          <div class="detail-column-img">
+            <img src="<%= product.image %>" alt="Imagen del Producto: <%= product.id %>" width="200px">
+          </div>
+          <div class="detail-column-info">
+            <div class="product-price">
+              <% if(product.discount>0) {%>
+              <small
+                >$<%= product.price.toLocaleString('es-AR',{style:
+                'decimal',maximumFractionDigits: 2}) %></small
+              ><br><% } %>$<% if(product.discount>0) { %><%=
+              (product.price*(1-(product.discount)/100)).toLocaleString('es-AR',{style:
+              'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+              %><% } else { %><%= product.price.toLocaleString('es-AR',{style:
+              'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+              %><% } %>
+              <% if (product.discount>0) { %>
+                <p class="discount"><%= product.discount %>% OFF</p>
+              <% } %>
+            </div>
+            <p><%= product.description %></p>
+            <p>Talla: <%= product.size %></p>
+            <p>Marca: <%= product.productBrand.name %></p>
+            <form action="/cart/<%= product.id %>" method="POST" class="add-product">
+              <div class="select-container">
+                <select name="quantity" id="quantity" class="select-box">
+                    <% for (let i = 1; i <= product.stock; i++) { %>
+                      <option value="<%= i %>"><%= i %></option>
+                    <% } %>
+                </select>
+                <div class="icon-container">
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </div>
+              <button type="submit" class="submit-button add-cart">Agregar al carrito</button>
+            </form>
+            <% if (locals.admin) { %>
+              <div class="admin-buttons">
+                  <a href="/products/<%= product.id %>/edit" class="submit-button">Editar producto</a>
+                
+                <form action="/products/<%= product.id %>/delete?_method=DELETE" method="POST">
+                  <button type="submit" class="erase-button">Borrar producto</button>
+                </form>
+              </div>
+            <% } %>
+          </div>
         </div>
+        
+      <% } else { %>
+        <h1>No encontramos el producto: <%= data.id %></h1>
+        <img src="/images/gato.jpg" alt="Imagen del Producto: <%= data.id %>" width="200px">
+        <h3>Pero te podemos sugerir los siguientes productos</h3>
       <% } %>
-    <% } %>
-  </div>
+    </div>
+    <h1>Productos relacionados</h1>
+        <div class="product-list">
+          <% if (products && Array.isArray(products) && products.length > 0) { %>
+          <% products.forEach(product => { %>
+          <div class="product-card">
+            <div class="product-tumb">
+              <img src="<%= product.image %>" alt="<%= product.name %>" />
+            </div>
+            <div class="product-details">
+              <span class="product-category"
+                ><%= product.productCategory.name %></span
+              >
+              <h4>
+                <a href="/products/<%= product.id %>"><%= product.name %></a>
+              </h4>
+              <div class="product-bottom-details">
+                <div class="product-price">
+                  <% if(product.discount>0) {%>
+                  <small
+                    >$<%= product.price.toLocaleString('es-AR',{style:
+                    'decimal',maximumFractionDigits: 2}) %></small
+                  ><% } %>$<% if(product.discount>0) { %><%=
+                  (product.price*(1-(product.discount)/100)).toLocaleString('es-AR',{style:
+                  'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                  %><% } else { %><%= product.price.toLocaleString('es-AR',{style:
+                  'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                  %><% } %>
+                </div>
+                <form
+                  class="product-links"
+                  action="/cart/<%= product.id %>"
+                  method="post"
+                >
+                  <button type="submit">
+                    <i class="fa fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <% }); %> <% } else { %>
+          <p class="card-container">No products available.</p>
+          <% } %>
+        </div>
+        <a href="/products" class="submit-button">Ver todos los productos</a>
+  </main>
   <%- include('../partials/footer')%>
 </body>
 </html>
