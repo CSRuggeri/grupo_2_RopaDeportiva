@@ -20,7 +20,7 @@
                     <div class="product-price"><% if(product.discount>0) {%>
                       <small>$<%= product.price.toLocaleString('es-AR',{style: 'decimal',maximumFractionDigits: 2}) %></small><% } %>$<% if(product.discount>0) { %><%= (product.price*(1-(product.discount)/100)).toLocaleString('es-AR',{style: 'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2}) %><% } else { %><%= product.price.toLocaleString('es-AR',{style: 'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2}) %><% } %></div>
                     <div class="product-links">
-                      <a href=""><i class="fa fa-shopping-cart"></i></a>
+                      <a href="/"><i class="fa fa-shopping-cart"></i></a>
                     </div>
                   </div>
                 </div>

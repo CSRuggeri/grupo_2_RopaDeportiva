@@ -1,4 +1,4 @@
-let userCredentialsMiddleware = (req, res, next) => {
+const userCredentialsMiddleware = (req, res, next) => {
     if (req.session.loggedUser) {
         res.locals.logged = true;
         res.locals.loggedUser = req.session.loggedUser;

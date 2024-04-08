@@ -1,6 +1,6 @@
 const db = require('../database/models');
 
-let rememberMe = async (req, res, next) => {
+const rememberMe = async (req, res, next) => {
     try {
       if (req.cookies.remember && !req.session.loggedUser) {
         const user = await db.User.findOne({ where: { email: req.cookies.remember } });
