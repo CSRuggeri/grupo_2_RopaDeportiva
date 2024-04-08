@@ -8,6 +8,8 @@ const productValidations = require('../Middlewares/productValidations')
 
 router.get('/', productController.index);
 router.get('/create',isAdmin, productController.createProduct);
+router.post("/search", productController.search)
+
 
 /*api*/
 router.get("/api/:id", productController.productByID)

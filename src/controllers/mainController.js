@@ -29,6 +29,9 @@ const controller = {
     }
   },
 
+
+
+
   pagos: (req, res) => {
     res.render("user/pagos.ejs");
   },

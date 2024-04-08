@@ -1,6 +1,6 @@
 const db = require('../database/models');
 const brand = require('../database/models/brand');
-
+const {Sequelize} = require("sequelize")
 const getAllProducts = async () => {
     try {
         return await db.Product.findAll({
@@ -35,6 +35,7 @@ class Product {
         this.image = image;
     }
 }
+ 
 
 const storeProduct = async (req) => {
     try {
@@ -152,6 +153,24 @@ const destroyProductByPk = async (id) => {
     }
 }
 
+
+const searchProduct = async (query)=>{
+
+try {
+   const products = await db.Product.findAll({
+    where: {
+      name: {
+        [Sequelize.Op.like]: `%${query}%` 
+      }
+    }})
+
+    return products
+} catch (error) {
+    const products =[]
+    return products
+}
+
+}
 
 const findProductsByCategoryId = async (categoryId) =>{
     try {
