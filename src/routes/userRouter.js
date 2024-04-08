@@ -29,7 +29,7 @@ usersRouter.put('/:id', uploadAvatars.single('avatar'), registerValidations, use
 usersRouter.get ("/api/users/:id", usersController.userByID)
 usersRouter.get("/api/users", usersController.getAllUsersAPI)
 usersRouter.post("/api/users",  uploadAvatars.single('avatar'), registerValidations, usersController.registerUserAPI)
-usersRouter.put("/api/users", usersController.updateUserAPi)
+usersRouter.put("/api/users/:id", usersController.updateUserAPi)
 usersRouter.delete("/api/users", usersController.destroyUserAPI)
 
 
