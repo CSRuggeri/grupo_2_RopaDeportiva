@@ -82,14 +82,14 @@ window.addEventListener("load", function () {
     }
   })
 
-  // form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", function (event) {
     
-  //   let errores = []
-  //   validateForm(errores)
-  //   if(errores.length>0){
-  //     event.preventDefault()
-  //   }
-  // });
+    let errores = []
+    validateForm(errores)
+    if(errores.length>0){
+      event.preventDefault()
+    }
+  });
 
   function validateForm(errorArray) {
     if (nameI.value.trim().length < 2) {
