@@ -1,4 +1,4 @@
-const { Console } = require("console");
+
 const fs = require("fs");
 const path = require("path");
 const {
@@ -9,7 +9,10 @@ const {
   destroyProductByPk,
   findProductsByCategoryId,
   findXProductsByCategoryId,
-  getXProducts
+  getXProducts,
+findProductById,
+fetchCategories,
+searchProduct
 } = require("../services/productServices");
 const db = require("../database/models");
 const { validationResult } = require("express-validator");
@@ -24,6 +27,24 @@ const productController = {
       res.render("products/productsList", { products });
     }
   },
+
+  search: async(req, res) =>{
+    try {
+      
+      const products = await searchProduct(req.query.query);
+      console.log(products)
+      res.render("products/busqueda", { products }); // Corrected template name
+    } catch (error) {
+      const products = [];
+      res.render("products/busqueda", { products }); // Corrected template name
+    }
+  },
+    
+
+
+
+
+  
 
   // Read - Show product details
   detail: async (req, res) => {
@@ -47,6 +68,15 @@ const productController = {
     });
   },
 
+  getCategories: async(req, res)=>{
+try {
+  const categories = await fetchCategories()
+  res.status(200).json(categories)
+} catch (error) {
+  const categories = []
+  res.status(400).json(categories)
+}
+  },
   // Store - Method to store
   store: async (req, res) => {
     const errores = validationResult(req);
@@ -143,6 +173,16 @@ const productController = {
       res.status(400).json("creation failed");
     }
   },
+productByID: async (req, res ) => {
+    try {
+      
+      const product = await getProductById(req.params.id)
+      res.status(200).json(product)
+    } catch (error) {
+     const product = []
+      res.status(500).json(console.log(error),product)
+    }
+  }
 };
 
 module.exports = productController;

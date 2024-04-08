@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const db = require('../database/models');
 const brand = require('../database/models/brand');
-
+const {Sequelize} = require("sequelize")
 const getAllProducts = async () => {
     try {
         return await db.Product.findAll({
@@ -36,6 +36,7 @@ class Product {
         this.image = image;
     }
 }
+ 
 
 const storeProduct = async (req) => {
     try {
@@ -153,6 +154,25 @@ const destroyProductByPk = async (id) => {
     }
 }
 
+
+const searchProduct = async (query)=>{
+
+try {
+   const products = await db.Product.findAll({
+    where: {
+      name: {
+        [Sequelize.Op.like]: `%${query}%` 
+      }
+    }})
+
+    return products
+} catch (error) {
+    const products =[]
+    return products
+}
+
+}
+
 const findProductsByCategoryId = async (categoryId) =>{
     try {
         const category = await db.Category.findByPk(categoryId)
@@ -211,4 +231,36 @@ const getCategories = async () => {
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId, getXProducts, findXProductsByCategoryId, getCategories};
+
+    
+const fetchCategories = async()=>{
+try {
+    const categories = await db.Category.findAll()
+
+    return categories
+} catch (error) {
+    const categories =[]
+    return categories
+}
+
+}
+    
+const findProductById= async (id) =>{
+    try {
+         const products = await db.Product.findOne({ where: { id } })
+        return products  
+    } catch (error) {
+     return{ products:[]
+     }}}
+const findProductsByBrand = async (brand) =>{
+
+}
+
+   
+   
+
+    
+
+
+
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts, fetchCategories};

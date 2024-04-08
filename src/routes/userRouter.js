@@ -26,7 +26,7 @@ usersRouter.put('/:id', uploadAvatars.single('avatar'), registerValidations, use
 
 
 /*api*/
-
+usersRouter.get ("/api/users/:id", usersController.userByID)
 usersRouter.get("/api/users", usersController.getAllUsersAPI)
 usersRouter.post("/api/users",  uploadAvatars.single('avatar'), registerValidations, usersController.registerUserAPI)
 usersRouter.put("/api/users", usersController.updateUserAPi)

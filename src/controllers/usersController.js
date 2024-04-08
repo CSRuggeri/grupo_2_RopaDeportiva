@@ -233,6 +233,16 @@ destroyUserAPI: async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+},
+userByID: async (req, res ) => {
+  try {
+    const id = req.params.id
+    const user = await userService.findUserById(id)
+    res.status(200).json(user)
+  } catch (error) {
+   const user = []
+    res.status(500).json(console.log(error),user)
+  }
 }
 
 }
