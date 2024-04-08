@@ -50,7 +50,6 @@ const usersController = {
         email,
         birth_date,
         address,
-        profile,
         `/images/avatars/${filename}`
       );
 
