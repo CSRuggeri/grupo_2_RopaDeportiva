@@ -118,6 +118,7 @@ const userService = {
         birthDate: birth_date,
         address,
         avatar: filename,
+        admin
       },{where: {id: req.params.id}});
 
       const editedUser = await db.User.findByPk(req.params.id) 

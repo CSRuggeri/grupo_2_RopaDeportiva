@@ -263,4 +263,4 @@ const findProductsByBrand = async (brand) =>{
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts, fetchCategories};
+module.exports = { getCategories, getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById,findXProductsByCategoryId  ,getXProducts, fetchCategories};

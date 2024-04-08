@@ -18,6 +18,6 @@ router.post('/order/:id/delete', isLoggedIn, controller.deleteOrder)
 
 router.get("/api/orders", controller.orderlistAPI)
 router.post("api/orders/:id", controller.deleteOrderAPI)
-router.get('/pagos', controller.pagos);
+// router.get('/pagos', controller.pagos);
 
 module.exports = router;
