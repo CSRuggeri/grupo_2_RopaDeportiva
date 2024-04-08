@@ -88,7 +88,7 @@ const controller = {
     await userService.endOrder(req.params.id, req)
     await userService.updateTotals()
     res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
-
+  },
   orderlistAPI: async (req, res) =>{
   try {
      const allOrders = await userService.getAllOrders()
