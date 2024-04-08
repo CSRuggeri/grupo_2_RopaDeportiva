@@ -152,6 +152,7 @@ const destroyProductByPk = async (id) => {
     }
 }
 
+
 const findProductsByCategoryId = async (categoryId) =>{
     try {
         const category = await db.Category.findByPk(categoryId)
@@ -166,13 +167,22 @@ const findProductsByCategoryId = async (categoryId) =>{
         return {products:[],category:''}
     }
 }
+const findProductById= async (id) =>{
+    try {
+         const products = await db.Product.findOne({ where: { id } })
+        return products  
+    } catch (error) {
+     return{ products:[]
+     }}}
 const findProductsByBrand = async (brand) =>{
 
 }
-    
+
+   
+   
 
     
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId };
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById };

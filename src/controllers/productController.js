@@ -7,6 +7,7 @@ const {
   storeProduct,
   editProduct,
   destroyProductByPk,
+  findProductById
 } = require("../services/productServices");
 const db = require("../database/models");
 const { validationResult } = require("express-validator");
@@ -137,6 +138,16 @@ const productController = {
       res.status(400).json("creation failed");
     }
   },
+ productByID: async (req, res ) => {
+    try {
+      
+      const product = await getProductById(req.params.id)
+      res.status(200).json(product)
+    } catch (error) {
+     const product = []
+      res.status(500).json(console.log(error),product)
+    }
+  }
 };
 
 module.exports = productController;

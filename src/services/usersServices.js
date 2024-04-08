@@ -139,9 +139,12 @@ destroyUserByPk : async (id) => {
   } catch (error) {
       throw error;
   }
-}
-
-
-};
+},
+findUserById: async (id) =>{
+ try { const user = await db.User.findOne({ where: { id } })
+ return user   
+ } catch (error) {
+  return user=[]  
+                 }},};
 
 module.exports = userService;

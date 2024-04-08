@@ -10,6 +10,7 @@ router.get('/', productController.index);
 router.get('/create',isAdmin, productController.createProduct);
 
 /*api*/
+router.get("/api/:id", productController.productByID)
 router.get("/api", productController.getAllProductsAPI)
 router.post('/api',uploadProduct.single('image'), productValidations, productController.createProductAPI)  
 
