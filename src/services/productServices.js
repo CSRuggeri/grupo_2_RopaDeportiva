@@ -98,18 +98,6 @@ const editProduct = async (req) => {
         const { name, description, price, discount, size, brand, category_id, gender, stock} = req.body;
         const { filename } = req.file;
 
-        console.log(req.body)
-        console.log(req.file)
-
-
-        // Validate required fields
-        if (!category_id) {
-            throw new Error('Category ID is missing');
-        }
-        if (!gender) {
-            throw new Error('Gender is missing');
-        }
-
         // Find brand by ID
         const brandInstance = await db.Brand.findByPk(brand);
         if (!brandInstance) {
@@ -123,7 +111,7 @@ const editProduct = async (req) => {
         }
 
         // Create the product using Sequelize
-        const editedProduct = await db.Product.update({
+        await db.Product.update({
             name,
             description,
             price,
@@ -136,7 +124,9 @@ const editProduct = async (req) => {
             brand_id: brandInstance.id
         }, {where: {id:req.params.id}});
 
-        return { msg: `Product ${req.params.id} created successfully`};
+        const editedProduct = await db.Product.findByPk(req.params.id)
+
+        return { msg: `Product ${req.params.id} created successfully`, editedProduct};
     } catch (error) {
         console.error('Error editing product:', error);
         throw error;
@@ -146,7 +136,8 @@ const editProduct = async (req) => {
 const destroyProductByPk = async (id) => {
     try {
         const deletedProduct = await db.Product.findByPk(id)
-        db.Product.destroy({where:{id:id}})
+        await db.OrderProduct.destroy({where:{Product_id: id}})
+        await db.Product.destroy({where:{id:id}})
         return {msg: `Producto ${id} successfully removed`, deletedProduct}
     } catch (error) {
         throw error

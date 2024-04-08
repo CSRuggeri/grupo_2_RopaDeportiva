@@ -148,12 +148,12 @@ const userService = {
     }
   },
   createCart: async (req) =>{
-    const order = await db.Order.create({
-      user_id: req.session.loggedUser.id,
-      status: 'Comprando',
-    })
-    req.session.activeOrder = order
-    req.session.cart = []
+      const order = await db.Order.create({
+        user_id: req.session.loggedUser.id,
+        status: 'Comprando',
+      })
+      req.session.activeOrder = order
+      req.session.cart = []
   },
 
   addProductToCart: async (product,req,quantity) =>{
@@ -355,6 +355,25 @@ const userService = {
       });
       await db.Order.update({total: total},{where: {id: order[i].id}})
     }
+  },
+  updateOrders: async (product) =>{
+    const orderWithProduct = await db.OrderProduct.findAll({where: {Product_id: product.id, status: {[Op.ne]: 1}}})
+      for(let j =0; j<orderWithProduct.length;j++){
+        if(orderWithProduct[j].Product_quantity > product.stock) {
+          await db.OrderProduct.update({
+            Product_quantity: product.stock,
+            subtotal: (Number(product.price)*(1-(product.discount)/100))*product.stock
+          },{
+            where: {Product_id: product.id, id: orderWithProduct[j].id}}
+          )
+        } else {
+          await db.OrderProduct.update({
+            subtotal: (Number(product.price)*(1-(product.discount)/100))*orderWithProduct[j].Product_quantity
+          },{
+            where: {Product_id: product.id, id: orderWithProduct[j].id}}
+          )
+        }
+      }
   }
 };
 

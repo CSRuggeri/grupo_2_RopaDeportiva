@@ -31,11 +31,12 @@ const controller = {
   },
 
   shoppingCart: async (req, res) => {
-    if (!req.session.cart) {
+    if(!req.session.cart) {
       await userService.createCart(req)
+    } else {
+      await userService.getCart(req)
     }
-    const cart = req.session.cart;
-    return res.render('products/shopping-cart',{cart});
+    return res.render('products/shopping-cart',{cart: req.session.cart});
   },
 
   addToCart: async (req, res) => {
@@ -43,29 +44,30 @@ const controller = {
       await userService.createCart(req)
     }
     const product = await getProductById(req.params.id);
-    // if(req.body){
-    //   const quantity = req.body.quantity
-    // }
     await userService.addProductToCart(product,req, req.body.quantity)
     res.redirect('/cart');
   },
 
   modifyCart: async (req,res) =>{
-    let cantidades = []
-    Object.keys(req.body).forEach(k =>{
-      if(k.includes('product-quantity')){
-        cantidades.push({row_productId: k[0], quantity: req.body[k] })
+    try {  
+      let cantidades = []
+      Object.keys(req.body).forEach(k =>{
+        if(k.includes('product-quantity')){
+          cantidades.push({row_productId: parseInt(k.match(/\d+/)), quantity: req.body[k] })
+        }
+      })
+      await userService.updateCart(cantidades,req)
+      if(req.body.ks){
+        return res.redirect('/products')
       }
-    })
-    await userService.updateCart(cantidades,req)
-    if(req.body.ks){
-      return res.redirect('/products')
+      if (req.body.eb) {
+        await userService.endBuying(req)
+        return res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
+      }
+      return res.redirect('/cart')
+    } catch (error) {
+      res.redirect('/')
     }
-    if (req.body.eb) {
-      await userService.endBuying(req)
-      return res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
-    }
-    return res.redirect('/cart')
   },
   ordersList: async (req,res) =>{
     const allOrders = await userService.getAllOrders()
