@@ -5,6 +5,7 @@
     <%- include('../partials/header')%>
     <main>
       <div class="slideshow-container">
+        
         <div class="mySlides">
           <img src="/images/Slide/4.png" style="width: 100%" />
         </div>
@@ -35,25 +36,15 @@
 
       <h1>Explora nuestras categorías</h1>
       <div class="categories">
-        <div>
-          <a href=""><img src="/images/Abrigos.png" alt="" /></a>
-          <p>Abrigos</p>
-        </div>
-        <div>
-          <a href=""><img src="/images/Combate.png" alt="" /></a>
-          <p>Combate</p>
-        </div>
-        <div>
-          <a href=""><img src="/images/Fútbol.png" alt="" /></a>
-          <p>Fútbol</p>
-        </div>
-        <div>
-          <a href=""><img src="/images/Running.png" alt="" /></a>
-          <p>Running</p>
-        </div>
+        <% category.forEach(element => { %>
+          <div>
+            <a href="/products/category/<%= element.category_id %>"><img src="<%= element.image %>" alt="" /></a>
+            <p><%= element.name %></p>
+          </div>
+        <% }); %>
       </div>
 
-      <% if (prodCat1) { %> <% if (prodCat1.products.length>0) { %>
+      <% if (locals.prodCat1) { %> <% if (prodCat1.products.length>0) { %>
       <h1><%= prodCat1.category.name %></h1>
       <div class="container">
         <div class="slide-wrapper">
@@ -96,11 +87,17 @@
             </div>
           </div>
           <% }); %>
+          <div class="product-card see-more">
+            <h2><a href="/products/category/<%= prodCat1.category.category_id %>">
+              <span class="material-symbols-outlined">
+                add_circle
+                </span> Ver más</a></h2>
+          </div>
         </div>
       </div>
       <% }} else { %>
       <p class="card-container">No products available.</p>
-      <% } %> <% if (prodCat2) { %> <% if (prodCat2.products.length>0) { %>
+      <% } %> <% if (locals.prodCat2) { %> <% if (prodCat2.products.length>0) { %>
       <h1><%= prodCat2.category.name %></h1>
       <div class="container">
         <div class="slide-wrapper">
@@ -143,6 +140,13 @@
             </div>
           </div>
           <% }); %>
+          <div class="product-card see-more">
+            <h2><a href="/products/category/<%= prodCat2.category.category_id %>">
+              <span class="material-symbols-outlined">
+                add_circle
+                </span> Ver más
+            </a></h2>
+          </div>
         </div>
       </div>
       <% }} else { %>
@@ -193,7 +197,7 @@
         <p class="card-container">No products available.</p>
         <% } %>
       </div>
-      <button class="submit-button"><a href="/products">Ver más</a></button>
+      <a href="/products" class="submit-button">Ver más</a>
     </main>
     <%- include('../partials/footer')%>
   </body>

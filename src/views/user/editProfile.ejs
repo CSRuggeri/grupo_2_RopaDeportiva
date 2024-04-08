@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head')%>
+    
+<body>
+    <%- include('../partials/header')%> 
+    <main class="register">
+        <form action="/users/<%= user.id %>?_method=PUT" method="POST" class="white-bkg form-width registro" enctype="multipart/form-data">
+            <h1>Actualiza tu cuenta de SportGo!</h1>
+            <div class="register-form">
+                <div class="flex-column register-column">
+                    <div class="img min-height">
+                        <h4>Elegí tu foto de usuario</h4>
+                        <img src="<%= user.avatar %>" alt="Imagen default" class="pfp-preview">
+                        <input type="file" name="avatar" id="avatar" class="avatar-input" value="<%= user.avatar %>">
+                        <label for="avatar" class="pfp-label submit-button">Elegir imagen</label>
+                        <p class="error-msg avatar-error <% if(!locals.errores || !errores.avatar) { %>hidden<% } %>"><span class="material-symbols-outlined error-span ">error</span><% if(locals.errores && errores.avatar) { %><%= errores.avatar.msg %><% } %></p>
+                    </div>
+                    <div class="input">
+                        <input type="text" id="name" name="name" placeholder=" " class="<% if(locals.errores && errores.name) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.name) {%><%=oldData.name  %><% } else { %><%= user.name %><% } %>">
+                        <label for="name">Nombre y apellido</label>
+                        <span class="material-symbols-outlined">person</span>  
+                    </div>                  
+                    <p class="error-msg name-error <% if(!locals.errores || !errores.name) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span ">error</span> 
+                        <% if(locals.errores && errores.name) { %><%= errores.name.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="text" name="email" id="email" placeholder=" " class="<% if(locals.errores && errores.email) { %>error-input<% } %>" value="<% if(locals.oldData && oldData.email) {%><%=oldData.email  %><% } else {%><%= user.email %><% } %>">
+                        <label for="email" class="input-label">E-mail</label>
+                        <span class="material-symbols-outlined">
+                            mail
+                        </span>
+                    </div>                    
+                    <p class="error-msg email-error <% if(!locals.errores || !errores.email) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                        <% if(locals.errores && errores.email) { %><%= errores.email.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="text" name="address" id="address" placeholder=" " value="<% if(locals.oldData && oldData.address) {%><%=oldData.address  %><% } else { %><%= user.address %><% } %>">
+                        <label for="address" class="input-label">Dirección</label>
+                        <span class="material-symbols-outlined">
+                            home
+                        </span>
+                    </div>
+                </div>
+                <div class="flex-column register-column">
+                    <div class="min-height">
+                        <label for="birth_date" class="bd-label"><h4>Fecha de nacimiento</h4></label>
+                        <input type="date" name="birth_date" id="birth_date" class="dateinput" value="<% if(locals.oldData && oldData.birth_date) {%><%=oldData.birth_date  %><% } else { %><%= user.birthDate %><% } %>">
+                        <p class="error-msg date-error <% if(!locals.errores || !errores.birth_date) { %>hidden<% } %>">
+                            <span class="material-symbols-outlined error-span">error</span>
+                            Debe colocar su fecha de nacimiento
+                        </p>
+                    </div>                    
+                    <div class="input">
+                        <input type="password" id="password" name="password" placeholder=" " class="login-password <% if(locals.errores && errores.password) { %>error-input<% } %>">
+                        <label for="password">Contraseña</label>
+                        <span class="material-symbols-outlined login-pass-icon">visibility</span>
+                    </div>                    
+                    <p class="error-msg pass-error <% if(!locals.errores || !errores.password) { %>hidden<% } %>">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                        <% if(locals.errores && errores.password) { %><%= errores.password.msg %><% } %>
+                    </p>
+                    
+                    <div class="input">
+                        <input type="password" id="pass_confirm" name="pass_confirm" placeholder=" " class="login-password">
+                        <label for="pass_confirm">Confirmar contraseña</label>
+                        <span class="material-symbols-outlined login-pass-icon">visibility</span>
+                    </div>
+                    <p class="error-msg pass-conf-error hidden">
+                        <span class="material-symbols-outlined error-span">error</span> 
+                    </p>
+                </div>
+            </div>
+            <button class="submit-button" type="submit" value="Borrar">Editar cuenta</button>
+            <button class="erase-button" type="reset" value="Enviar">Borrar datos</button>
+        </form>
+    </main>
+    <%- include('../partials/footer')%>
+</body>
+</html>

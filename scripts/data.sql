@@ -5,6 +5,7 @@ use sportGoDb;
 CREATE TABLE IF NOT EXISTS `sportGoDb`.`category` (
   `category_id` INT unsigned NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL,
+  `image` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`category_id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   
@@ -71,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   `Product_quantity` INT unsigned DEFAULT NULL,
   `subtotal` DECIMAL(11,2) unsigned DEFAULT NULL,
   `orderId` INT unsigned DEFAULT NULL,
+  `status` INT DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderProd_Prod_id_FK` (`Product_id`),
   KEY `order_FK` (`orderId`),
@@ -78,16 +80,17 @@ CREATE TABLE IF NOT EXISTS `sportgodb`.`user` (
   constraint `order_FK` FOREIGN KEY (`orderId`) REFERENCES `sportgodb`.`order` (`id`)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO category (name)
+INSERT INTO category (name, image)
 VALUES 
-('Abrigos'),
-('Futbol'),
-('Trajes de baño'),
-('Accesorios'),
-('Gimnasio'),
-('Running'),
-('Ciclismo'),
-('Deportes de combate');
+('Abrigos', '/images/categories/Abrigos.png'),
+('Fútbol', '/images/categories/Fútbol.png'),
+('Básquet','/images/categories/Basquet.png'),
+('Accesorios','/images/categories/Accesorios.png'),
+('Gimnasio','/images/categories/Gimnasio.png'),
+('Running','/images/categories/Running.png'),
+('Ciclismo','/images/categories/Ciclismo.png'),
+('Deportes de combate','/images/categories/Combate.png'),
+('Conjuntos', '/images/categories/Conjuntos.png');
 
 INSERT INTO brand (name)
 VALUES 
@@ -103,7 +106,7 @@ VALUES
 INSERT INTO product (name, price, stock, description, gender, image, discount, size, category_id, brand_id)
 VALUES 
 ('Campera deportiva Puma (H)', 6770, 3, 'campera deportiva puma para hombres', 'male', '/images/show/camperaPumaH.jpg', 5, 'S', 1, 1),
-('Bincha Nike', 1500, 5, 'bincha deportiva nike de material de toalla', 'unisex', '/images/show/binchaNike.jpg', 30, 'S', 2, 2),
+('Bincha Nike', 1500, 5, 'bincha deportiva nike de material de toalla', 'unisex', '/images/show/binchaNike.jpg', 30, 'S', 4, 2),
 ('Campera deportiva Adiddas', 8500, 2, 'campera deportiva marca addidas para mujer', 'female', '/images/show/camperaAdiddasF.jpg', 23, 'S', 1, 3),
 ('Conjunto Adiddas (hombre)', 22300, 2, 'Conjunto remera y pantalon addidas color negro', 'female', '/images/show/conjuntoAdiddasH.jpg', 12, 'M', 3, 3),
 ('Conjunto deportivo Nike (mujer)', 37855, 1, 'conjunto campera y pantalon para mujer color negro marca Nike', 'female', '/images/show/conjuntoNikeF.jpg', 16, 'S', 3, 2),
@@ -128,5 +131,4 @@ INSERT INTO `sportgodb`.`order` (user_id,status) values
 insert into orderproducts (Product_id,Product_quantity,orderId) values 
 (1,2,1),(2,3,1);
 
-select * from `sportgodb`.`order`;
-select * from user
+select * from `sportgodb`.`orderproducts`;

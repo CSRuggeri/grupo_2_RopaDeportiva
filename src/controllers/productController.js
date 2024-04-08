@@ -1,4 +1,4 @@
-const { Console } = require("console");
+
 const fs = require("fs");
 const path = require("path");
 const {
@@ -7,6 +7,12 @@ const {
   storeProduct,
   editProduct,
   destroyProductByPk,
+  findProductsByCategoryId,
+  findXProductsByCategoryId,
+  getXProducts,
+findProductById,
+fetchCategories,
+searchProduct
 } = require("../services/productServices");
 const db = require("../database/models");
 const { validationResult } = require("express-validator");
@@ -22,10 +28,29 @@ const productController = {
     }
   },
 
+  search: async(req, res) =>{
+    try {
+      
+      const products = await searchProduct(req.query.query);
+      console.log(products)
+      res.render("products/busqueda", { products }); // Corrected template name
+    } catch (error) {
+      const products = [];
+      res.render("products/busqueda", { products }); // Corrected template name
+    }
+  },
+    
+
+
+
+
+  
+
   // Read - Show product details
   detail: async (req, res) => {
     const product = await getProductById(req.params.id);
-    const products = await getAllProducts();
+    const {products} = await findXProductsByCategoryId(product.category_id,5 ,product.id);
+    console.log(products)
     const data = {
       id: req.params.id,
     };
@@ -43,6 +68,15 @@ const productController = {
     });
   },
 
+  getCategories: async(req, res)=>{
+try {
+  const categories = await fetchCategories()
+  res.status(200).json(categories)
+} catch (error) {
+  const categories = []
+  res.status(400).json(categories)
+}
+  },
   // Store - Method to store
   store: async (req, res) => {
     const errors = validationResult(req);
@@ -71,11 +105,9 @@ const productController = {
     const product = await getProductById(id);
     const brands = await db.Brand.findAll();
     const category = await db.Category.findAll();
+    console.log(product)
 
-    // Verificamos si hay una sesión activa (opcional)
-    const user = req.session?.loggedUser;
-
-    res.render("products/edit-product", { product, brands, category, user });
+    res.render("products/edit-product", { product, brands, category });
   },
 
   // Update - Method to update
@@ -119,6 +151,10 @@ const productController = {
       res.redirect(`/products/${req.params.id}`);
     }
   },
+  categoryProducts: async (req,res) =>{
+    const products = await findProductsByCategoryId(req.params.id)
+    res.render('products/productsList', {products, categoria: true})
+  },
 
   // API - Get all products
   getAllProductsAPI: async (req, res) => {
@@ -139,6 +175,16 @@ const productController = {
       res.status(400).json("creation failed");
     }
   },
+productByID: async (req, res ) => {
+    try {
+      
+      const product = await getProductById(req.params.id)
+      res.status(200).json(product)
+    } catch (error) {
+     const product = []
+      res.status(500).json(console.log(error),product)
+    }
+  }
 };
 
 module.exports = productController;

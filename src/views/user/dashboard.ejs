@@ -6,8 +6,8 @@
     <%- include('../partials/header')%>  
 
     <main class="dashboard">
-        <div class="white-bkg">
-            <h1>Welcome to Your Dashboard, <% if(locals.admin) { %>admin <% } %><%= user.name%></h1>
+        <div class="white-bkg form-width">
+            <h1>Bienvenido, <% if(locals.admin) { %>admin <% } %><%= user.name%></h1>
             <div class="dashboard">
                 <section class="dashboard-section image-section">
                     <img src="<%= user.avatar %>" alt="<%= user.email %>"> 
@@ -18,10 +18,14 @@
                     <p>Email: <%= user.email %></p>
                     <p>Fecha de nacimiento: <%= user.birthDate %></p>
                     <p>Dirección: <%= user.address %></p>
-                    <p>Perfil: <%= user.profile %></p>
-                    <form action="/users/logout" method="post">
-                        <button type="submit" class="submit-button">Cerrar sesión</button>
-                    </form>
+                    <div class="user-buttons">
+                        <form action="/users/logout" method="post">
+                            <button type="submit" class="submit-button">Cerrar sesión</button>
+                        </form>
+                        <form action="/users/<%= user.id %>/edit" method="get">
+                            <button type="submit" class="submit-button">Editar usuario</button>
+                        </form>
+                    </div>
                     
                     
                 </section>
@@ -41,23 +45,23 @@
                 <tbody>
                     <% Orders.forEach(order => { %>
                         <tr>
-                            <th><%= order.id %></th>
-                            <th><% order.orderP.forEach(product => { %>
+                            <td><%= order.id %></td>
+                            <td><% order.orderP.forEach(product => { %>
                                 <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
-                            <% }) %></th>
-                            <th><%= order.total %></th>
-                            <th><%= order.status %></th>
-                            <th><% if (order.status == 'A pagar') { %>
+                            <% }) %></td>
+                            <td><%= order.total %></td>
+                            <td><%= order.status %></td>
+                            <td><% if (order.status == 'A pagar') { %>
                              <button>Subir comprobante</button>
                             <% } if(order.status == 'Entregado') {%>
                                 <button>Descargar factura</button>
                                 <% } %>
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                             <form action="/order/<%= order.id %>/delete" method="post">
                                 <button type="submit">Eliminar order</button>
                             </form>
-                            </th>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -66,6 +70,9 @@
             <% if (locals.admin) { %>
              <a href="/ordersList" class="submit-button">Administrar pedidos</a>
             <% } %>
+            <% if (locals.admin) { %>
+                <a href="http://localhost:5173" class="submit-button">Admin Dashboard</a>
+               <% } %>
         </div>      
     </main>
 

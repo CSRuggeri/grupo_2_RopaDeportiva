@@ -5,13 +5,55 @@
     justify-content: flex-start;
 
 }
-.registro,.create{
+.registro,.create, .detail{
     margin: 10vh;
 }
 .register-column, .create-column{
     width: 50%;
     min-height: 400px;
     padding:3%
+}
+.detail-column-img{
+    width: 60%;
+}
+.detail-column-img img{
+    padding: 3%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(4.31, 7.45, 12.55, 0.3);
+    width: 80%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    margin-inline: 3%;
+}
+.detail-column-info{
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: start;
+    width: 40%;
+    margin-inline: 3%;
+
+}
+.add-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+.add-cart{
+    width: 80%;
+}
+.admin-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+.admin-buttons a, .admin-buttons button {
+    text-align: center;
+    margin: 3%;
 }
 div.profile div{
     align-content: start;
@@ -30,12 +72,16 @@ img.pfp-preview {
     text-align: center;
     align-content: center;
 }
-.register-form, .create-form{
+.register-form, .create-form, .detail-info{
     display: flex;
-    flex: row;
+    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
 
+}
+.detail-info{
+    padding-inline: 5%;
+    padding-bottom: 5%;
 }
 .avatar-input, .product-input {
     display: none;
@@ -73,6 +119,10 @@ div.img{
     font-size: 2rem;
     color:#0B1320
 }
+.login-form p {
+    padding-inline: 5%;
+    font-size: 1rem;
+}
 
 /* Create form */
 
@@ -90,9 +140,25 @@ div.img{
     padding: 5px;
     margin: 5px;
     background-color: white;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1 / 1;
     object-fit:contain;
     box-shadow: 0 0 10px rgba(4.31, 7.45, 12.55, 0.3) ;
+}
+
+/*  */
+
+div.detail-info .product-price{
+    text-align: start;
+    font-size: 1.3rem;
+}
+.discount{
+    margin: 0;
+    color: green;
+}
+.user-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media screen and (min-width: 426px) and (max-width : 1023px){
@@ -114,7 +180,7 @@ div.img{
     .form-width{
         width: 100%;
     }
-    .register-form, .create-form{
+    .register-form, .create-form, .detail-info{
         flex-direction: column;
     }
     .register-column, .create-column{
@@ -127,6 +193,9 @@ div.img{
     .login-form{
         width: 90%;
         padding: 10px;    
+    }
+    .detail-column-info, .detail-column-img{
+        width: 100%;
     }
 }
 

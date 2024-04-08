@@ -20,17 +20,18 @@
                 <tbody>
                     <% allOrders.forEach(order => { %>
                         <tr>
-                            <th><%= order.id %></th>
-                            <th><% order.orderP.forEach(product => { %>
+                            <td><%= order.id %></td>
+                            <td><% order.orderP.forEach(product => { %>
                                 <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
-                            <% }) %></th>
-                            <th><%= order.total %></th>
-                            <th><%= order.status %></th>
-                            <th><% if (order.status == 'Esperando validación') { %>
-                             <button>Descargar comprobante</button>
-                             <button>Validar transacción</button>
+                            <% }) %></td>
+                            <td><%= order.total %></td>
+                            <td><%= order.status %></td>
+                            <td><% if (order.status == 'Esperando validación' || order.status == 'A pagar') { %>
+                                <form action="/finishbuy/<%= order.id %>" method="Post">
+                                    <button type="submit">Validar transacción</button>
+                                </form>
                             <% } %>
-                            </th>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>

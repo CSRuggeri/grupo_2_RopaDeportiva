@@ -30,12 +30,12 @@ window.addEventListener("load", function() {
         }
       });
     
-    // form.addEventListener("submit", function(event) {
-    //     let errores = []
-    //     if (!validateForm(errores)) {
-    //         event.preventDefault(); // Prevent form submission if validation fails
-    //     }
-    // });
+    form.addEventListener("submit", function(event) {
+        let errores = []
+        if (!validateForm(errores)) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
 
     function validateForm(errorArray) {
         

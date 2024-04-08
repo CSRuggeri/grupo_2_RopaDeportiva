@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         orderId: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: true
+        },
+        status: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     }, {
         tableName: 'orderproducts',

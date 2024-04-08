@@ -1,6 +1,7 @@
+const { Op } = require('sequelize');
 const db = require('../database/models');
 const brand = require('../database/models/brand');
-
+const {Sequelize} = require("sequelize")
 const getAllProducts = async () => {
     try {
         return await db.Product.findAll({
@@ -14,7 +15,7 @@ const getAllProducts = async () => {
 
 const getProductById = async (id) => {
     try {
-        return await db.Product.findByPk(id);
+        return await db.Product.findByPk(id, {include: ['productBrand']});
     } catch (error) {
         console.error('Error fetching product by ID:', error);
         return []
@@ -35,6 +36,7 @@ class Product {
         this.image = image;
     }
 }
+ 
 
 const storeProduct = async (req) => {
     try {
@@ -152,6 +154,25 @@ const destroyProductByPk = async (id) => {
     }
 }
 
+
+const searchProduct = async (query)=>{
+
+try {
+   const products = await db.Product.findAll({
+    where: {
+      name: {
+        [Sequelize.Op.like]: `%${query}%` 
+      }
+    }})
+
+    return products
+} catch (error) {
+    const products =[]
+    return products
+}
+
+}
+
 const findProductsByCategoryId = async (categoryId) =>{
     try {
         const category = await db.Category.findByPk(categoryId)
@@ -171,12 +192,75 @@ const getXProducts = async (cantidad) =>{
         include: [{'association':'productCategory'}],
         limit: cantidad
     })
+}
+
+const findXProductsByCategoryId = async (categoryId, cantidad, noBuscar) =>{
+    try {
+        const category = await db.Category.findByPk(categoryId)
+        if(!noBuscar) {
+        const products = await db.Product.findAll({
+            where:{
+                category_id: categoryId
+            },
+            include: [{'association':'productCategory'}],
+            limit: cantidad
+        })
+        return {products,category}
+        } else {
+            const products = await db.Product.findAll({
+                where:{
+                    category_id: categoryId,
+                    id:{[Op.ne]: noBuscar}
+                },
+                include: [{'association':'productCategory'}],
+                limit: cantidad
+            })
+            return {products,category}
+        }
+        
+    } catch (error) {
+        return {products:[],category:''}
+    }
+}
+
+const getCategories = async () => {
+    return await db.Category.findAll()
+}
+
+    
+
+
+
+
+    
+const fetchCategories = async()=>{
+try {
+    const categories = await db.Category.findAll()
+
+    return categories
+} catch (error) {
+    const categories =[]
+    return categories
+}
 
 }
     
+const findProductById= async (id) =>{
+    try {
+         const products = await db.Product.findOne({ where: { id } })
+        return products  
+    } catch (error) {
+     return{ products:[]
+     }}}
+const findProductsByBrand = async (brand) =>{
+
+}
+
+   
+   
 
     
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId, getXProducts};
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts, fetchCategories};
