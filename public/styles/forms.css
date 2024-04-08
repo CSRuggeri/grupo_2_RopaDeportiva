@@ -51,6 +51,7 @@ div.img{
     color: #0B1320;
 }
 .min-height{
+    align-content: center;
     min-height: 230px
 }
 

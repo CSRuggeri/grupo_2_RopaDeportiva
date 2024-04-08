@@ -1,32 +1,70 @@
-<!-- views/cart.ejs -->
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../partials/head')%>
     <body>
         <%- include('../partials/header')%>  
         <main>
-            <h1>Mi Carrito</h1>
-    
-            <div class="product-list">
-              <% if (products && Array.isArray(products) && products.length > 0) { %>
-                <% products.forEach(product => { %>
-                  <article class="card-container">
-                    <div class="main-article">
-                      <img src="<%= product.image %>" alt="<%= product.name %>" >
-                      <div class="description-box">
-                        <a href="<%= product.link %>"><h4 class="description"><%= product.name %></h4></a>
-                        <p class="price"><%= product.price %></p>
-                        <p class="discount"><%= product.discount %></p>
-                      </div>   
-                    </div>
-                  </article>
-                <% }); %>
-              <% } else { %>
-                <p class="card-container">No products available.</p>
-              <% } %>
-            </div>
-    
-   
+          <% if (cart.length >0) { %>
+            <h1>Carrito</h1>
+            <form action="/cart" method="post" class="white-bkg">
+              <table>
+                <thead>
+                  <th>Nombre del producto</th>
+                  <th>Precio final</th>
+                  <th>Cantidad a comprar</th>
+                  <th>Subtotal</th>
+                </thead>
+                <tbody>
+                  <% cart.forEach(row => { %>
+                    <tr>
+                      <td><%= row.orderProducts.name %></td>
+                      <td class="price">
+                      <% if(row.orderProducts.discount>0) {%><%=
+                        (row.orderProducts.price*(1-(row.orderProducts.discount)/100)).toLocaleString('es-AR',{style:
+                        'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                        %><% } else { %><%=
+                          row.orderProducts.price.toLocaleString('es-AR',{style:
+                        'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                        %><% } %>
+                        </td>
+                      <td><select name="<%= row.Product_id %>-product-quantity" id="" class="product-quantity">
+                        <% for (let i = 1; i <= row.orderProducts.stock; i++) { %>
+                          <option value="<%= i %>" <% if(row.Product_quantity === i) {%>selected<% } %>><%= i %></option>
+                        <% } %>
+                      </select>
+                    </td>
+                      <% if(row.orderProducts.discount>0) {%><td class="subtotal"><%=
+                        (row.orderProducts.price*(1-(row.orderProducts.discount)/100)*row.Product_quantity).toLocaleString('es-AR',{style:
+                        'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                        %></td><% } else { %><td><%=
+                          (row.orderProducts.price*row.Product_quantity).toLocaleString('es-AR',{style:
+                        'decimal',minimumFractionDigits: 2,maximumFractionDigits: 2})
+                        %></td><% } %>
+                        <td><button type="submit" formaction="/cart/<%= row.orderProducts.id %>/delete">Borrar producto</button></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td class="total"></td>
+                  </tr>
+                </tfoot>
+              </table>
+              <p>Método de pago: Transferencia bancaria</p>
+              <p>Retiro en sucursal</p>
+              <small>Estamos trabajando en añadir más metodos de pago y métodos de envío</small>
+              <br>
+              <button class="submit-button" type="submit" name="eb" value="eb">Finalizar compra</button>
+              <button class="erase-button" type="submit" name="ks" value="ks">Seguir comprando</button>
+              
+            </form>
+          <% } else { %>
+            <h1>Parece que todavía no tienes ningún artículo en tu carrito...</h1>
+            <button class="submit-button"><a href="/products">Seguir comprando</a></button>
+            <% } %>
         </main>
         
         <%- include('../partials/footer')%>

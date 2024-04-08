@@ -1,0 +1,143 @@
+.product-details a, .product-links a{
+    text-decoration: none;
+}
+.product-card {
+    width: 15%;
+    object-fit: cover;
+    position: relative;
+    box-shadow: 0 2px 7px #bebebe;
+    margin: 1%;
+    background: #fafafa;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    object-fit: fill;
+    max-width: 100%;
+    padding: 30px;
+    background: white;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    max-height: min-content;
+    padding: 8%;
+}
+
+.product-category {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 5%;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    font-size: 1rem;
+    height: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display: block;
+    margin-bottom: 5%;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details h4 a:hover {
+    color: #1C3F60;
+}
+
+.product-bottom-details {
+    
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 5%;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 1rem;
+    color: #1C3F60;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+
+.product-links button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.product-links button:hover {
+    color: #1C3F60;
+}
+
+
+@media screen and (min-width: 426px) and (max-width : 1023px){
+    .product-card{
+        width: 30%;
+    }
+    .product-category{
+        font-size: 0.6rem;
+    }
+    .product-details h4 a{
+        font-size: 0.8rem
+    }
+    .product-price{
+        font-size: 0.8rem
+    }
+    .product-links a{
+        font-size: 0.8rem
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width : 425px){
+    .product-card{
+        width: 50%;
+    }
+    .product-category{
+        font-size: 0.6rem
+    }
+    .product-details h4 a{
+        font-size: 0.7rem
+    }
+    .product-price{
+        font-size: 0.7rem
+    }
+    .product-links a{
+        font-size: 0.7rem
+    }
+  }

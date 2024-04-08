@@ -34,8 +34,10 @@ div.input label{
     left: 20px;
     text-align: start;
     max-height: 1.2rem;
+    white-space: nowrap;
     overflow: hidden;
-    width:fit-content;
+    text-overflow:ellipsis;
+    width: fit-content;
     font-size: 0.9rem;
     transition: 0.1s;
     font-weight: 500;
@@ -149,6 +151,10 @@ div.input span{
 .erase-button:hover{
     background-color: #E3C09F;
 
+}
+.submit-button a, .erase-button a{
+    color: inherit;
+    text-decoration: none
 }
 
 /* Input type Calendar */

@@ -57,6 +57,7 @@ nav {
     width: fit-content;
     flex-wrap: wrap;
     flex-direction: row;
+    
 }
 header nav a.nav-buttons{
     text-align: center;
@@ -104,6 +105,17 @@ header div.menu-button button {
     object-fit: contain;
     border-radius: 50%;
     width: 3vw;
+}
+
+nav a p.cart-items {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    font-size: 0.5rem;
 }
 
 /* main basic settings */

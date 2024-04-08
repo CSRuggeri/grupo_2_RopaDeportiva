@@ -15,6 +15,8 @@ const registerValidations = [
             let file = req.file.filename;
             if(!allowedExtensions.exec(file)) {
                 throw new Error('El archivo de imagen debe tener una extensión válida (JPG, JPEG, PNG, GIF)')
+            } else {
+                return true
             }
         }else{
             return true

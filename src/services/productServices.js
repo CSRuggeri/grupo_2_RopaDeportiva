@@ -3,7 +3,9 @@ const brand = require('../database/models/brand');
 
 const getAllProducts = async () => {
     try {
-        return await db.Product.findAll();
+        return await db.Product.findAll({
+            include: [{'association':'productCategory'}]
+        });
     } catch (error) {
         console.error('Error fetching products:', error);
         return [];
@@ -15,12 +17,12 @@ const getProductById = async (id) => {
         return await db.Product.findByPk(id);
     } catch (error) {
         console.error('Error fetching product by ID:', error);
-        throw error;
+        return []
     }
 };
 
 class Product {
-    constructor(name, description, price, discount, size, brand_id, category_id, gender, stock, image) {
+    constructor(name, description, price, discount, size, brand_id, category_id, gender, stock, image,iva) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -36,7 +38,7 @@ class Product {
 
 const storeProduct = async (req) => {
     try {
-        const { name, description, price, discount, size, brand, category_id, gender, stock } = req.body;
+        let { name, description, price, discount, size, brand, category_id, gender, stock } = req.body;
         let filename;
         if(req.file) {
             filename = req.file.filename;
@@ -44,7 +46,7 @@ const storeProduct = async (req) => {
             filename = 'product-default.png'
         }
 
-        console.log(req.body)
+        console.log(req.body.price)
         console.log(req.file)
 
         // Validate required fields
@@ -78,12 +80,12 @@ const storeProduct = async (req) => {
             category_id,
             gender,
             stock,
-            `/images/show/${filename}`
+            `/images/show/${filename}`,
         );
 
-        await db.Product.create(newProduct);
+        const product = await db.Product.create(newProduct);
 
-        return { msg: `Product created successfully`, id: newProduct.id }; // Assuming newProduct has an id property
+        return { msg: `Product created successfully`, id: product.id }; // Assuming newProduct has an id property
     } catch (error) {
         console.error('Error creating product:', error);
         throw error;
@@ -149,10 +151,32 @@ const destroyProductByPk = async (id) => {
         throw error
     }
 }
+
+const findProductsByCategoryId = async (categoryId) =>{
+    try {
+        const category = await db.Category.findByPk(categoryId)
+        const products = await db.Product.findAll({
+            where:{
+                category_id: categoryId
+            },
+            include: [{'association':'productCategory'}]
+        })
+        return {products,category}
+    } catch (error) {
+        return {products:[],category:''}
+    }
+}
+const getXProducts = async (cantidad) =>{
+    return await db.Product.findAll({
+        include: [{'association':'productCategory'}],
+        limit: cantidad
+    })
+
+}
     
 
     
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk };
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId, getXProducts};
