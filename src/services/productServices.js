@@ -194,7 +194,17 @@ const getXProducts = async (cantidad) =>{
 
 }
     
+const fetchCategories = async()=>{
+try {
+    const categories = await db.Category.findAll()
 
+    return categories
+} catch (error) {
+    const categories =[]
+    return categories
+}
+
+}
     
 const findProductById= async (id) =>{
     try {
@@ -214,4 +224,4 @@ const findProductsByBrand = async (brand) =>{
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts};
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts, fetchCategories};

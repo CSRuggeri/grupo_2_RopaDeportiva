@@ -12,6 +12,8 @@ router.post("/search", productController.search)
 
 
 /*api*/
+
+router.get("/api/categories", productController.getCategories)
 router.get("/api/:id", productController.productByID)
 router.get("/api", productController.getAllProductsAPI)
 router.post('/api',uploadProduct.single('image'), productValidations, productController.createProductAPI)  

@@ -8,6 +8,7 @@ const {
   editProduct,
   destroyProductByPk,
 findProductById,
+fetchCategories,
 searchProduct
 } = require("../services/productServices");
 const db = require("../database/models");
@@ -63,6 +64,15 @@ const productController = {
     });
   },
 
+  getCategories: async(req, res)=>{
+try {
+  const categories = await fetchCategories()
+  res.status(200).json(categories)
+} catch (error) {
+  const categories = []
+  res.status(400).json(categories)
+}
+  },
   // Store - Method to store
   store: async (req, res) => {
     const errores = validationResult(req);
