@@ -32,7 +32,7 @@
             </div>
         </div>      
         <% if (Orders.length>0) { %>
-            <div class="orders">
+            <div class="orders dashboard-orders">
                 <table>
                    <thead>
                        <tr>
@@ -71,8 +71,12 @@
             </div>
         <% } %>
         <% if (locals.admin) { %>
-         <a href="/ordersList" class="submit-button">Administrar pedidos</a>
-        <% } %>
+            <div class="Admin-links">
+
+                <a href="/ordersList" class="submit-button">Administrar pedidos</a>
+                <a href="http://localhost:5173" class="submit-button">Admin Dashboard</a>
+            </div>
+         <% } %>
     </main>
 
     <%- include('../partials/footer')%>

@@ -40,12 +40,6 @@ const productController = {
       res.render("products/busqueda", { products }); // Corrected template name
     }
   },
-    
-
-
-
-
-  
 
   // Read - Show product details
   detail: async (req, res) => {

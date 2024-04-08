@@ -25,7 +25,7 @@
                         </div>
                         <p class="error-msg <% if(!locals.errores || !errores.name) { %>hidden<% } %>"><span class="material-symbols-outlined error-span ">error</span> <% if(locals.errores && errores.name) { %><%= errores.name.msg %><% } %></p>
                         <div class="input">
-                            <textarea name="description" placeholder="Descripción" rows="1" class="error-input"><%= product.description %></textarea>
+                            <textarea name="description" placeholder="Descripción" rows="1" ><%= product.description %></textarea>
                         </div>
                         <p class="error-msg <% if(!locals.errores || !errores.description) { %>hidden<% } %>"><span class="material-symbols-outlined error-span ">error</span> <% if(locals.errores && errores.description) { %><%= errores.description.msg %><% } %></p>
                         <div class="select-container">

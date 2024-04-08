@@ -5,6 +5,14 @@ main.dashboard div.white-bkg{
     text-align: center;
     align-content: center;
 }
+.Admin-links{
+    width: 100%;
+    text-align: center;
+    margin: 2%;
+}
+.dashboard-orders{
+    margin-bottom: 0 !important;
+}
 
 .dashboard{
     display:flex;

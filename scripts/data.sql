@@ -125,10 +125,4 @@ VALUES
 ('Franco Albornoz', '2024-03-01', 'francoralbornoz.12@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '1'),
 ('aa', '2024-03-01', 'a@gmail.com', 'Holanda 2031', '$2b$10$rJStRbYkJLDl1NVYMnUISOaY5HM4GU81LJjtKye6jdPezdf6bQOo2', '/images/avatars/1710808761868-SA-17719-Remera-Salomon-Logo-Ss-Tee-Vi-Hombre-Dark-Denim.jpg', '0');
 
-INSERT INTO `sportgodb`.`order` (user_id,status) values 
-(1,'Comprando');
-
-insert into orderproducts (Product_id,Product_quantity,orderId) values 
-(1,2,1),(2,3,1);
-
 select * from `sportgodb`.`orderproducts`;
