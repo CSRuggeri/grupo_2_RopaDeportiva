@@ -167,6 +167,16 @@ const findProductsByCategoryId = async (categoryId) =>{
         return {products:[],category:''}
     }
 }
+const getXProducts = async (cantidad) =>{
+    return await db.Product.findAll({
+        include: [{'association':'productCategory'}],
+        limit: cantidad
+    })
+
+}
+    
+
+    
 const findProductById= async (id) =>{
     try {
          const products = await db.Product.findOne({ where: { id } })
@@ -185,4 +195,4 @@ const findProductsByBrand = async (brand) =>{
 
 
 
-module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById };
+module.exports = { getAllProducts, getProductById, storeProduct, editProduct, destroyProductByPk, findProductsByCategoryId,findProductById, getXProducts};

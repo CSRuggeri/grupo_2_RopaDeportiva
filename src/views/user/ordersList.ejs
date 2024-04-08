@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head')%>
+<body>
+    <%- include('../partials/header')%>  
+
+    <main class="dashboard">
+            <% if (allOrders.length>0) { %>
+             <table>
+                <thead>
+                    <tr>
+                        <th>Id del pedido</th>
+                        <th>Detalle del pedido</th>
+                        <th>Total</th>
+                        <th>Estado del pedido</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allOrders.forEach(order => { %>
+                        <tr>
+                            <th><%= order.id %></th>
+                            <th><% order.orderP.forEach(product => { %>
+                                <%= `${product.name} x${product.OrderProduct.Product_quantity} `%><br>
+                            <% }) %></th>
+                            <th><%= order.total %></th>
+                            <th><%= order.status %></th>
+                            <th><% if (order.status == 'Esperando validación') { %>
+                             <button>Descargar comprobante</button>
+                             <button>Validar transacción</button>
+                            <% } %>
+                            </th>
+                        </tr>
+                    <% }); %>
+                </tbody>
+             </table>
+            <% } else { %>
+                <h1>No hay productos para procesar</h1>
+            <% } %>  
+    </main>
+
+    <%- include('../partials/footer')%>
+</body>
+</html>

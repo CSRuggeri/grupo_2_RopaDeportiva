@@ -89,15 +89,19 @@
     text-align: right;
 }
 
-.product-links a {
+.product-links button {
+    background-color: transparent;
+    outline: none;
+    border: none;
     display: inline-block;
     margin-left: 5px;
     color: #e1e1e1;
     transition: 0.3s;
     font-size: 1rem;
+    cursor: pointer;
 }
 
-.product-links a:hover {
+.product-links button:hover {
     color: #1C3F60;
 }
 

@@ -152,7 +152,7 @@ div.input span{
     background-color: #E3C09F;
 
 }
-.submit-button a{
+.submit-button a, .erase-button a{
     color: inherit;
     text-decoration: none
 }

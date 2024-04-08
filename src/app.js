@@ -28,11 +28,11 @@ app.use(session({secret:'s8AOM0dvWl2k9pt', saveUninitialized:false,resave:false,
 //Cookie parser middleware
 app.use(cookieParser());
 
-// User credentials
-app.use(userCredentialsMiddleware)
-
 //Remember me middleware
 app.use(rememberMe)
+
+// User credentials
+app.use(userCredentialsMiddleware)
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '../public')));
