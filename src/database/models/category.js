@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING(45),
             allowNull: false // Nullable according to your SQL schema
+        },
+        image: {
+            type: DataTypes.STRING(150),
+            allowNull: false
         }
     }, {
         tableName: 'category',

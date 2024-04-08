@@ -9,10 +9,9 @@ router.get('/', controller.home);
 router.get('/cart', isLoggedIn, controller.shoppingCart)
 router.post('/cart', controller.modifyCart)
 router.get('/ordersList', isAdmin, controller.ordersList)
+router.post('/order/:id/delete', isLoggedIn, controller.deleteOrder)
 router.post('/cart/:id', isLoggedIn, controller.addToCart)
 router.post('/cart/:id/delete', isLoggedIn, controller.deleteProduct)
-router.post('/order/:id/delete', isLoggedIn, controller.deleteOrder)
-
-router.get('/pagos', controller.pagos);
+router.post('/finishbuy/:id', isAdmin, controller.finishBuy)
 
 module.exports = router;

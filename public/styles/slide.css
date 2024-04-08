@@ -47,6 +47,16 @@
     background-color: #717171;
   }
 
+  .see-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .see-more a {
+    text-decoration: none;
+    color: #1C3F60
+  }
+
   @media screen and (min-width: 0px) and (max-width : 425px){
     .slideshow-container {
         width: 100%;
