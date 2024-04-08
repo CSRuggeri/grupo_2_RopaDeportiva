@@ -118,6 +118,7 @@ const userService = {
         birthDate: birth_date,
         address,
         avatar: filename,
+        admin
       },{where: {id: req.params.id}});
 
       const editedUser = await db.User.findByPk(req.params.id) 
@@ -275,16 +276,25 @@ const userService = {
     delete req.session.cart
   },
   getAllOrders: async () => {
-    return await db.Order.findAll({ where: {
-      status:{[Op.ne]: 'Comprando'}
-    },include:{
-      model: db.Product,
-      as: 'orderP',
-    through: {
-      attributes: ['Product_quantity', 'subtotal']
-    }
-    }
-  })
+    return await db.Order.findAll({
+      where: {
+        status: {[Op.ne]: 'Comprando'}
+      },
+      include: [
+        {
+          model: db.Product,
+          as: 'orderP',
+          through: {
+            attributes: ['Product_quantity', 'subtotal']
+          }
+        },
+        {
+          model: db.User, // Include the User model
+          attributes: ['id', 'name'], // Specify the attributes you want to include from the User model
+          as: 'userOrder' // Alias for the User model
+        }
+      ]
+    });
   },
   deleteOrderById: async(id) => {
     await db.OrderProduct.destroy({
@@ -374,6 +384,12 @@ const userService = {
           )
         }
       }
+  },
+  findUserById: async (id) =>{
+    try { const user = await db.User.findOne({ where: { id } })
+    return user   
+    } catch (error) {
+     return user=[]  }
   }
 };
 

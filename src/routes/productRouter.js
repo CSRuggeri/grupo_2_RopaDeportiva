@@ -11,6 +11,16 @@ router.get('/create',isAdmin, productController.createProduct);
 router.get('/category/:id', productController.categoryProducts);
 
 
+router.post("/search", productController.search)
+
+
+/*api*/
+
+router.get("/api/categories", productController.getCategories)
+router.get("/api/:id", productController.productByID)
+router.get("/api", productController.getAllProductsAPI)
+router.post('/api',uploadProduct.single('image'), productValidations, productController.createProductAPI)  
+
 router.post('/create', uploadProduct.single('image'), productValidations, productController.store);
 
 router.get("/:id", productController.detail);

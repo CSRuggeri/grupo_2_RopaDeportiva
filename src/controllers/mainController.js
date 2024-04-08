@@ -30,6 +30,7 @@ const controller = {
     }
   },
 
+
   shoppingCart: async (req, res) => {
     if(!req.session.cart) {
       await userService.createCart(req)
@@ -89,7 +90,29 @@ const controller = {
     await userService.endOrder(req.params.id, req)
     await userService.updateTotals()
     res.redirect(`/users/${req.session.loggedUser.id}/dashboard`)
+  },
+  orderlistAPI: async (req, res) =>{
+  try {
+     const allOrders = await userService.getAllOrders()
+    res.status(200).json(allOrders)
+  } catch (error) {
+    const allOrders =[]
+    res.status(400).json(allOrders)
   }
+  
+   
+  },
+  deleteOrderAPI: async (req,res) => {
+    try {
+      const deleted = await userService.deleteOrderById(req.params.id)
+       res.status(200).json("order deleted", deleted)
+      } catch (error) {
+      const deleted = []
+      res.status(400).json({error: "error borrando orden"}, deleted)
+    }
+   
+    
+  },
 };
 
 module.exports = controller;
